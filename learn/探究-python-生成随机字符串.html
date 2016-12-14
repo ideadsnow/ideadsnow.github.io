@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="//ideadsnow.com">
+  <title>探究 PYTHON 生成随机字符串 | iDeadSnow&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目前看到的最简洁的方法1234567import osdef randomString(n):    return (&apos;&apos;.join(map(lambda x:(hex(ord(x))[2:]), os.urandom(n))))[0:8]if __name__ == &apos;__main__&apos;:    print randomString(16)
+来看看 randomString 函数所做的事情
+首先">
+<meta property="og:type" content="article">
+<meta property="og:title" content="探究 PYTHON 生成随机字符串">
+<meta property="og:url" content="//ideadsnow.com/learn/探究-python-生成随机字符串.html">
+<meta property="og:site_name" content="iDeadSnow's Blog">
+<meta property="og:description" content="目前看到的最简洁的方法1234567import osdef randomString(n):    return (&apos;&apos;.join(map(lambda x:(hex(ord(x))[2:]), os.urandom(n))))[0:8]if __name__ == &apos;__main__&apos;:    print randomString(16)
+来看看 randomString 函数所做的事情
+首先">
+<meta property="og:updated_time" content="2016-12-14T13:10:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="探究 PYTHON 生成随机字符串">
+<meta name="twitter:description" content="目前看到的最简洁的方法1234567import osdef randomString(n):    return (&apos;&apos;.join(map(lambda x:(hex(ord(x))[2:]), os.urandom(n))))[0:8]if __name__ == &apos;__main__&apos;:    print randomString(16)
+来看看 randomString 函数所做的事情
+首先">
+  
+    <link rel="alternative" href="/atom.xml" title="iDeadSnow&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="null" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">iDeadSnow</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/ideadsnow" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="/ideadsnow@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">iDeadSnow</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">iDeadSnow</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/ideadsnow" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="/ideadsnow@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-探究-python-生成随机字符串" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      探究 PYTHON 生成随机字符串
+    </h1>
+  
+
+        <a href="/learn/探究-python-生成随机字符串.html" class="archive-article-date">
+  	<time datetime="2016-10-03T08:38:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-03</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="目前看到的最简洁的方法"><a href="#目前看到的最简洁的方法" class="headerlink" title="目前看到的最简洁的方法"></a>目前看到的最简洁的方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">randomString</span><span class="params">(n)</span>:</span></div><div class="line">    <span class="keyword">return</span> (<span class="string">''</span>.join(map(<span class="keyword">lambda</span> x:(hex(ord(x))[<span class="number">2</span>:]), os.urandom(n))))[<span class="number">0</span>:<span class="number">8</span>]</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    <span class="keyword">print</span> randomString(<span class="number">16</span>)</div></pre></td></tr></table></figure>
+<h3 id="来看看-randomString-函数所做的事情"><a href="#来看看-randomString-函数所做的事情" class="headerlink" title="来看看 randomString 函数所做的事情"></a>来看看 randomString 函数所做的事情</h3><ol>
+<li>首先这个函数的一行代码里面，最核心的是 <code>os.urandom(n)</code> 函数，这就是标准库提供的产生随机字串的函数，它的原理我们留到最后再说，现在我们只要知道它会返回一个由参数 n 指定的字节长度的随机字节串（而非字符串，因为可能结果并不能被任何一种字符编码所解释，所以不能称其为字符串）</li>
+<li><code>map(function, iterable, ...)</code> 函数，对可迭代数据结构 <code>iterable</code> 中的每一个元素应用 <code>function</code> 函数，并将结果作为新的 list 返回。在 <code>randomString</code> 函数中的用途是将 <code>os.urandom(n)</code> 所返回的随机字节串中的每个字节传入 lambda 表达式进行处理</li>
+<li><code>lambda x:(hex(ord(x))[2:])</code> 这个 lambda 表达式的作用是将 <code>os.urandom(n)</code> 返回结果中的每个字节转换为可见的由数字和字母组成的长度为 2 的字符</li>
+<li><code>ord(x)</code> 在此处是计算一个字节 unicode 码值的十进制表示，比如字符 a，unicode code 是 0x0061，则 <code>ord(&#39;a&#39;)</code> 返回 97，因为十六进制的 61 等于十进制的 97。注：其实这个函数对传入参数是 unicode object 和 8-bit 字符 的操作分别是 <code>unichr()</code> 和 <code>chr()</code> 函数的逆向过程</li>
+<li><code>hex(x)</code> 把十进制的数转换为十六进制，因为此处我们不需要结果中的前导 <code>0x</code>，所以做切片操作 <code>[2:0]</code></li>
+<li><code>&#39;&#39;.join(str_array)</code> 以 <code>&#39;&#39;</code> 为分隔符把参数重的字符连接成一个字符串</li>
+</ol>
+<a id="more"></a>
+<h3 id="os-urandom-n"><a href="#os-urandom-n" class="headerlink" title="os.urandom(n)"></a>os.urandom(n)</h3><h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><p>官方文档如是说</p>
+<blockquote>
+<p>os.urandom(n)<br>​        Return a string of n random bytes suitable for cryptographic use.</p>
+<p>​        This function returns random bytes from an OS-specific randomness source. The returned data should be unpredictable enough for cryptographic applications, though its exact quality depends on the OS implementation. On a UNIX-like system this will query /dev/urandom, and on Windows it will use CryptGenRandom(). If a randomness source is not found, NotImplementedError will be raised.</p>
+<p>​        For an easy-to-use interface to the random number generator provided by your platform, please see random.SystemRandom.</p>
+<p>​        New in version 2.4.</p>
+</blockquote>
+<p>第一段的大意是这个函数将会返回一个适用于加密的 <code>n</code> 个字节长度的随机字符串</p>
+<p>那么它内部是如何实现随机的呢？我们通过第二段内容可知，这个函数将会调用系统提供的随机源，依赖于程序运行时的当前系统，在 Windows 上会使用 <code>CryptGenRandom()</code>，而在类 UNIX 系统上将会使用 <code>/dev/urandom</code> </p>
+<p>如果当前系统没有提供随机源，那么将会抛出一个 <code>NotImplementedError</code></p>
+<h4 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h4><p>这是个蛋疼心碎的过程，费尽九牛二虎之力，在 mac 上翻了半天 python 2.7 的 lib 目录，在 os.py 中没有找到 <code>urandom</code> 这个函数定义，打印 <code>os.__all__</code> 发现包括 <code>urandom</code> 在内的许多模块并不是直接定义在 os.py 中的，而是扩展（<code>__all__.__extend__</code>）自其它模块</p>
+<p>而 <code>urandom</code> 就是扩展自 <code>posix</code> 模块，看来这玩意是 POSIX 的标准接口，涨姿势了</p>
+<p>然而问题又来了，没有找到 posix.py 文件！</p>
+<p>只有以下这些名字与 posix 相关的文件</p>
+<ul>
+<li>posixfile.py</li>
+<li>posixfile.pyc</li>
+<li>posixfile.pyo</li>
+<li>posixpath.py</li>
+<li>posixpath.pyc</li>
+<li>posixpath.pyo</li>
+</ul>
+<p>在这些文件里面根本没有 urandom 相关字眼（卧尼玛……..</p>
+<p>目前在 python 命令行环境下通过内建 help() 函数查看 posix 模块的帮助文档，在文档中可以看到 urandom()，不过也没有具体的实现代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">urandom(...)</div><div class="line">    urandom(n) -&gt; str</div><div class="line"></div><div class="line">    Return n random bytes suitable for cryptographic use.</div></pre></td></tr></table></figure>
+<p>好吧，我不纠结，这里挖个坑，等有空再研究下（一般这么说的时候都没有下文了呵呵呵呵呵呵</p>
+<h4 id="POSIX-中的-urandom-在类-UNIX-系统中的实现"><a href="#POSIX-中的-urandom-在类-UNIX-系统中的实现" class="headerlink" title="POSIX 中的 urandom 在类 UNIX 系统中的实现"></a>POSIX 中的 urandom 在类 UNIX 系统中的实现</h4><p>维基百科如是说</p>
+<blockquote>
+<p>In <a href="https://en.wikipedia.org/wiki/Unix-like" target="_blank" rel="external">Unix-like</a> <a href="https://en.wikipedia.org/wiki/Operating_system" target="_blank" rel="external">operating systems</a>, <strong>/dev/random</strong> is a <a href="https://en.wikipedia.org/wiki/Special_file" target="_blank" rel="external">special file</a> that serves as a <a href="https://en.wikipedia.org/wiki/Blocking_(computing" target="_blank" rel="external">blocking</a>) <a href="https://en.wikipedia.org/wiki/Pseudorandom_number_generator" target="_blank" rel="external">pseudorandom number generator</a>. It allows access to environmental noise collected from <a href="https://en.wikipedia.org/wiki/Device_driver" target="_blank" rel="external">device drivers</a> and other sources.<a href="https://en.wikipedia.org/wiki//dev/random#cite_note-1" target="_blank" rel="external">[1]</a> Not all operating systems implement the same semantics for /dev/random.</p>
+</blockquote>
+<p>剩下的大篇幅介绍请各位直接去 wiki 上看，内容还是挺丰富的</p>
+<p>我的理解如下</p>
+<p><code>/dev/random</code> 和 <code>/dev/urandom</code> 都是 UNIX 提供的产生永不为空的随机字节流的伪设备，有许多程序和安全程序都依赖于它们</p>
+<p>/dev/random</p>
+<ul>
+<li>优势：随机性足够高</li>
+<li>劣势：依赖于系统中断，如果系统中断数不足，则会锁死，尝试读取的进程将会进入等待</li>
+</ul>
+<p>/dev/urandom</p>
+<ul>
+<li>优势：不依赖系统中断，速度快</li>
+<li>劣势：相对前者数据随机性不高，且依赖于系统噪声（当前打开的文件数，进程数等等）</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<i class="icon-book icon"></i>
+	<a class="article-category-link" href="/categories/learn/">学习</a>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://ideadsnow.com/learn/探究-python-生成随机字符串.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/learn/ubuntu-16-04-版本-mysql-的安装、基本配置和使用.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Ubuntu 16.04 版本 MySQL 的安装、基本配置和使用</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 iDeadSnow
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0.js"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">自己瞎扯淡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">歌</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">烂笔头</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">曲</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">别人瞎扯淡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Google</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">反向代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">填坑日常</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">cookie</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">vim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">工具学习</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">Maybe&lt;br&gt;Someday&lt;br&gt;有勇气在这里写下&lt;br&gt;过去&lt;br&gt;现在&lt;br&gt;还有心中的未来</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

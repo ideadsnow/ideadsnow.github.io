@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="//ideadsnow.com">
+  <title>Ubuntu 16.04 版本 MySQL 的安装、基本配置和使用 | iDeadSnow&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="安装安装应该没什么问题，直接运行
+sudo apt-get install mysql-server
+基本配置允许远程访问 MySQLMySQL 装好了，但在默认情况下只监听本地连接，也就是说，现在还不能通过远程连接访问和操作数据库，所以需要做如下操作
+
+cd /etc/mysql/
+sudo grep -r bind-address . 查找包含 bind-address 项的配置文件
+编辑第">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu 16.04 版本 MySQL 的安装、基本配置和使用">
+<meta property="og:url" content="//ideadsnow.com/learn/ubuntu-16-04-版本-mysql-的安装、基本配置和使用.html">
+<meta property="og:site_name" content="iDeadSnow's Blog">
+<meta property="og:description" content="安装安装应该没什么问题，直接运行
+sudo apt-get install mysql-server
+基本配置允许远程访问 MySQLMySQL 装好了，但在默认情况下只监听本地连接，也就是说，现在还不能通过远程连接访问和操作数据库，所以需要做如下操作
+
+cd /etc/mysql/
+sudo grep -r bind-address . 查找包含 bind-address 项的配置文件
+编辑第">
+<meta property="og:image" content="//ideadsnow.com/img/1473351704584.png">
+<meta property="og:updated_time" content="2016-09-08T17:30:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu 16.04 版本 MySQL 的安装、基本配置和使用">
+<meta name="twitter:description" content="安装安装应该没什么问题，直接运行
+sudo apt-get install mysql-server
+基本配置允许远程访问 MySQLMySQL 装好了，但在默认情况下只监听本地连接，也就是说，现在还不能通过远程连接访问和操作数据库，所以需要做如下操作
+
+cd /etc/mysql/
+sudo grep -r bind-address . 查找包含 bind-address 项的配置文件
+编辑第">
+<meta name="twitter:image" content="//ideadsnow.com/img/1473351704584.png">
+  
+    <link rel="alternative" href="/atom.xml" title="iDeadSnow&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="null" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">iDeadSnow</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/ideadsnow" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="/ideadsnow@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">iDeadSnow</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">iDeadSnow</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/ideadsnow" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="/ideadsnow@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-ubuntu-16-04-版本-mysql-的安装、基本配置和使用" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ubuntu 16.04 版本 MySQL 的安装、基本配置和使用
+    </h1>
+  
+
+        <a href="/learn/ubuntu-16-04-版本-mysql-的安装、基本配置和使用.html" class="archive-article-date">
+  	<time datetime="2016-09-08T17:30:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-09</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装应该没什么问题，直接运行</p>
+<p><code>sudo apt-get install mysql-server</code></p>
+<h2 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h2><h4 id="允许远程访问-MySQL"><a href="#允许远程访问-MySQL" class="headerlink" title="允许远程访问 MySQL"></a>允许远程访问 MySQL</h4><p>MySQL 装好了，但在默认情况下只监听本地连接，也就是说，现在还不能通过远程连接访问和操作数据库，所以需要做如下操作</p>
+<ol>
+<li><code>cd /etc/mysql/</code></li>
+<li><code>sudo grep -r bind-address .</code> 查找包含 bind-address 项的配置文件</li>
+<li>编辑第 2 步中找到的文件，将该文件中的 <em>bind-address = 127.0.0.1</em> 注释掉或改为 <em>bind-address = 你想监听的客户端 IP</em></li>
+<li><code>sudo  /etc/init.d/mysql restart</code> 重启服务</li>
+</ol>
+<a id="more"></a>
+<h4 id="修改-MySQL-编码为-UTF-8"><a href="#修改-MySQL-编码为-UTF-8" class="headerlink" title="修改 MySQL 编码为 UTF-8"></a>修改 MySQL 编码为 UTF-8</h4><p>MySQL 默认的编码是 latin1，并不支持中文<br>想查看你的 MySQL 编码？试试以下步骤</p>
+<ol>
+<li><code>mysql -u root -p</code> 登录 MySQL 管理后台</li>
+<li>在 <code>mysql&gt;</code> 后面输入 <code>show variables like &#39;character%&#39;;</code> 并执行，即可看到类似下面的界面<br><img src="/img/1473351704584.png" alt="Alt text"></li>
+</ol>
+<p>好了，到这里你应该已经看到自己的运行结果貌似和图里的不太一样？怎么回事？<br>&lt;(￣）￣)&gt;废话，我已经改过配置了，所以我的图里面当然都已经是 utf8 了</p>
+<p>接下来跟我做以下操作</p>
+<ol>
+<li><code>cd /etc/mysql/</code></li>
+<li><code>sudo grep -r &quot;[client]&quot; .</code> 递归查找当前目录下所有包含 <em>[client]</em> 的文件行</li>
+<li>修改第 2 步找到的文件，在 <em>[client]</em> 后添加一行 <em>default-character-set=utf8</em></li>
+<li><code>sudo grep -r &quot;[mysqld]&quot; .</code> 递归查找当前目录下所有包含 <em>[mysqld]</em> 的文件行</li>
+<li>修改第 4 步找到的文件，在 <em>[mysqld]</em> 后添加一行 <em>default-character-set=utf8</em>，以及另一行 <em>init_connect=’SET NAMES utf8’</em></li>
+<li><code>sudo /etc/init.d/mysql restart</code></li>
+</ol>
+<p>现在再去运行最开始的那条命令看看，是不是和我放出来的图片一毛一样了，Good job！</p>
+<h4 id="创建一个用户"><a href="#创建一个用户" class="headerlink" title="创建一个用户"></a>创建一个用户</h4><p>一般来说 root 用户是 DBA 所操作，普通用户使用 root 非常不安全，所以接下来我们了解如何创建一个普通用户的账户</p>
+<ol>
+<li><code>mysql -u root -p</code> 以一个拥有创建新用户权限的用户登录，这里简单来做，直接用 root 用户登录</li>
+<li><code>create user 用户名@&#39;host&#39; identified by &#39;密码&#39;</code> 其中 <code>host</code> 是创建的新用户被允许从哪个 IP 登录的意思，如果只允许从本地登录（root 用户默认就是这样）则填 <code>localhost</code>，如果不限制登录 IP，则可以填 <code>%</code></li>
+<li>为用户赋予对某数据库下所有表进行操作的权限 <code>grant all privileges on 某数据库名.* to 用户名@&#39;host&#39; identified by &#39;密码&#39;;</code></li>
+<li><code>flush privileges;</code></li>
+</ol>
+<p><strong>注意</strong><br>这里有个坑，在 MySQL 5.6 版本之后，添加了一个安全机制，其中对我们执行以上操作影响最大的是密码复杂度有要求，想填类似 123456 这样的智障密码会直接被拒绝创建用户 or 赋权，错误信息如下</p>
+<blockquote>
+<p>ERROR 1819 (HY000): Your password does not satisfy the current policy requirements</p>
+</blockquote>
+<p>解决方法是 <code>SET GLOBAL  validate_password_policy=&#39;LOW&#39;;</code>，将安全等级降为 LOW<br>关于安全等级的详细介绍</p>
+<ul>
+<li>LOW 密码必须至少有8个字符长</li>
+<li>MEDIUM 密码必须包含至少 1 个数字字符,1 个大写和小写字符,和 1 个特殊字符</li>
+<li>STRONG （懒得查，用到再说………..）</li>
+</ul>
+<p>另外 MySQL 5.7 版本以上又多了个密码有效期的概念，又是个坑，再次修改配置文件为如下所示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[mysqld]</div><div class="line">default_password_lifetime=0</div></pre></td></tr></table></figure></p>
+<p>如果做了本文档前面的操作，上面这个东西如何修改、在哪修改等等的问题应该不会存在吧？如果有问题请先撞墙三分钟然后重复上文操作</p>
+<p><a href="http://dev.mysql.com/doc/refman/5.7/en/password-expiration-policy.html" target="_blank" rel="external">有关密码有效期的详细官方文档</a></p>
+<h4 id="创建一个数据库"><a href="#创建一个数据库" class="headerlink" title="创建一个数据库"></a>创建一个数据库</h4><p>简单</p>
+<ol>
+<li><code>mysql -u root -p</code></li>
+<li><code>create database 数据库</code></li>
+</ol>
+<p>全文完</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<i class="icon-book icon"></i>
+	<a class="article-category-link" href="/categories/learn/">学习</a>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://ideadsnow.com/learn/ubuntu-16-04-版本-mysql-的安装、基本配置和使用.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/learn/探究-python-生成随机字符串.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          探究 PYTHON 生成随机字符串
+        
+      </div>
+    </a>
+  
+  
+    <a href="/life/来到你的城市【云南】.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">来到你的城市【云南】</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 iDeadSnow
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0.js"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">自己瞎扯淡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">歌</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">烂笔头</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">曲</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">别人瞎扯淡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Google</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">反向代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">填坑日常</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">cookie</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">vim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">工具学习</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">Maybe&lt;br&gt;Someday&lt;br&gt;有勇气在这里写下&lt;br&gt;过去&lt;br&gt;现在&lt;br&gt;还有心中的未来</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

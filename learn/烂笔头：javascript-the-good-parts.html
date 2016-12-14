@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="//ideadsnow.com">
+  <title>烂笔头：JavaScript The Good Parts | iDeadSnow&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="书是这本，挺不错的，有兴趣可以看看 JavaScript:The Good Parts
+数据类型和运算符
+只有一种数字类型，内部表示为64位浮点数
+NaN 不等于任何值，包括它自己
+被当作逻辑假的值：false null undefined &amp;#39;&amp;#39; 0 NaN
+未指定return值时将会返回 undefined
+/ 运算符有可能会产生一个非整数结果，即使两个运算数都是整数
+
+减少全局">
+<meta property="og:type" content="article">
+<meta property="og:title" content="烂笔头：JavaScript The Good Parts">
+<meta property="og:url" content="//ideadsnow.com/learn/烂笔头：javascript-the-good-parts.html">
+<meta property="og:site_name" content="iDeadSnow's Blog">
+<meta property="og:description" content="书是这本，挺不错的，有兴趣可以看看 JavaScript:The Good Parts
+数据类型和运算符
+只有一种数字类型，内部表示为64位浮点数
+NaN 不等于任何值，包括它自己
+被当作逻辑假的值：false null undefined &amp;#39;&amp;#39; 0 NaN
+未指定return值时将会返回 undefined
+/ 运算符有可能会产生一个非整数结果，即使两个运算数都是整数
+
+减少全局">
+<meta property="og:updated_time" content="2016-09-08T06:13:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="烂笔头：JavaScript The Good Parts">
+<meta name="twitter:description" content="书是这本，挺不错的，有兴趣可以看看 JavaScript:The Good Parts
+数据类型和运算符
+只有一种数字类型，内部表示为64位浮点数
+NaN 不等于任何值，包括它自己
+被当作逻辑假的值：false null undefined &amp;#39;&amp;#39; 0 NaN
+未指定return值时将会返回 undefined
+/ 运算符有可能会产生一个非整数结果，即使两个运算数都是整数
+
+减少全局">
+  
+    <link rel="alternative" href="/atom.xml" title="iDeadSnow&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="null" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">iDeadSnow</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/ideadsnow" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="/ideadsnow@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">iDeadSnow</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">iDeadSnow</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/ideadsnow" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="/ideadsnow@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-烂笔头：javascript-the-good-parts" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      烂笔头：JavaScript The Good Parts
+    </h1>
+  
+
+        <a href="/learn/烂笔头：javascript-the-good-parts.html" class="archive-article-date">
+  	<time datetime="2016-06-22T14:12:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-22</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>书是这本，挺不错的，有兴趣可以看看 <a href="https://book.douban.com/subject/2994925/" target="_blank" rel="external">JavaScript:The Good Parts</a></p>
+<h3 id="数据类型和运算符"><a href="#数据类型和运算符" class="headerlink" title="数据类型和运算符"></a>数据类型和运算符</h3><ul>
+<li>只有一种数字类型，内部表示为64位浮点数</li>
+<li>NaN 不等于任何值，包括它自己</li>
+<li>被当作逻辑假的值：<code>false</code> <code>null</code> <code>undefined</code> <code>&#39;&#39;</code> <code>0</code> <code>NaN</code></li>
+<li>未指定return值时将会返回 <code>undefined</code></li>
+<li><code>/</code> 运算符有可能会产生一个非整数结果，即使两个运算数都是整数</li>
+</ul>
+<h3 id="减少全局变量污染方法"><a href="#减少全局变量污染方法" class="headerlink" title="减少全局变量污染方法"></a>减少全局变量污染方法</h3><ul>
+<li><p>在应用中只创建一个全局变量：<br>  <code>var MYAPP = {};</code><br>  该全局变量此时成了应用的容器，可以如下方式使用：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">MYAPP.value1 = &#123;...&#125;;</div><div class="line">MYAPP.value2 = &#123;...&#125;;</div><div class="line">...</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用闭包（Closure）</p>
+</li>
+</ul>
+<a id="more"></a>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ul>
+<li>当函数被调用时，会得到一个“免费”的参数，即 <code>arguments</code> “数组”，通过该”数组”可访问所有函数被调用时传入的参数，无论该参数是否在该函数定义时被指定为形参  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function() &#123;</div><div class="line">    for(var i = 0; i &lt; arguments.length; i++) &#123;</div><div class="line">        console.log(arguments[i]);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>由于语言的一个设计错误，<code>arguments</code> 并非是一个真正的数组，而是一个“类似数组”（array-like）的对象，它有一个 <code>length</code> 属性，但缺少所有数组的方法</p>
+<h3 id="prototype-原型链"><a href="#prototype-原型链" class="headerlink" title="prototype 原型链"></a>prototype 原型链</h3><ul>
+<li>每个对象都连接到一个原型对象，并且它可以从中继承属性</li>
+<li>所有通过对象字面量创建的对象都连接到 <code>Object.prototype</code> 这个标准对象</li>
+<li>原型链在更新时无效，仅在检索属性值的时候起效<br>当尝试获取某个对象的属性值，且对象本身无此属性，那么将会去该对象的原型中寻找，如果找不到则继续从原型的原型中寻找，直到到达终点<code>Object.prototype</code> 对象为止，如果最终仍未找到属性，则返回 <code>undefined</code>。该过程被称为<strong>委托</strong></li>
+<li><code>hasOwnProperty</code> 只会检查对象自己属性，不会检查原型链</li>
+</ul>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><ul>
+<li><code>delete obj.val</code> 将删除对象obj本身的val属性，且不会影响原型链</li>
+</ul>
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><ul>
+<li>JavaScript 没有提供“尾递归优化”</li>
+</ul>
+<h2 id="wtf？"><a href="#wtf？" class="headerlink" title="wtf？"></a>wtf？</h2><h3 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h3><p>JavaScript 不支持块级作用域，这意味着所有定义在函数任何地方的参数和变量在函数内部任何地方都可见<br>因此，尽管很多支持块级作用域的语言推荐尽可能迟地声明变量，而在 JavaScript 中却应该在函数体的顶部声明函数中用到的所有变量</p>
+<h3 id="闭包（Closure）"><a href="#闭包（Closure）" class="headerlink" title="闭包（Closure）"></a>闭包（Closure）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> myVar = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> innerVal = <span class="number">0</span>;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        getInnerVal() &#123;</div><div class="line">            <span class="keyword">return</span> innerVar;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//myVar.getInnerVal()才能取得innerVal的值</span></div></pre></td></tr></table></figure>
+<h3 id="（伪）数组（array-like）"><a href="#（伪）数组（array-like）" class="headerlink" title="（伪）数组（array-like）"></a>（伪）数组（array-like）</h3><ul>
+<li><p>JavaScript 中没有真正的<strong>数组</strong>，它把数组的下标转换为字符串，用其作为属性</p>
+<blockquote>
+<p>数组是一段线性分配的内存，它通过计算指针偏移量去访问元素，数组是很快的数据结构</p>
+</blockquote>
+</li>
+<li><p>“数组”中可同时包含不同类型的元素</p>
+</li>
+<li>“数组”拥有一个诡异的 <code>length</code> 属性</li>
+</ul>
+<h3 id="坑，及避免方法"><a href="#坑，及避免方法" class="headerlink" title="坑，及避免方法"></a>坑，及避免方法</h3><ul>
+<li><p><code>parseInt</code> 方法</p>
+<ul>
+<li>遇到非数字时停止解析，所以 <code>parseInt(&quot;123&quot;)</code> 和 <code>parseInt(&quot;123abc&quot;)</code> 的结果是一样的</li>
+<li>若字符串首位为 0，如 “013”，则会按照八进制进行转换。好在可以提供基数，如 <code>parseInt(&quot;013&quot;, 10)</code>，最好始终使用这种写法</li>
+</ul>
+</li>
+<li><p><code>+</code> 运算符</p>
+<ul>
+<li>两个运算数都是数字则返回两数之和</li>
+<li>一个运算数是空字符串，则会将另一个运算数转换为字符串并返回</li>
+<li>其余情况均为拼接字符串</li>
+</ul>
+</li>
+<li><p>浮点数运算不精确，<code>0.1 + 0.2</code> 不等于  <code>0.3</code>。可以通过整数化来解决，如 <code>0.1 + 0.2</code> 等于 <code>(0.1 * 10 + 0.2 * 10) / 10</code></p>
+</li>
+</ul>
+<h3 id="写-JS-代码好习惯"><a href="#写-JS-代码好习惯" class="headerlink" title="写 JS 代码好习惯"></a>写 JS 代码好习惯</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</div><div class="line">    <span class="comment">//在此处使用 $</span></div><div class="line">&#125;(jQuery));</div></pre></td></tr></table></figure>
+<p>原因：</p>
+<ul>
+<li>闭包避免了全局污染</li>
+<li>将 jQuery 对象传进闭包后再使用 <code>$</code> 可以避免与其他也使用了 <code>$</code> 的框架冲突</li>
+<li><code>$(document).ready(function() {});</code> 与 <code>$(function() {});</code> 等价</li>
+</ul>
+<h3 id="on、bind、live、delegate-区别"><a href="#on、bind、live、delegate-区别" class="headerlink" title="on、bind、live、delegate() 区别"></a>on、bind、live、delegate() 区别</h3><p><a href="http://www.cnblogs.com/moonreplace/archive/2012/10/09/2717136.html" target="_blank" rel="external">http://www.cnblogs.com/moonreplace/archive/2012/10/09/2717136.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/烂笔头/">烂笔头</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<i class="icon-book icon"></i>
+	<a class="article-category-link" href="/categories/learn/">学习</a>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://ideadsnow.com/learn/烂笔头：javascript-the-good-parts.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/life/来到你的城市【云南】.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          来到你的城市【云南】
+        
+      </div>
+    </a>
+  
+  
+    <a href="/learn/填坑日常之-edac-dimm-ce-error.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">填坑日常之 EDAC DIMM CE Error</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 iDeadSnow
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0.js"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">自己瞎扯淡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">歌</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">烂笔头</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">曲</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">别人瞎扯淡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Google</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">反向代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">填坑日常</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">cookie</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">vim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">工具学习</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">Maybe&lt;br&gt;Someday&lt;br&gt;有勇气在这里写下&lt;br&gt;过去&lt;br&gt;现在&lt;br&gt;还有心中的未来</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="//ideadsnow.com">
+  <title>HTTP 基础之 Cookie | iDeadSnow&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一般来说，了解一样东西的流程是这样的
+
+是什么
+长啥样
+有啥用
+怎么用
+优点
+缺点
+
+按照这个逻辑，概览如下
+
+是什么 -&amp;gt; Cookie（复数形态 Cookies ），中文名称为“小型文本文件”或“小甜饼”
+长啥样 -&amp;gt; 打开你的浏览器，访问 谷爹，在 console 中执行 document.cookie :) 就是它！
+有啥用 -&amp;gt; 网站用它在客户端（浏览器）存储少量信息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP 基础之 Cookie">
+<meta property="og:url" content="//ideadsnow.com/learn/http-基础之-cookie.html">
+<meta property="og:site_name" content="iDeadSnow's Blog">
+<meta property="og:description" content="一般来说，了解一样东西的流程是这样的
+
+是什么
+长啥样
+有啥用
+怎么用
+优点
+缺点
+
+按照这个逻辑，概览如下
+
+是什么 -&amp;gt; Cookie（复数形态 Cookies ），中文名称为“小型文本文件”或“小甜饼”
+长啥样 -&amp;gt; 打开你的浏览器，访问 谷爹，在 console 中执行 document.cookie :) 就是它！
+有啥用 -&amp;gt; 网站用它在客户端（浏览器）存储少量信息">
+<meta property="og:updated_time" content="2016-09-08T06:13:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP 基础之 Cookie">
+<meta name="twitter:description" content="一般来说，了解一样东西的流程是这样的
+
+是什么
+长啥样
+有啥用
+怎么用
+优点
+缺点
+
+按照这个逻辑，概览如下
+
+是什么 -&amp;gt; Cookie（复数形态 Cookies ），中文名称为“小型文本文件”或“小甜饼”
+长啥样 -&amp;gt; 打开你的浏览器，访问 谷爹，在 console 中执行 document.cookie :) 就是它！
+有啥用 -&amp;gt; 网站用它在客户端（浏览器）存储少量信息">
+  
+    <link rel="alternative" href="/atom.xml" title="iDeadSnow&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="null" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">iDeadSnow</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/ideadsnow" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="/ideadsnow@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">iDeadSnow</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">iDeadSnow</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/ideadsnow" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="/ideadsnow@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-http-基础之-cookie" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HTTP 基础之 Cookie
+    </h1>
+  
+
+        <a href="/learn/http-基础之-cookie.html" class="archive-article-date">
+  	<time datetime="2016-04-21T02:16:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-21</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一般来说，了解一样东西的流程是这样的</p>
+<ul>
+<li>是什么</li>
+<li>长啥样</li>
+<li>有啥用</li>
+<li>怎么用</li>
+<li>优点</li>
+<li>缺点</li>
+</ul>
+<p>按照这个逻辑，概览如下</p>
+<ul>
+<li>是什么 -&gt; Cookie（复数形态 Cookies ），中文名称为“小型文本文件”或“小甜饼”</li>
+<li>长啥样 -&gt; 打开你的浏览器，访问 <a href="https://www.google.com.hk/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#newwindow=1&amp;safe=strict&amp;q=cookie" target="_blank" rel="external">谷爹</a>，在 console 中执行 <code>document.cookie</code> :) 就是它！</li>
+<li>有啥用 -&gt; 网站用它在客户端（浏览器）存储少量信息</li>
+<li>怎么用 -&gt; 通过 HTTP 请求头附带 or 前端 js 操作</li>
+<li>优点 -&gt; 简单、全浏览器支持</li>
+<li>缺点 -&gt; 能存的数据非常少；明文传输不安全；每次 HTTP 请求都会发送，增大了流量；且这玩意是纯文本字符串，js 操作非常不便</li>
+</ul>
+<a id="more"></a>
+<h1 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h1><p>引自<a href="https://zh.wikipedia.org/zh-cn/Cookie" target="_blank" rel="external">维基百科</a></p>
+<blockquote>
+<p>Cookie（复数形态 Cookies ），中文名称为“小型文本文件”或“小甜饼”，指某些网站为了辨别用户身份而储存在用户本地终端（Client Side）上的数据（通常经过加密）。定义于RFC2109。是网景公司的前雇员卢·蒙特利在1993年3月的发明。</p>
+</blockquote>
+<h2 id="为什么会出现-Cookie-这东西（用途）？"><a href="#为什么会出现-Cookie-这东西（用途）？" class="headerlink" title="为什么会出现 Cookie 这东西（用途）？"></a>为什么会出现 Cookie 这东西（用途）？</h2><p>试想以下情形</p>
+<ol>
+<li>登陆某网站时，每次都需要输入用户名、密码，严重影响用户体验，怎么实现类似“下次自动登陆”的功能？</li>
+<li>某电商网站买东西，在购物车中加入了一样商品，再去其它商品页面时发现购物车内还能够显示前一件商品，怎么做到的？</li>
+</ol>
+<p>由于 HTTP 协议是无状态的，服务器并不知道用户上一次做了什么，所以上述两个需求的实现只能通过额外手段，即存储信息的方式来实现，于是我们的 Cookie 就闪耀登场了</p>
+<p>使用 Cookie 解决以上问题</p>
+<ol>
+<li>用户第一次登陆时，服务器返回一个登陆凭证（一般需加密且设置过期时间）给客户端，客户端保存该 Cookie 凭证，以后访问这个网站时，直接把该凭证发给服务器，若凭证有效，即通过验证进入网站</li>
+<li>将商品加入购物车时，服务器在向用户发送网页时候也会发送一段保存用户已选购商品的 Cookie 给客户端，当用户浏览其他商品页面的时候，客户端把 Cookie 又发给服务器，这样服务器就知道用户上次选购了什么商品，实现了购物车功能</li>
+</ol>
+<h2 id="Cookie-的分类"><a href="#Cookie-的分类" class="headerlink" title="Cookie 的分类"></a>Cookie 的分类</h2><p>按照 Cookie 的存储位置</p>
+<ul>
+<li>内存 Cookie -&gt; 由浏览器维护，关闭浏览器即消失</li>
+<li>硬盘 Cookie -&gt; 存储在硬盘文件中，只有过期或用户手动清理时才会被删除</li>
+</ul>
+<p>所以按照存储时间分为</p>
+<ul>
+<li>非持久 Cookie</li>
+<li>持久 Cookie</li>
+</ul>
+<h2 id="Cookie-的属性"><a href="#Cookie-的属性" class="headerlink" title="Cookie 的属性"></a>Cookie 的属性</h2><p>首先，Cookie 作为存储数据的一种方案，最重要的当然是 <code>name</code> 和 <code>value</code>，而在一些比较复杂的场景中，只有这两个属性就远远不够了</p>
+<p><strong>expires/max-age</strong></p>
+<p>指定 Cookie 的生存期，默认情况下 Cookie 是暂时存在的，关闭浏览器即失效，即值为 <code>session</code>。如果想让 Cookie 长期存在，则需要指定 expire 属性的值，即 未来的一个用毫秒数表示的过期日期或时间点<br>而 expire 属性现在已被 max-age 属性代替，max-age 用秒来设置 Cookie 的生存期</p>
+<p>如果 max-age 为正数，则表示该 Cookie 会在 max-age 秒后失效。浏览器会将 max-age 为正数的 Cookie 持久化，写到对应的 Cookie 文件中。无论用户是否关闭浏览器，只要还未过期，则一直存在</p>
+<p>如果 max-age 为负数，则表示该 Cookie 仅在本浏览器窗口和本窗口打开得子窗口有效，关闭窗口即失效, Cookie 默认的 max-age 值为 -1</p>
+<p>如果 max-age 为 0，则表示删除 Cookie，由于 Cookie 机制没有提供删除 Cookie 的方法，因此通过设置该值实现即时失效删除 Cookie 的效果，浏览器会将 max-age 为 0 的 Cookie 删除</p>
+<p><strong>domain</strong></p>
+<p>domain 属性可以让多个 web 服务器共享 Cookie，默认是创建 Cookie 的网页所在服务器的主机名，不能将 Cookie 的 domain 设置成服务器所在的域之外的域</p>
+<p><strong>path</strong></p>
+<p>指定和 Cookie 关联的网页，默认值为 / ，即与创建该 Cookie 的网页同目录和该目录子目录下的网页关联</p>
+<p><strong>secure</strong></p>
+<p>一个 Bool 值，指定是否以安全模式传输。默认是不安全的。当为 True 时，该 Cookie 只有以 HTTPS 连接时才会传输</p>
+<p><strong>HttpOnly</strong></p>
+<p>如果设置了 HttpOnly 属性，那么通过程序（js 或 Applet等）将无法读取 Cookie 信息</p>
+<h2 id="Cookie-缺点"><a href="#Cookie-缺点" class="headerlink" title="Cookie 缺点"></a>Cookie 缺点</h2><ol>
+<li>Cookie 的大小被限制在 4KB 内，能够存储的信息非常少</li>
+<li>如果不用 HTTPS 的话 Cookie 的信息是明文传输，非常不安全</li>
+<li>每次 客户端-服务端 间的通信，都会发送、接收 Cookie，增大了通信的流量负担</li>
+<li>Cookie 再发浏览器是以纯文本的方式保存，通过 js 对其进行操作时非常不便</li>
+<li>有的站点会基于安全考虑禁用 Cookie</li>
+</ol>
+<h2 id="替代、优化方案"><a href="#替代、优化方案" class="headerlink" title="替代、优化方案"></a>替代、优化方案</h2><p>参见 <a href="http://www.css88.com/archives/3717" target="_blank" rel="external">JavaScript本地存储实践（html5的localStorage和ie的userData）</a></p>
+<p>另外可以 Google “html5 localStorage” 相关资料，不考虑老浏览器的话，这可能是现在最好的方案了</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cookie/">cookie</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<i class="icon-book icon"></i>
+	<a class="article-category-link" href="/categories/learn/">学习</a>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://ideadsnow.com/learn/http-基础之-cookie.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/life/毕业照？当然也是可以用来中二的.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          毕业照？当然也是可以用来中二的
+        
+      </div>
+    </a>
+  
+  
+    <a href="/learn/linux-环境变量配置.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux 环境变量配置</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 iDeadSnow
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0.js"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">自己瞎扯淡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">歌</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">烂笔头</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">曲</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">别人瞎扯淡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Google</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">反向代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">填坑日常</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">cookie</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">vim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">工具学习</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">Maybe&lt;br&gt;Someday&lt;br&gt;有勇气在这里写下&lt;br&gt;过去&lt;br&gt;现在&lt;br&gt;还有心中的未来</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

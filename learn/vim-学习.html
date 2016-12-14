@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="//ideadsnow.com">
+  <title>vim 学习 | iDeadSnow&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="拆分屏幕启动
+使用大写的O参数垂直分屏  vim -On file1 file2 ...
+使用小写的o参数水平分屏  vim -on file1 file2...
+
+注：n是数字，表示分成几个屏
+分屏
+上下分割当前打开的文件  Ctrl + w s
+上下分割，并打开一个新的文件  :sp filename
+左右分割  Ctrl + w v
+左右分割，并打开一个新文件  :vsp filename">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim 学习">
+<meta property="og:url" content="//ideadsnow.com/learn/vim-学习.html">
+<meta property="og:site_name" content="iDeadSnow's Blog">
+<meta property="og:description" content="拆分屏幕启动
+使用大写的O参数垂直分屏  vim -On file1 file2 ...
+使用小写的o参数水平分屏  vim -on file1 file2...
+
+注：n是数字，表示分成几个屏
+分屏
+上下分割当前打开的文件  Ctrl + w s
+上下分割，并打开一个新的文件  :sp filename
+左右分割  Ctrl + w v
+左右分割，并打开一个新文件  :vsp filename">
+<meta property="og:updated_time" content="2016-09-08T06:13:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vim 学习">
+<meta name="twitter:description" content="拆分屏幕启动
+使用大写的O参数垂直分屏  vim -On file1 file2 ...
+使用小写的o参数水平分屏  vim -on file1 file2...
+
+注：n是数字，表示分成几个屏
+分屏
+上下分割当前打开的文件  Ctrl + w s
+上下分割，并打开一个新的文件  :sp filename
+左右分割  Ctrl + w v
+左右分割，并打开一个新文件  :vsp filename">
+  
+    <link rel="alternative" href="/atom.xml" title="iDeadSnow&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="null" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">iDeadSnow</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/ideadsnow" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="/ideadsnow@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">iDeadSnow</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">iDeadSnow</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/ideadsnow" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="/ideadsnow@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-vim-学习" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vim 学习
+    </h1>
+  
+
+        <a href="/learn/vim-学习.html" class="archive-article-date">
+  	<time datetime="2016-01-07T13:25:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-01-07</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="拆分屏幕"><a href="#拆分屏幕" class="headerlink" title="拆分屏幕"></a>拆分屏幕</h2><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><ul>
+<li>使用大写的O参数垂直分屏<br>  <code>vim -On file1 file2 ...</code></li>
+<li>使用小写的o参数水平分屏<br>  <code>vim -on file1 file2...</code></li>
+</ul>
+<p><strong>注</strong>：n是数字，表示分成几个屏</p>
+<h3 id="分屏"><a href="#分屏" class="headerlink" title="分屏"></a>分屏</h3><ul>
+<li>上下分割当前打开的文件<br>  <code>Ctrl + w s</code></li>
+<li>上下分割，并打开一个新的文件<br>  <code>:sp filename</code></li>
+<li>左右分割<br>  <code>Ctrl + w v</code></li>
+<li>左右分割，并打开一个新文件<br>  <code>:vsp filename</code><a id="more"></a>
+<h3 id="移动光标"><a href="#移动光标" class="headerlink" title="移动光标"></a>移动光标</h3></li>
+</ul>
+<p>Vi中的光标键是h, j, k, l，要在各个屏间切换，只需要先按一下<code>Ctrl+w</code>，然后跟上<code>h|j|k|l</code>即可；除此之外，还可跟上<code>w</code>，用来切换到<strong>下一个</strong>屏中</p>
+<h3 id="移动分屏"><a href="#移动分屏" class="headerlink" title="移动分屏"></a>移动分屏</h3><p><code>Ctrl+w</code> + <code>H|J|K|L</code></p>
+<h3 id="屏幕尺寸"><a href="#屏幕尺寸" class="headerlink" title="屏幕尺寸"></a>屏幕尺寸</h3><ul>
+<li><p>高度</p>
+<ul>
+<li>所有的屏同高<br>  <code>Ctrl+w =</code></li>
+<li>增加高度<br>  <code>Ctrl+w +</code></li>
+<li>减少高度<br>  <code>Ctrl+w -</code></li>
+</ul>
+</li>
+<li><p>宽度</p>
+<ul>
+<li><code>Ctrl+w &lt;</code></li>
+<li><code>Ctrl+w &gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="浏览目录"><a href="#浏览目录" class="headerlink" title="浏览目录"></a>浏览目录</h2><p>首先，我们先从浏览代码开始。有时候，我们需要看多个文件，所以，传统的做法是，我们开多个tty终端，每个tty里用Vim打开一个文件，然后来回切换。这很没有什么效率。我们希望在一个Vim里打开多个文件，甚至浏览程序目录</p>
+<p>浏览目录的命令很简单：（你也可以直接vim一个目录）</p>
+<p><code>:E</code></p>
+<p>在vim中试试就知道效果~</p>
+<p>另外<br><code>:cd &lt;dir&gt;</code>可以改变当前工作目录<br><code>pwd</code>查看当前目录</p>
+<h2 id="缓冲区"><a href="#缓冲区" class="headerlink" title="缓冲区"></a>缓冲区</h2><p>使用<code>:E</code>或者<code>:o</code> <code>:e</code>打开的文件都没有被关闭，这些文件都被缓存在缓冲区中，查看缓冲区：</p>
+<p><code>:ls</code></p>
+<p>在缓冲区中快速切换</p>
+<ul>
+<li><code>:bnext</code>或<code>:bn</code>下一个</li>
+<li><code>:bprevious</code>或<code>:bp</code>上一个</li>
+<li><code>:blast</code>或<code>:bl</code>最后一个</li>
+<li><code>:bfirst</code>或<code>:bf</code>第一个</li>
+</ul>
+<p>buffer中文件的相关标记含义</p>
+<ul>
+<li>– （非活动的缓冲区）</li>
+<li>a （当前被激活缓冲区）</li>
+<li>h （隐藏的缓冲区）</li>
+<li>% （当前的缓冲区）</li>
+<li># （交换缓冲区）</li>
+<li>= （只读缓冲区）</li>
+<li>+ （已经更改的缓冲区）</li>
+</ul>
+<p>##窗口分屏浏览</p>
+<p>把当前窗口上下分屏，并在下面进行目录浏览</p>
+<p><code>:He</code>全称为<code>:Hexplore</code>（在下边分屏浏览目录）</p>
+<p>（如果要在上面，就在<code>:He</code>后面加个<code>!</code>，即<code>:He!</code>）</p>
+<p>同样的，相信你也能猜到了，左右分屏</p>
+<p><code>:Ve</code>全称为<code>:Vexplore</code>，以及<code>:Ve!</code></p>
+<h2 id="分屏同步滚动"><a href="#分屏同步滚动" class="headerlink" title="分屏同步滚动"></a>分屏同步滚动</h2><p>要让两个分屏中的文件同步移动，很简单，你需要到需要同步移动的两个屏中都输入如下命令<br><code>:set scb</code>同步<br><code>:set scb!</code>取消同步</p>
+<p><strong>注</strong>：set scb 是 set scrollbind 的简写</p>
+<h2 id="Tab页浏览目录"><a href="#Tab页浏览目录" class="headerlink" title="Tab页浏览目录"></a>Tab页浏览目录</h2><p><code>:Te</code>全称是<code>:Texplorer</code></p>
+<p>在多个tab页中切换</p>
+<ul>
+<li><code>gt</code>到下一页</li>
+<li><code>gT</code>到前一页</li>
+<li><code>$num gt</code>到第 num 页</li>
+</ul>
+<p>查看tab页列表<code>:tabs</code></p>
+<p>关闭tab页</p>
+<ul>
+<li><code>:tabclose $num</code>如果指定了num，则关闭指定页，否则关闭当前页</li>
+<li>或直接使用<code>:q</code></li>
+</ul>
+<p>打开文件时就分Tab页</p>
+<ul>
+<li><code>vim -p file1 file2 ...</code></li>
+<li><code>vim -p *.cpp</code></li>
+</ul>
+<p>把当前buffer中的文件全部转成tab显示<br><code>:bufdo tab split</code></p>
+<h2 id="保存会话"><a href="#保存会话" class="headerlink" title="保存会话"></a>保存会话</h2><p>如果你用Tab或Window打开了好些文件的文件，还设置了各种滚屏同步，或是行号……，那么，你可以用下面的命令来保存会话：（你有兴趣你可以看看你的 mysession.vim文件内容，也就是一个批处理文件）</p>
+<p><code>:mksession ~/.mysession.vim</code><br>当然如果遇到重复，则强制写入的方式为<br><code>:mksession! ~/.mysession.vim</code></p>
+<p>下次就可以这样打开这个会话<br><code>vim -S ~/.mysession.vim</code></p>
+<p>保存完会话后，也没有必要一个一个Tab/Windows的去关闭，可以简单地使用<br><code>:qa</code>（退出全部）<br><code>:wqa</code>（保存全部并退出全部）</p>
+<hr>
+<p>本文是读<a href="coolshell.cn">酷壳</a>的文章<a href="http://coolshell.cn/articles/11312.html" target="_blank" rel="external">无插件Vim编程技巧</a>笔记，感谢耗子叔的分享</p>
+<p>还差Quickfix，关键字补全两部分内容未读，有空继续..</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools-learn/">工具学习</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<i class="icon-book icon"></i>
+	<a class="article-category-link" href="/categories/learn/">学习</a>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://ideadsnow.com/learn/vim-学习.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/life/世间无废，全于心境.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          世间无废，全于心境
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 iDeadSnow
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0.js"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">自己瞎扯淡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">歌</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">烂笔头</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">曲</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">别人瞎扯淡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Google</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">反向代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">填坑日常</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">cookie</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">vim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">工具学习</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">Maybe&lt;br&gt;Someday&lt;br&gt;有勇气在这里写下&lt;br&gt;过去&lt;br&gt;现在&lt;br&gt;还有心中的未来</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,1082 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>iDeadSnow&#39;s Blog</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="//ideadsnow.com/"/>
+  <updated>2016-12-14T13:10:08.000Z</updated>
+  <id>//ideadsnow.com/</id>
+  
+  <author>
+    <name>iDeadSnow</name>
+    <email>ideadsnow@gmail.com</email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>探究 PYTHON 生成随机字符串</title>
+    <link href="//ideadsnow.com/learn/%E6%8E%A2%E7%A9%B6-python-%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2.html"/>
+    <id>//ideadsnow.com/learn/探究-python-生成随机字符串.html</id>
+    <published>2016-10-03T08:38:48.000Z</published>
+    <updated>2016-12-14T13:10:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="目前看到的最简洁的方法"><a href="#目前看到的最简洁的方法" class="headerlink" title="目前看到的最简洁的方法"></a>目前看到的最简洁的方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">randomString</span><span class="params">(n)</span>:</span></div><div class="line">    <span class="keyword">return</span> (<span class="string">''</span>.join(map(<span class="keyword">lambda</span> x:(hex(ord(x))[<span class="number">2</span>:]), os.urandom(n))))[<span class="number">0</span>:<span class="number">8</span>]</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    <span class="keyword">print</span> randomString(<span class="number">16</span>)</div></pre></td></tr></table></figure>
+<h3 id="来看看-randomString-函数所做的事情"><a href="#来看看-randomString-函数所做的事情" class="headerlink" title="来看看 randomString 函数所做的事情"></a>来看看 randomString 函数所做的事情</h3><ol>
+<li>首先这个函数的一行代码里面，最核心的是 <code>os.urandom(n)</code> 函数，这就是标准库提供的产生随机字串的函数，它的原理我们留到最后再说，现在我们只要知道它会返回一个由参数 n 指定的字节长度的随机字节串（而非字符串，因为可能结果并不能被任何一种字符编码所解释，所以不能称其为字符串）</li>
+<li><code>map(function, iterable, ...)</code> 函数，对可迭代数据结构 <code>iterable</code> 中的每一个元素应用 <code>function</code> 函数，并将结果作为新的 list 返回。在 <code>randomString</code> 函数中的用途是将 <code>os.urandom(n)</code> 所返回的随机字节串中的每个字节传入 lambda 表达式进行处理</li>
+<li><code>lambda x:(hex(ord(x))[2:])</code> 这个 lambda 表达式的作用是将 <code>os.urandom(n)</code> 返回结果中的每个字节转换为可见的由数字和字母组成的长度为 2 的字符</li>
+<li><code>ord(x)</code> 在此处是计算一个字节 unicode 码值的十进制表示，比如字符 a，unicode code 是 0x0061，则 <code>ord(&#39;a&#39;)</code> 返回 97，因为十六进制的 61 等于十进制的 97。注：其实这个函数对传入参数是 unicode object 和 8-bit 字符 的操作分别是 <code>unichr()</code> 和 <code>chr()</code> 函数的逆向过程</li>
+<li><code>hex(x)</code> 把十进制的数转换为十六进制，因为此处我们不需要结果中的前导 <code>0x</code>，所以做切片操作 <code>[2:0]</code></li>
+<li><code>&#39;&#39;.join(str_array)</code> 以 <code>&#39;&#39;</code> 为分隔符把参数重的字符连接成一个字符串</li>
+</ol>
+<a id="more"></a>
+<h3 id="os-urandom-n"><a href="#os-urandom-n" class="headerlink" title="os.urandom(n)"></a>os.urandom(n)</h3><h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><p>官方文档如是说</p>
+<blockquote>
+<p>os.urandom(n)<br>​        Return a string of n random bytes suitable for cryptographic use.</p>
+<p>​        This function returns random bytes from an OS-specific randomness source. The returned data should be unpredictable enough for cryptographic applications, though its exact quality depends on the OS implementation. On a UNIX-like system this will query /dev/urandom, and on Windows it will use CryptGenRandom(). If a randomness source is not found, NotImplementedError will be raised.</p>
+<p>​        For an easy-to-use interface to the random number generator provided by your platform, please see random.SystemRandom.</p>
+<p>​        New in version 2.4.</p>
+</blockquote>
+<p>第一段的大意是这个函数将会返回一个适用于加密的 <code>n</code> 个字节长度的随机字符串</p>
+<p>那么它内部是如何实现随机的呢？我们通过第二段内容可知，这个函数将会调用系统提供的随机源，依赖于程序运行时的当前系统，在 Windows 上会使用 <code>CryptGenRandom()</code>，而在类 UNIX 系统上将会使用 <code>/dev/urandom</code> </p>
+<p>如果当前系统没有提供随机源，那么将会抛出一个 <code>NotImplementedError</code></p>
+<h4 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h4><p>这是个蛋疼心碎的过程，费尽九牛二虎之力，在 mac 上翻了半天 python 2.7 的 lib 目录，在 os.py 中没有找到 <code>urandom</code> 这个函数定义，打印 <code>os.__all__</code> 发现包括 <code>urandom</code> 在内的许多模块并不是直接定义在 os.py 中的，而是扩展（<code>__all__.__extend__</code>）自其它模块</p>
+<p>而 <code>urandom</code> 就是扩展自 <code>posix</code> 模块，看来这玩意是 POSIX 的标准接口，涨姿势了</p>
+<p>然而问题又来了，没有找到 posix.py 文件！</p>
+<p>只有以下这些名字与 posix 相关的文件</p>
+<ul>
+<li>posixfile.py</li>
+<li>posixfile.pyc</li>
+<li>posixfile.pyo</li>
+<li>posixpath.py</li>
+<li>posixpath.pyc</li>
+<li>posixpath.pyo</li>
+</ul>
+<p>在这些文件里面根本没有 urandom 相关字眼（卧尼玛……..</p>
+<p>目前在 python 命令行环境下通过内建 help() 函数查看 posix 模块的帮助文档，在文档中可以看到 urandom()，不过也没有具体的实现代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">urandom(...)</div><div class="line">    urandom(n) -&gt; str</div><div class="line"></div><div class="line">    Return n random bytes suitable for cryptographic use.</div></pre></td></tr></table></figure>
+<p>好吧，我不纠结，这里挖个坑，等有空再研究下（一般这么说的时候都没有下文了呵呵呵呵呵呵</p>
+<h4 id="POSIX-中的-urandom-在类-UNIX-系统中的实现"><a href="#POSIX-中的-urandom-在类-UNIX-系统中的实现" class="headerlink" title="POSIX 中的 urandom 在类 UNIX 系统中的实现"></a>POSIX 中的 urandom 在类 UNIX 系统中的实现</h4><p>维基百科如是说</p>
+<blockquote>
+<p>In <a href="https://en.wikipedia.org/wiki/Unix-like" target="_blank" rel="external">Unix-like</a> <a href="https://en.wikipedia.org/wiki/Operating_system" target="_blank" rel="external">operating systems</a>, <strong>/dev/random</strong> is a <a href="https://en.wikipedia.org/wiki/Special_file" target="_blank" rel="external">special file</a> that serves as a <a href="https://en.wikipedia.org/wiki/Blocking_(computing" target="_blank" rel="external">blocking</a>) <a href="https://en.wikipedia.org/wiki/Pseudorandom_number_generator" target="_blank" rel="external">pseudorandom number generator</a>. It allows access to environmental noise collected from <a href="https://en.wikipedia.org/wiki/Device_driver" target="_blank" rel="external">device drivers</a> and other sources.<a href="https://en.wikipedia.org/wiki//dev/random#cite_note-1" target="_blank" rel="external">[1]</a> Not all operating systems implement the same semantics for /dev/random.</p>
+</blockquote>
+<p>剩下的大篇幅介绍请各位直接去 wiki 上看，内容还是挺丰富的</p>
+<p>我的理解如下</p>
+<p><code>/dev/random</code> 和 <code>/dev/urandom</code> 都是 UNIX 提供的产生永不为空的随机字节流的伪设备，有许多程序和安全程序都依赖于它们</p>
+<p>/dev/random</p>
+<ul>
+<li>优势：随机性足够高</li>
+<li>劣势：依赖于系统中断，如果系统中断数不足，则会锁死，尝试读取的进程将会进入等待</li>
+</ul>
+<p>/dev/urandom</p>
+<ul>
+<li>优势：不依赖系统中断，速度快</li>
+<li>劣势：相对前者数据随机性不高，且依赖于系统噪声（当前打开的文件数，进程数等等）</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;目前看到的最简洁的方法&quot;&gt;&lt;a href=&quot;#目前看到的最简洁的方法&quot; class=&quot;headerlink&quot; title=&quot;目前看到的最简洁的方法&quot;&gt;&lt;/a&gt;目前看到的最简洁的方法&lt;/h3&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; os&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;randomString&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(n)&lt;/span&gt;:&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; (&lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;.join(map(&lt;span class=&quot;keyword&quot;&gt;lambda&lt;/span&gt; x:(hex(ord(x))[&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;:]), os.urandom(n))))[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;8&lt;/span&gt;]&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; __name__ == &lt;span class=&quot;string&quot;&gt;&#39;__main__&#39;&lt;/span&gt;:&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;print&lt;/span&gt; randomString(&lt;span class=&quot;number&quot;&gt;16&lt;/span&gt;)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;来看看-randomString-函数所做的事情&quot;&gt;&lt;a href=&quot;#来看看-randomString-函数所做的事情&quot; class=&quot;headerlink&quot; title=&quot;来看看 randomString 函数所做的事情&quot;&gt;&lt;/a&gt;来看看 randomString 函数所做的事情&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;首先这个函数的一行代码里面，最核心的是 &lt;code&gt;os.urandom(n)&lt;/code&gt; 函数，这就是标准库提供的产生随机字串的函数，它的原理我们留到最后再说，现在我们只要知道它会返回一个由参数 n 指定的字节长度的随机字节串（而非字符串，因为可能结果并不能被任何一种字符编码所解释，所以不能称其为字符串）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;map(function, iterable, ...)&lt;/code&gt; 函数，对可迭代数据结构 &lt;code&gt;iterable&lt;/code&gt; 中的每一个元素应用 &lt;code&gt;function&lt;/code&gt; 函数，并将结果作为新的 list 返回。在 &lt;code&gt;randomString&lt;/code&gt; 函数中的用途是将 &lt;code&gt;os.urandom(n)&lt;/code&gt; 所返回的随机字节串中的每个字节传入 lambda 表达式进行处理&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lambda x:(hex(ord(x))[2:])&lt;/code&gt; 这个 lambda 表达式的作用是将 &lt;code&gt;os.urandom(n)&lt;/code&gt; 返回结果中的每个字节转换为可见的由数字和字母组成的长度为 2 的字符&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ord(x)&lt;/code&gt; 在此处是计算一个字节 unicode 码值的十进制表示，比如字符 a，unicode code 是 0x0061，则 &lt;code&gt;ord(&amp;#39;a&amp;#39;)&lt;/code&gt; 返回 97，因为十六进制的 61 等于十进制的 97。注：其实这个函数对传入参数是 unicode object 和 8-bit 字符 的操作分别是 &lt;code&gt;unichr()&lt;/code&gt; 和 &lt;code&gt;chr()&lt;/code&gt; 函数的逆向过程&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hex(x)&lt;/code&gt; 把十进制的数转换为十六进制，因为此处我们不需要结果中的前导 &lt;code&gt;0x&lt;/code&gt;，所以做切片操作 &lt;code&gt;[2:0]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;#39;&amp;#39;.join(str_array)&lt;/code&gt; 以 &lt;code&gt;&amp;#39;&amp;#39;&lt;/code&gt; 为分隔符把参数重的字符连接成一个字符串&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+    
+    
+      <category term="python" scheme="//ideadsnow.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu 16.04 版本 MySQL 的安装、基本配置和使用</title>
+    <link href="//ideadsnow.com/learn/ubuntu-16-04-%E7%89%88%E6%9C%AC-mysql-%E7%9A%84%E5%AE%89%E8%A3%85%E3%80%81%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8.html"/>
+    <id>//ideadsnow.com/learn/ubuntu-16-04-版本-mysql-的安装、基本配置和使用.html</id>
+    <published>2016-09-08T17:30:59.000Z</published>
+    <updated>2016-09-08T17:30:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装应该没什么问题，直接运行</p>
+<p><code>sudo apt-get install mysql-server</code></p>
+<h2 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h2><h4 id="允许远程访问-MySQL"><a href="#允许远程访问-MySQL" class="headerlink" title="允许远程访问 MySQL"></a>允许远程访问 MySQL</h4><p>MySQL 装好了，但在默认情况下只监听本地连接，也就是说，现在还不能通过远程连接访问和操作数据库，所以需要做如下操作</p>
+<ol>
+<li><code>cd /etc/mysql/</code></li>
+<li><code>sudo grep -r bind-address .</code> 查找包含 bind-address 项的配置文件</li>
+<li>编辑第 2 步中找到的文件，将该文件中的 <em>bind-address = 127.0.0.1</em> 注释掉或改为 <em>bind-address = 你想监听的客户端 IP</em></li>
+<li><code>sudo  /etc/init.d/mysql restart</code> 重启服务</li>
+</ol>
+<a id="more"></a>
+<h4 id="修改-MySQL-编码为-UTF-8"><a href="#修改-MySQL-编码为-UTF-8" class="headerlink" title="修改 MySQL 编码为 UTF-8"></a>修改 MySQL 编码为 UTF-8</h4><p>MySQL 默认的编码是 latin1，并不支持中文<br>想查看你的 MySQL 编码？试试以下步骤</p>
+<ol>
+<li><code>mysql -u root -p</code> 登录 MySQL 管理后台</li>
+<li>在 <code>mysql&gt;</code> 后面输入 <code>show variables like &#39;character%&#39;;</code> 并执行，即可看到类似下面的界面<br><img src="/img/1473351704584.png" alt="Alt text"></li>
+</ol>
+<p>好了，到这里你应该已经看到自己的运行结果貌似和图里的不太一样？怎么回事？<br>&lt;(￣）￣)&gt;废话，我已经改过配置了，所以我的图里面当然都已经是 utf8 了</p>
+<p>接下来跟我做以下操作</p>
+<ol>
+<li><code>cd /etc/mysql/</code></li>
+<li><code>sudo grep -r &quot;[client]&quot; .</code> 递归查找当前目录下所有包含 <em>[client]</em> 的文件行</li>
+<li>修改第 2 步找到的文件，在 <em>[client]</em> 后添加一行 <em>default-character-set=utf8</em></li>
+<li><code>sudo grep -r &quot;[mysqld]&quot; .</code> 递归查找当前目录下所有包含 <em>[mysqld]</em> 的文件行</li>
+<li>修改第 4 步找到的文件，在 <em>[mysqld]</em> 后添加一行 <em>default-character-set=utf8</em>，以及另一行 <em>init_connect=’SET NAMES utf8’</em></li>
+<li><code>sudo /etc/init.d/mysql restart</code></li>
+</ol>
+<p>现在再去运行最开始的那条命令看看，是不是和我放出来的图片一毛一样了，Good job！</p>
+<h4 id="创建一个用户"><a href="#创建一个用户" class="headerlink" title="创建一个用户"></a>创建一个用户</h4><p>一般来说 root 用户是 DBA 所操作，普通用户使用 root 非常不安全，所以接下来我们了解如何创建一个普通用户的账户</p>
+<ol>
+<li><code>mysql -u root -p</code> 以一个拥有创建新用户权限的用户登录，这里简单来做，直接用 root 用户登录</li>
+<li><code>create user 用户名@&#39;host&#39; identified by &#39;密码&#39;</code> 其中 <code>host</code> 是创建的新用户被允许从哪个 IP 登录的意思，如果只允许从本地登录（root 用户默认就是这样）则填 <code>localhost</code>，如果不限制登录 IP，则可以填 <code>%</code></li>
+<li>为用户赋予对某数据库下所有表进行操作的权限 <code>grant all privileges on 某数据库名.* to 用户名@&#39;host&#39; identified by &#39;密码&#39;;</code></li>
+<li><code>flush privileges;</code></li>
+</ol>
+<p><strong>注意</strong><br>这里有个坑，在 MySQL 5.6 版本之后，添加了一个安全机制，其中对我们执行以上操作影响最大的是密码复杂度有要求，想填类似 123456 这样的智障密码会直接被拒绝创建用户 or 赋权，错误信息如下</p>
+<blockquote>
+<p>ERROR 1819 (HY000): Your password does not satisfy the current policy requirements</p>
+</blockquote>
+<p>解决方法是 <code>SET GLOBAL  validate_password_policy=&#39;LOW&#39;;</code>，将安全等级降为 LOW<br>关于安全等级的详细介绍</p>
+<ul>
+<li>LOW 密码必须至少有8个字符长</li>
+<li>MEDIUM 密码必须包含至少 1 个数字字符,1 个大写和小写字符,和 1 个特殊字符</li>
+<li>STRONG （懒得查，用到再说………..）</li>
+</ul>
+<p>另外 MySQL 5.7 版本以上又多了个密码有效期的概念，又是个坑，再次修改配置文件为如下所示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[mysqld]</div><div class="line">default_password_lifetime=0</div></pre></td></tr></table></figure></p>
+<p>如果做了本文档前面的操作，上面这个东西如何修改、在哪修改等等的问题应该不会存在吧？如果有问题请先撞墙三分钟然后重复上文操作</p>
+<p><a href="http://dev.mysql.com/doc/refman/5.7/en/password-expiration-policy.html" target="_blank" rel="external">有关密码有效期的详细官方文档</a></p>
+<h4 id="创建一个数据库"><a href="#创建一个数据库" class="headerlink" title="创建一个数据库"></a>创建一个数据库</h4><p>简单</p>
+<ol>
+<li><code>mysql -u root -p</code></li>
+<li><code>create database 数据库</code></li>
+</ol>
+<p>全文完</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;p&gt;安装应该没什么问题，直接运行&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt-get install mysql-server&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;基本配置&quot;&gt;&lt;a href=&quot;#基本配置&quot; class=&quot;headerlink&quot; title=&quot;基本配置&quot;&gt;&lt;/a&gt;基本配置&lt;/h2&gt;&lt;h4 id=&quot;允许远程访问-MySQL&quot;&gt;&lt;a href=&quot;#允许远程访问-MySQL&quot; class=&quot;headerlink&quot; title=&quot;允许远程访问 MySQL&quot;&gt;&lt;/a&gt;允许远程访问 MySQL&lt;/h4&gt;&lt;p&gt;MySQL 装好了，但在默认情况下只监听本地连接，也就是说，现在还不能通过远程连接访问和操作数据库，所以需要做如下操作&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;cd /etc/mysql/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sudo grep -r bind-address .&lt;/code&gt; 查找包含 bind-address 项的配置文件&lt;/li&gt;
+&lt;li&gt;编辑第 2 步中找到的文件，将该文件中的 &lt;em&gt;bind-address = 127.0.0.1&lt;/em&gt; 注释掉或改为 &lt;em&gt;bind-address = 你想监听的客户端 IP&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sudo  /etc/init.d/mysql restart&lt;/code&gt; 重启服务&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+    
+    
+      <category term="mysql" scheme="//ideadsnow.com/tags/mysql/"/>
+    
+      <category term="linux" scheme="//ideadsnow.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>来到你的城市【云南】</title>
+    <link href="//ideadsnow.com/life/%E6%9D%A5%E5%88%B0%E4%BD%A0%E7%9A%84%E5%9F%8E%E5%B8%82%E3%80%90%E4%BA%91%E5%8D%97%E3%80%91.html"/>
+    <id>//ideadsnow.com/life/来到你的城市【云南】.html</id>
+    <published>2016-06-23T17:57:23.000Z</published>
+    <updated>2016-09-08T06:13:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/mmexport1465830312032.png" alt="lake"></p>
+<p><strong>多图，流量党慎点！</strong><br><strong>多图，流量党慎点！</strong><br><strong>多图，流量党慎点！</strong></p>
+<hr>
+<p>闲逛时间太久<br>懒得扯太多<br>更怕扯太多变成流水账<br>还不如放点图来的简单有效<br>你问有妹子的图哪来的<br>当然是不（tou）小（tou）心（an）拍（xia）到（kuai）的（men）啊<br>（逃：ε=ε=ε=ε=ε=ε=┌(;￣◇￣)┘）</p>
+<blockquote>
+<p>来到云南<br>天气好的时候拍风景和妹子<br>天气不好的时候拍妹子</p>
+</blockquote>
+<a id="more"></a>
+<p>你问为什么现在才发这破文<br>我才不会说是因为照片太大<br>全放在这页面里面大部分看这破文的人的电脑 or 爪机会炸<br>要发只能发压缩转格式后的低像素图<br>而我又懒得折腾<br>就拖到现在了</p>
+<hr>
+<p>繁花似锦，非常喜欢这张<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60605-185111.jpg" alt="繁花似锦"></p>
+<p>大理古城<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60605-174132.jpg" alt="大理古城"></p>
+<p>云南大学图书馆<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60604-183053.jpg" alt="云南大学图书馆"></p>
+<p>洱海边拍照的妹子<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60607-150247.jpg" alt="洱海边的妹纸"></p>
+<p>丁丁当当甜品店，丽江<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60613-134814.jpg" alt="丁丁当当甜品店"></p>
+<p>丽江的少女风客栈<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60612-181722.jpg" alt="丽江的少女风客栈"></p>
+<p>啊，香格里拉<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60609-113416.jpg" alt="啊，香格里拉"></p>
+<p>洱海里的一个寺庙<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60607-161016.jpg" alt="洱海里的一个寺庙"></p>
+<p>丽江古城一角<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60613-154409.jpg" alt="丽江古城一角"></p>
+<p>丽江古城一角<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60613-155502.jpg" alt="丽江古城一角"></p>
+<p>洱海<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60607-143530.jpg" alt="洱海"></p>
+<p>又是洱海<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60607-145140.jpg" alt="又是洱海"></p>
+<p>海景房<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60607-132325.jpg" alt="海景房"></p>
+<p>天龙八部影视城<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60606-163348.jpg" alt="天龙八部影视城"></p>
+<p>囚车<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60606-163041.jpg" alt="囚车"></p>
+<p>纳帕海的四个刚刚骑完马的妹子<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60609-115633.jpg" alt="纳帕海的四个妹子"></p>
+<p>丽江古城一户人家墙上的纳西族东巴文字<br><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/P60613-144117.jpg" alt="丽江古城一户人家墙上的纳西族东巴文字"></p>
+<hr>
+<p>好孩子看不见————<br>大理丽江这种地方…<br>请至少带一个女生前来…<br>文艺浪漫什么的呵呵呵…<br>到处都是<br>🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹<br>几个大老爷们简直煞风景…<br>正在路上的时候，刚刚失恋的路小花同学在微信说<br>“以后要带爱我的人去云南”<br>呵呵呵呵呵，当时静静看着讨论组信息没说话<br>现在在这儿吐槽不好吧？</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://o96lq0usq.bkt.clouddn.com/yunnan/image/mmexport1465830312032.png&quot; alt=&quot;lake&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;多图，流量党慎点！&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;多图，流量党慎点！&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;多图，流量党慎点！&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;闲逛时间太久&lt;br&gt;懒得扯太多&lt;br&gt;更怕扯太多变成流水账&lt;br&gt;还不如放点图来的简单有效&lt;br&gt;你问有妹子的图哪来的&lt;br&gt;当然是不（tou）小（tou）心（an）拍（xia）到（kuai）的（men）啊&lt;br&gt;（逃：ε=ε=ε=ε=ε=ε=┌(;￣◇￣)┘）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;来到云南&lt;br&gt;天气好的时候拍风景和妹子&lt;br&gt;天气不好的时候拍妹子&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+    
+    
+      <category term="自己瞎扯淡" scheme="//ideadsnow.com/tags/too-young-too-simple/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>烂笔头：JavaScript The Good Parts</title>
+    <link href="//ideadsnow.com/learn/%E7%83%82%E7%AC%94%E5%A4%B4%EF%BC%9Ajavascript-the-good-parts.html"/>
+    <id>//ideadsnow.com/learn/烂笔头：javascript-the-good-parts.html</id>
+    <published>2016-06-22T14:12:02.000Z</published>
+    <updated>2016-09-08T06:13:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>书是这本，挺不错的，有兴趣可以看看 <a href="https://book.douban.com/subject/2994925/" target="_blank" rel="external">JavaScript:The Good Parts</a></p>
+<h3 id="数据类型和运算符"><a href="#数据类型和运算符" class="headerlink" title="数据类型和运算符"></a>数据类型和运算符</h3><ul>
+<li>只有一种数字类型，内部表示为64位浮点数</li>
+<li>NaN 不等于任何值，包括它自己</li>
+<li>被当作逻辑假的值：<code>false</code> <code>null</code> <code>undefined</code> <code>&#39;&#39;</code> <code>0</code> <code>NaN</code></li>
+<li>未指定return值时将会返回 <code>undefined</code></li>
+<li><code>/</code> 运算符有可能会产生一个非整数结果，即使两个运算数都是整数</li>
+</ul>
+<h3 id="减少全局变量污染方法"><a href="#减少全局变量污染方法" class="headerlink" title="减少全局变量污染方法"></a>减少全局变量污染方法</h3><ul>
+<li><p>在应用中只创建一个全局变量：<br>  <code>var MYAPP = {};</code><br>  该全局变量此时成了应用的容器，可以如下方式使用：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">MYAPP.value1 = &#123;...&#125;;</div><div class="line">MYAPP.value2 = &#123;...&#125;;</div><div class="line">...</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用闭包（Closure）</p>
+</li>
+</ul>
+<a id="more"></a>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ul>
+<li>当函数被调用时，会得到一个“免费”的参数，即 <code>arguments</code> “数组”，通过该”数组”可访问所有函数被调用时传入的参数，无论该参数是否在该函数定义时被指定为形参  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function() &#123;</div><div class="line">    for(var i = 0; i &lt; arguments.length; i++) &#123;</div><div class="line">        console.log(arguments[i]);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>由于语言的一个设计错误，<code>arguments</code> 并非是一个真正的数组，而是一个“类似数组”（array-like）的对象，它有一个 <code>length</code> 属性，但缺少所有数组的方法</p>
+<h3 id="prototype-原型链"><a href="#prototype-原型链" class="headerlink" title="prototype 原型链"></a>prototype 原型链</h3><ul>
+<li>每个对象都连接到一个原型对象，并且它可以从中继承属性</li>
+<li>所有通过对象字面量创建的对象都连接到 <code>Object.prototype</code> 这个标准对象</li>
+<li>原型链在更新时无效，仅在检索属性值的时候起效<br>当尝试获取某个对象的属性值，且对象本身无此属性，那么将会去该对象的原型中寻找，如果找不到则继续从原型的原型中寻找，直到到达终点<code>Object.prototype</code> 对象为止，如果最终仍未找到属性，则返回 <code>undefined</code>。该过程被称为<strong>委托</strong></li>
+<li><code>hasOwnProperty</code> 只会检查对象自己属性，不会检查原型链</li>
+</ul>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><ul>
+<li><code>delete obj.val</code> 将删除对象obj本身的val属性，且不会影响原型链</li>
+</ul>
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><ul>
+<li>JavaScript 没有提供“尾递归优化”</li>
+</ul>
+<h2 id="wtf？"><a href="#wtf？" class="headerlink" title="wtf？"></a>wtf？</h2><h3 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h3><p>JavaScript 不支持块级作用域，这意味着所有定义在函数任何地方的参数和变量在函数内部任何地方都可见<br>因此，尽管很多支持块级作用域的语言推荐尽可能迟地声明变量，而在 JavaScript 中却应该在函数体的顶部声明函数中用到的所有变量</p>
+<h3 id="闭包（Closure）"><a href="#闭包（Closure）" class="headerlink" title="闭包（Closure）"></a>闭包（Closure）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> myVar = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> innerVal = <span class="number">0</span>;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        getInnerVal() &#123;</div><div class="line">            <span class="keyword">return</span> innerVar;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//myVar.getInnerVal()才能取得innerVal的值</span></div></pre></td></tr></table></figure>
+<h3 id="（伪）数组（array-like）"><a href="#（伪）数组（array-like）" class="headerlink" title="（伪）数组（array-like）"></a>（伪）数组（array-like）</h3><ul>
+<li><p>JavaScript 中没有真正的<strong>数组</strong>，它把数组的下标转换为字符串，用其作为属性</p>
+<blockquote>
+<p>数组是一段线性分配的内存，它通过计算指针偏移量去访问元素，数组是很快的数据结构</p>
+</blockquote>
+</li>
+<li><p>“数组”中可同时包含不同类型的元素</p>
+</li>
+<li>“数组”拥有一个诡异的 <code>length</code> 属性</li>
+</ul>
+<h3 id="坑，及避免方法"><a href="#坑，及避免方法" class="headerlink" title="坑，及避免方法"></a>坑，及避免方法</h3><ul>
+<li><p><code>parseInt</code> 方法</p>
+<ul>
+<li>遇到非数字时停止解析，所以 <code>parseInt(&quot;123&quot;)</code> 和 <code>parseInt(&quot;123abc&quot;)</code> 的结果是一样的</li>
+<li>若字符串首位为 0，如 “013”，则会按照八进制进行转换。好在可以提供基数，如 <code>parseInt(&quot;013&quot;, 10)</code>，最好始终使用这种写法</li>
+</ul>
+</li>
+<li><p><code>+</code> 运算符</p>
+<ul>
+<li>两个运算数都是数字则返回两数之和</li>
+<li>一个运算数是空字符串，则会将另一个运算数转换为字符串并返回</li>
+<li>其余情况均为拼接字符串</li>
+</ul>
+</li>
+<li><p>浮点数运算不精确，<code>0.1 + 0.2</code> 不等于  <code>0.3</code>。可以通过整数化来解决，如 <code>0.1 + 0.2</code> 等于 <code>(0.1 * 10 + 0.2 * 10) / 10</code></p>
+</li>
+</ul>
+<h3 id="写-JS-代码好习惯"><a href="#写-JS-代码好习惯" class="headerlink" title="写 JS 代码好习惯"></a>写 JS 代码好习惯</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</div><div class="line">    <span class="comment">//在此处使用 $</span></div><div class="line">&#125;(jQuery));</div></pre></td></tr></table></figure>
+<p>原因：</p>
+<ul>
+<li>闭包避免了全局污染</li>
+<li>将 jQuery 对象传进闭包后再使用 <code>$</code> 可以避免与其他也使用了 <code>$</code> 的框架冲突</li>
+<li><code>$(document).ready(function() {});</code> 与 <code>$(function() {});</code> 等价</li>
+</ul>
+<h3 id="on、bind、live、delegate-区别"><a href="#on、bind、live、delegate-区别" class="headerlink" title="on、bind、live、delegate() 区别"></a>on、bind、live、delegate() 区别</h3><p><a href="http://www.cnblogs.com/moonreplace/archive/2012/10/09/2717136.html" target="_blank" rel="external">http://www.cnblogs.com/moonreplace/archive/2012/10/09/2717136.html</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;书是这本，挺不错的，有兴趣可以看看 &lt;a href=&quot;https://book.douban.com/subject/2994925/&quot;&gt;JavaScript:The Good Parts&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;数据类型和运算符&quot;&gt;&lt;a href=&quot;#数据类型和运算符&quot; class=&quot;headerlink&quot; title=&quot;数据类型和运算符&quot;&gt;&lt;/a&gt;数据类型和运算符&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;只有一种数字类型，内部表示为64位浮点数&lt;/li&gt;
+&lt;li&gt;NaN 不等于任何值，包括它自己&lt;/li&gt;
+&lt;li&gt;被当作逻辑假的值：&lt;code&gt;false&lt;/code&gt; &lt;code&gt;null&lt;/code&gt; &lt;code&gt;undefined&lt;/code&gt; &lt;code&gt;&amp;#39;&amp;#39;&lt;/code&gt; &lt;code&gt;0&lt;/code&gt; &lt;code&gt;NaN&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;未指定return值时将会返回 &lt;code&gt;undefined&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/&lt;/code&gt; 运算符有可能会产生一个非整数结果，即使两个运算数都是整数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;减少全局变量污染方法&quot;&gt;&lt;a href=&quot;#减少全局变量污染方法&quot; class=&quot;headerlink&quot; title=&quot;减少全局变量污染方法&quot;&gt;&lt;/a&gt;减少全局变量污染方法&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;在应用中只创建一个全局变量：&lt;br&gt;  &lt;code&gt;var MYAPP = {};&lt;/code&gt;&lt;br&gt;  该全局变量此时成了应用的容器，可以如下方式使用：&lt;/p&gt;
+  &lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;MYAPP.value1 = &amp;#123;...&amp;#125;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;MYAPP.value2 = &amp;#123;...&amp;#125;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;...&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用闭包（Closure）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+    
+    
+      <category term="烂笔头" scheme="//ideadsnow.com/tags/%E7%83%82%E7%AC%94%E5%A4%B4/"/>
+    
+      <category term="javascript" scheme="//ideadsnow.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>填坑日常之 EDAC DIMM CE Error</title>
+    <link href="//ideadsnow.com/learn/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8%E4%B9%8B-edac-dimm-ce-error.html"/>
+    <id>//ideadsnow.com/learn/填坑日常之-edac-dimm-ce-error.html</id>
+    <published>2016-06-22T13:49:26.000Z</published>
+    <updated>2016-09-08T06:13:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>2015-12-30 下午 ngaios 监控发现硬盘满报警<br>2015-12-31 早上开始排查原因</p>
+<p><img src="http://7xlwv3.com1.z0.glb.clouddn.com/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8%E4%B9%8B%20EDAC%20DIMM%20CE%20Error%2001.png" alt="Alt text"></p>
+<p><img src="http://7xlwv3.com1.z0.glb.clouddn.com/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8%E4%B9%8B%20EDAC%20DIMM%20CE%20Error%2002.png" alt="Alt text"></p>
+<p>经过排查发现 log 目录下的三个系统日志非常大，竟有 8.7G 大小</p>
+<a id="more"></a>
+<p>读日志内容后发现有大量的 EDAC DIMM CE Error 出现</p>
+<p><img src="http://7xlwv3.com1.z0.glb.clouddn.com/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8%E4%B9%8B%20EDAC%20DIMM%20CE%20Error%2003.png" alt="Alt text"></p>
+<p>经过一番 Google 后得知这是由于内存错误，导致系统自动启动错误恢复机制，但恢复失败写入日志，继续修复，循环下去导致日志文件大小暴增</p>
+<p>粗略看了看 linux 的内核文档之 <a href="https://www.kernel.org/doc/Documentation/edac.txt" target="_blank" rel="external">edac doc</a></p>
+<p>根据这一段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Dual channels allows for 128 bit data transfers to the CPU from memory.</div><div class="line">Some newer chipsets allow for more than 2 channels, like Fully Buffered DIMMs</div><div class="line">(FB-DIMMs). The following example will assume 2 channels:</div><div class="line"></div><div class="line"></div><div class="line">            Channel 0   Channel 1</div><div class="line">    ===================================</div><div class="line">    csrow0  | DIMM_A0   | DIMM_B0 |</div><div class="line">    csrow1  | DIMM_A0   | DIMM_B0 |</div><div class="line">    ===================================</div><div class="line"></div><div class="line">    ===================================</div><div class="line">    csrow2  | DIMM_A1   | DIMM_B1 |</div><div class="line">    csrow3  | DIMM_A1   | DIMM_B1 |</div><div class="line">    ===================================</div></pre></td></tr></table></figure>
+<p>于是在机器上执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@ubuntu:/var/log# grep &quot;[0-9]&quot; /sys/devices/system/edac/mc/mc*/csrow*/ch*_ce_count</div><div class="line">/sys/devices/system/edac/mc/mc0/csrow0/ch0_ce_count:0</div><div class="line">/sys/devices/system/edac/mc/mc0/csrow1/ch0_ce_count:0</div><div class="line">/sys/devices/system/edac/mc/mc0/csrow2/ch0_ce_count:4213901959</div></pre></td></tr></table></figure>
+<p>参考前面的文档，可得出问题的是 DIMM_A1</p>
+<p>执行 <code>root@ubuntu:/var/log# dmidecode -t memory</code>，在结果中可以找到 DIMM_A1 的信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Memory Device</div><div class="line">    Array Handle: 0x0032</div><div class="line">    Error Information Handle: Not Provided</div><div class="line">    Total Width: 72 bits</div><div class="line">    Data Width: 64 bits</div><div class="line">    Size: 4096 MB</div><div class="line">    Form Factor: DIMM</div><div class="line">    Set: None</div><div class="line">    Locator: DIMM_A1</div><div class="line">    Bank Locator: BANK0</div><div class="line">    Type: DDR3</div><div class="line">    Type Detail: Other</div><div class="line">    Speed: 1333 MHz</div><div class="line">    Manufacturer: Manufacturer0</div><div class="line">    Serial Number: SerNum1</div><div class="line">    Asset Tag: AssetTagNum1</div><div class="line">    Part Number: PartNum1</div></pre></td></tr></table></figure>
+<hr>
+<p>后续：</p>
+<ul>
+<li>为了避免以后再发生这种日志撑满硬盘的情况，修改 logrotate 的配置文件，缩短日志备份周期，减少日志备份保留数量，启用备份压缩</li>
+</ul>
+<hr>
+<p>参考：</p>
+<ul>
+<li><a href="http://serverfault.com/questions/648240/how-can-i-find-which-memory-have-ce-error" target="_blank" rel="external">How can I find which memory have CE error?</a></li>
+<li><a href="https://www.kernel.org/doc/Documentation/edac.txt" target="_blank" rel="external">edac doc</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;2015-12-30 下午 ngaios 监控发现硬盘满报警&lt;br&gt;2015-12-31 早上开始排查原因&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xlwv3.com1.z0.glb.clouddn.com/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8%E4%B9%8B%20EDAC%20DIMM%20CE%20Error%2001.png&quot; alt=&quot;Alt text&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xlwv3.com1.z0.glb.clouddn.com/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8%E4%B9%8B%20EDAC%20DIMM%20CE%20Error%2002.png&quot; alt=&quot;Alt text&quot;&gt;&lt;/p&gt;
+&lt;p&gt;经过排查发现 log 目录下的三个系统日志非常大，竟有 8.7G 大小&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+    
+    
+      <category term="填坑日常" scheme="//ideadsnow.com/tags/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>曲：怀古遗殇</title>
+    <link href="//ideadsnow.com/share/%E6%9B%B2%EF%BC%9A%E6%B7%AE%E5%8F%A4%E9%81%97%E6%AE%87.html"/>
+    <id>//ideadsnow.com/share/曲：淮古遗殇.html</id>
+    <published>2016-06-18T16:28:29.000Z</published>
+    <updated>2016-09-08T06:13:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>无意间听到，而后看到名字，想起了些什么</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=32743520&auto=0&height=66"></iframe>
+
+<p>评论里面都是文人墨客，俗人只能搬运点文字过来聊表心境</p>
+<p>毕竟是“淮古遗殇”</p>
+<blockquote>
+<p>淮左名都，竹西佳处，解鞍少驻初程。过春风十里。尽荠麦青青。自胡马窥江去后，废池乔木，犹厌言兵。渐黄昏，清角吹寒。都在空城。 杜郎俊赏，算而今、重到须惊。纵豆蔻词工，青楼梦好，难赋深情。二十四桥仍在，波心荡、冷月无声。念桥边红药，年年知为谁生。</p>
+</blockquote>
+<a id="more"></a>
+<p>还有</p>
+<blockquote>
+<p>铮铮沉沉，端得是个尘埃落定，千万浮华过眼，留待后人评。</p>
+</blockquote>
+<p>还有</p>
+<blockquote>
+<p>溟溟漠漠 浩浩漫漫 不见离人 不知如往</p>
+</blockquote>
+<p>……</p>
+<p>……</p>
+<p>……</p>
+<hr>
+<p>也听许多日式和风古曲，终以为华夏文化比和风文化多了一分旷达与大气。或许只是因为浅薄的知识面里，只有那么几首课本上过往汉人的诗，而没有大和民族的痕迹吧。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;无意间听到，而后看到名字，想起了些什么&lt;/p&gt;
+&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=330 height=86 src=&quot;http://music.163.com/outchain/player?type=2&amp;id=32743520&amp;auto=0&amp;height=66&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;评论里面都是文人墨客，俗人只能搬运点文字过来聊表心境&lt;/p&gt;
+&lt;p&gt;毕竟是“淮古遗殇”&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;淮左名都，竹西佳处，解鞍少驻初程。过春风十里。尽荠麦青青。自胡马窥江去后，废池乔木，犹厌言兵。渐黄昏，清角吹寒。都在空城。 杜郎俊赏，算而今、重到须惊。纵豆蔻词工，青楼梦好，难赋深情。二十四桥仍在，波心荡、冷月无声。念桥边红药，年年知为谁生。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="分享" scheme="//ideadsnow.com/categories/share/"/>
+    
+    
+      <category term="曲" scheme="//ideadsnow.com/tags/%E6%9B%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>事。</title>
+    <link href="//ideadsnow.com/life/%E4%BA%8B%E3%80%82.html"/>
+    <id>//ideadsnow.com/life/事。.html</id>
+    <published>2016-05-25T19:11:45.000Z</published>
+    <updated>2016-09-08T06:13:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>十九岁生日的时候写道</p>
+<blockquote>
+<p>想想这快二十年经历挺丰富，三教九流低俗高雅文艺粗俗的东西都懂也都会，从这个角度来说，是很有意义了吧。有很长一段时间都被人说这人超脱物外要修道出家，还有一段时间被人说这人内敛死板早晚被骗，现在就是一笑点低的工作狂。混合沉淀的人格真是难以理解。</p>
+</blockquote>
+<p>二十岁还有一个月的时候又转了一次这段。</p>
+<p>如今看到它，脑海中想到的竟然是一些在曾经的路上看到的可怜人。</p>
+<p>很小的时候在老家，村子里有个疯子，吃着路边的垃圾，穿着已经破烂得无法形容的大衣，四处游荡。过了一两年再回老家的时候，那个疯子已经不见了，有人说他死了，就死在某处一个废弃的破房子里面。</p>
+<p>上学的时候小镇上也有个一年四季穿着军大衣的中年男子，也捡垃圾吃，看起来精神好似是正常的。</p>
+<a id="more"></a>
+<p>每次坐车经过高速公路时，总会被公路两旁的荒山上偶尔出现的一两户人家吸引，总是在想他们是怎么生活的，周围连个水井都看不到。</p>
+<p>还有经常在城市中看到的摆摊的小贩，有年纪很大的老爷爷老奶奶，还有背着小宝宝的中年妇女，从他们脸上总是看不到太多轻松的笑容，也许是被生活的重担压得太久了吧。</p>
+<p>还有在山村里看到的那些脸和衣服都不怎么干净的农村娃，和城市的孩子完全不一样的面貌，无论是外形还是思想。</p>
+<p>心中总不是滋味。</p>
+<p>每次都在想我的运气比他们好太多，至少不用担心下一顿吃什么，今晚睡在哪，寒风凛冽的时候在哪里躲避。</p>
+<p>想做点什么。</p>
+<p>有了自己的收入后，从去年除夕开始，每个月都扔几百软妹币给一些公益的机构，或者直接扔给需要的个人。好像有个计划是捐给在沙漠植树防沙化的，还有个是山区孩子的每日早餐计划。扔点钱简直轻松不过，不用费心费力。</p>
+<p>不过扔的是不是真的被用在了该用的地方，我国的新闻看多了，心里总是犯嘀咕。</p>
+<p>上个月朋友圈有个朋友转了个募捐文，貌似是一个学生的姐姐得了白血病，家里没钱治病。想了想问了朋友句能确定真实性吗，朋友回复说主人公是他女朋友学校的一个学长。没有多想就按照文中的收款信息，用某宝转了一百软妹币给他，顺便带了句祝愿。然而连个水花都没有。那人连句“谢谢”都没有回复。即使不是为了谢，也觉得心里不是滋味。把钱扔给了一个没有礼貌没有感恩的家伙，有点令人反胃。甚至开始怀疑我是不是上当了，唉。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;十九岁生日的时候写道&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;想想这快二十年经历挺丰富，三教九流低俗高雅文艺粗俗的东西都懂也都会，从这个角度来说，是很有意义了吧。有很长一段时间都被人说这人超脱物外要修道出家，还有一段时间被人说这人内敛死板早晚被骗，现在就是一笑点低的工作狂。混合沉淀的人格真是难以理解。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;二十岁还有一个月的时候又转了一次这段。&lt;/p&gt;
+&lt;p&gt;如今看到它，脑海中想到的竟然是一些在曾经的路上看到的可怜人。&lt;/p&gt;
+&lt;p&gt;很小的时候在老家，村子里有个疯子，吃着路边的垃圾，穿着已经破烂得无法形容的大衣，四处游荡。过了一两年再回老家的时候，那个疯子已经不见了，有人说他死了，就死在某处一个废弃的破房子里面。&lt;/p&gt;
+&lt;p&gt;上学的时候小镇上也有个一年四季穿着军大衣的中年男子，也捡垃圾吃，看起来精神好似是正常的。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+    
+    
+      <category term="自己瞎扯淡" scheme="//ideadsnow.com/tags/too-young-too-simple/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>花枝春野</title>
+    <link href="//ideadsnow.com/life/%E8%8A%B1%E6%9E%9D%E6%98%A5%E9%87%8E.html"/>
+    <id>//ideadsnow.com/life/花枝春野.html</id>
+    <published>2016-05-20T18:59:15.000Z</published>
+    <updated>2016-09-08T06:13:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>第一次听不才的这首歌觉得很合心境，平静不喧闹中满满的美好。</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=28568227&auto=0&height=66"></iframe>
+
+<p>后来看到词作商连发出的《小朋友们的花枝春野》，小团子们的童声更加为这首歌平添了几分简单纯净的美。</p>
+<p><a href="http://5sing.kugou.com/m/Song/Detail/fc/15121553" target="_blank" rel="external">小团子们的版本</a></p>
+<p>商连的创灵：</p>
+<blockquote>
+<p>每周六我有一个公益的小国学堂，从大一开始教，现在研究生都要毕业了呢，今天突然发现之前的小团子长成了小少年和小少女，当然又有新的小团子加进来了~看花的季节要唱花枝春野，最近几节课快结束的时候都有合唱，他们很爱这首啊哈哈，听一段就能跟着唱了。录一小段传上来，可爱可爱的~</p>
+</blockquote>
+<a id="more"></a>
+<p>因为喜欢所以把这首歌分享给了小朋友，没想到小朋友几天后竟然翻唱了一下，听来有点惊喜。</p>
+<p><a href="http://acsing.kugou.com/sing7/web/static/mobile/KGeShare/views/index.html?sign=afb292685f2a022465ca55ed5d2e4c69&amp;data=MTc0MjkxNjQ0&amp;channelId=0" target="_blank" rel="external">小朋友的翻唱版</a></p>
+<p>看到网易云音乐里不才这首歌下的一条评论有点感触</p>
+<blockquote>
+<p>每次听不才的歌，都让我有种错觉。仿佛我可以不必逼着自己去融入一个“群体”。即使我知道这不是孤独，只是习惯使然。</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;第一次听不才的这首歌觉得很合心境，平静不喧闹中满满的美好。&lt;/p&gt;
+&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=330 height=86 src=&quot;http://music.163.com/outchain/player?type=2&amp;id=28568227&amp;auto=0&amp;height=66&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;后来看到词作商连发出的《小朋友们的花枝春野》，小团子们的童声更加为这首歌平添了几分简单纯净的美。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://5sing.kugou.com/m/Song/Detail/fc/15121553&quot;&gt;小团子们的版本&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;商连的创灵：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;每周六我有一个公益的小国学堂，从大一开始教，现在研究生都要毕业了呢，今天突然发现之前的小团子长成了小少年和小少女，当然又有新的小团子加进来了~看花的季节要唱花枝春野，最近几节课快结束的时候都有合唱，他们很爱这首啊哈哈，听一段就能跟着唱了。录一小段传上来，可爱可爱的~&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+    
+    
+      <category term="自己瞎扯淡" scheme="//ideadsnow.com/tags/too-young-too-simple/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>来到你的城市【武汉】</title>
+    <link href="//ideadsnow.com/life/%E6%9D%A5%E5%88%B0%E4%BD%A0%E7%9A%84%E5%9F%8E%E5%B8%82%E3%80%90%E6%AD%A6%E6%B1%89%E3%80%91.html"/>
+    <id>//ideadsnow.com/life/来到你的城市【武汉】.html</id>
+    <published>2016-05-13T15:49:30.000Z</published>
+    <updated>2016-09-08T06:13:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>2016.05.10 第一天<br>广州南-&gt;武汉火车站  四个半小时</p>
+<p>活动范围：武汉火车站，中南路附近</p>
+<p>初见武汉的印象与从过往通过各种媒介了解后预想的差不多，一个二线城市，市容市貌无甚特色，吵闹嘈杂，卫生条件和见过的北方城市一样不能使用褒义词，服务人员素质一般。</p>
+<p>貌似昨天吃错了东西，腹泻持续中。晚饭去吃了小龙虾，又和预想的一样肉少味重，不甚合口味且腹痛于是吃了几口就看着对面两位吃完了它们。倒是武昌鱼很是不错。</p>
+<p>毫无惊喜，全在意料之中</p>
+<hr>
+<p>2016.05.11 第二天<br>黄鹤楼-&gt;武汉长江大桥（上马路下铁轨那个）-&gt;华中科技大学</p>
+<p>黄鹤楼其实也和去过的“古代”楼台一样，已经是现代产品，上面竟然还有电梯。登高望远被眼前高高低低的<a id="more"></a>楼房遮挡视线赏江不能尽兴。</p>
+<p>唯一有点感触的是千古以来无数名家都在此处题过诗词，尤其喜欢崔颢、岳飞的。想想黄鹤楼上的诗词与雷峰塔上的完全不是一个风格，前者雄浑大气，作者往往表达忧国忧民，后者则是婉约抒情。个人还是喜欢前者。</p>
+<p>崔颢的</p>
+<blockquote>
+<p>登黄鹤楼<br>昔人已乘黄鹤去， 此地空余黄鹤楼。<br>黄鹤一去不复返， 白云千载空悠悠。<br>晴川历历汉阳树， 芳草萋萋鹦鹉洲。<br>日暮乡关何处是？ 烟波江上使人愁。</p>
+</blockquote>
+<p>岳飞的</p>
+<blockquote>
+<p>满江红·登黄鹤楼有感<br>遥望中原，荒烟外、许多城郭。<br>想当年、花遮柳护，凤楼龙阁。<br>万岁山前珠翠绕，蓬壶殿里笙歌作。<br>到而今、铁骑满郊畿，风尘恶。<br>兵安在？膏锋锷。民安在？填沟壑。<br>叹江山如故，千村寥落。<br>何日请缨提锐旅，一鞭直渡清河洛。<br>却归来、再续汉阳游，骑黄鹤。</p>
+</blockquote>
+<p>离开黄鹤楼后去一家蔡林记解决了午饭，热干面，酸萝卜和醋为辅料，味道不错，不过店内不开空调还是有点热得烦躁。</p>
+<p>武汉长江大桥，曾经多次坐火车路过武汉时眺望过，今日终于得以近观。不懂桥梁建筑，无法深刻理解建这座桥的技术难度，只觉得外观雄伟，上跑汽车下跑火车的思路也实在新奇。建筑风格有着浓浓的共产中国or苏联风，绿色墙漆漆一半，留白上一半，还有地板和门，与几十年前的建筑风格一致。<br>不过说实话，从外观上来说，旁边那座西方人建的红色铁桥更漂亮。</p>
+<p>终于达成了许了几年的一个诺言，等离开 CST  就来武汉看小朋友。鱼不错，以及，妹夫不错。</p>
+<p>在情侣的带领下逛了光谷的世界城，拍了几张很漂亮的照片。光谷这地方，比昨天的中南路和早上去的户部巷干净得多，市容变化得像两个城市一样。如果武汉能好好整整市容，光谷这样的区域扩大化，说不定能跻身一线？（瞎扯中）</p>
+<p>又在情侣的带领下夜游华科校园。大，比小广大校区至少大八九倍。校区规划真是省心（懒），横着画一堆平行线，竖着再画一堆平行线，线就是路，路中间的长方形就盖房子，搞定。树真是多，高耸参天的梧桐树长满了分布在所有平行线路的两边。另外华科有夸张的 35 个食堂……</p>
+<p>美丽的星光隧道，美丽的林荫铁道，充满学术气息的华科。</p>
+<p>当然，重要的是完成了一个诺言，毕竟这几年放在心上的事实在没几件。小朋友萌萌哒。</p>
+<hr>
+<p>2016.05.12 第三天<br>华中科技大学-&gt;武汉大学-&gt;东湖</p>
+<p>昨天夜游华科，除了觉得大，以及震撼于遍布所有校园主干道两旁参天的梧桐树外，就没有什么特别的印象了。起床又去了一次。听小朋友说华科有八十万颗树，被称为“森林学校”（已经记不清了呵呵哒反正大概就这意思）。参天大树长满全校，林荫中各种各样的鸟鸣，还有零星的读书的学子。</p>
+<p>出了华科的南三门，上了辆公交，半小时后，武汉大学。人家学校里面有座山！珞珈山。山上有很多民国建筑，老图书馆，老文学院大楼（现在是数学与统计学院大楼），老外文学院，各种老，各种历史，各种沧桑，各种底蕴。老楼的外表大概是校方有意为之，不去过多修缮，野草长满了开裂的墙体，窗户的玻璃脏的脏，碎的碎，仿佛被弃置了许多年。在如此外表下，老楼的内部很现代化，路过老文学院（现在的数学与统计学院）的时候二楼有人在讲课。</p>
+<p>要吐槽的是，在华科有种没有自行车你丫上什么大学的感觉，而到了武大，就变成了你丫没有汽车上什么大学。也许是走的路线有问题，一路走上了珞珈山，经过前面提到的老外文楼、老图书馆、老文学院，都在山上啊擦，相距还略远，每座楼都是孤零零的在那里。和在广州爬白云山一样的感觉。当时跟同行的人吐槽，“要让我选我一定选华科不选武大，武大上个课累成狗还要爬山”。然而并不会有这么纠结的事情让我选择呵呵哒。旧时的武大教员和学生身体真是好，嗯。</p>
+<p>无论华科或武大，均是遍地的国家重点实验室或者其他的看到头衔就知道实力的场所。多了，反而很低调。路边看到的不起眼的“小破楼”，走近看到门口挂着的破旧的牌子上的文字，每次都想鞠个躬。给这个牌子，这栋楼，这里的人，这里的辉煌。到处都是这种小楼。</p>
+<p>历史，积淀，底蕴，文化，以及从这里曾经走出的人物，现在还在这里的人才。这特么才是我想象中大学的样子。比特么商业娱乐氛围远强于教学氛围的我校不知高到哪里去了，呵呵哒。</p>
+<p>来时正赶上小朋友忙着考试的时候，小朋友没空陪游。昨天一起吃了顿饭也没说几句话，总觉有些不舍之类的，所以带了点小礼物又跑去找小朋友。（住的地方在华科南大门，去小朋友宿舍那边竟然打车花了快十块钱哦尼玛，学校太大的坏处）。竟然被小朋友骑电动车带着又逛了一遍校园，一路狂风，一路梧桐树的飞絮，即便小朋友买了两个口罩来用，鼻炎患者依然涕泪横流难受了一晚上哎卧槽。（鼻炎患者不能读华科！！！）。</p>
+<p>刚到武汉的时候，在武汉站门口看到广告语“大江大湖大武汉”，长江确实是大江，汉江也确实是大江，东湖也真是大湖。这两天总能在武汉街头看到“荆楚文化”相关的字眼，这段历史不熟悉，回头补补。</p>
+<p>武昌鱼很不错，连续吃了几顿饭都点了这玩意。热干面也不错。小龙虾（武汉叫大虾）就有点鸡肋了。还有啥想不起了。总的来说，这几天在武汉吃的都很合口味。要是武汉也有好吃的小笼包就好了（手动再见.gif）。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;2016.05.10 第一天&lt;br&gt;广州南-&amp;gt;武汉火车站  四个半小时&lt;/p&gt;
+&lt;p&gt;活动范围：武汉火车站，中南路附近&lt;/p&gt;
+&lt;p&gt;初见武汉的印象与从过往通过各种媒介了解后预想的差不多，一个二线城市，市容市貌无甚特色，吵闹嘈杂，卫生条件和见过的北方城市一样不能使用褒义词，服务人员素质一般。&lt;/p&gt;
+&lt;p&gt;貌似昨天吃错了东西，腹泻持续中。晚饭去吃了小龙虾，又和预想的一样肉少味重，不甚合口味且腹痛于是吃了几口就看着对面两位吃完了它们。倒是武昌鱼很是不错。&lt;/p&gt;
+&lt;p&gt;毫无惊喜，全在意料之中&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;2016.05.11 第二天&lt;br&gt;黄鹤楼-&amp;gt;武汉长江大桥（上马路下铁轨那个）-&amp;gt;华中科技大学&lt;/p&gt;
+&lt;p&gt;黄鹤楼其实也和去过的“古代”楼台一样，已经是现代产品，上面竟然还有电梯。登高望远被眼前高高低低的
+    
+    </summary>
+    
+      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+    
+    
+      <category term="自己瞎扯淡" scheme="//ideadsnow.com/tags/too-young-too-simple/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>突发奇想：想自己搭个google镜像</title>
+    <link href="//ideadsnow.com/learn/%E7%AA%81%E5%8F%91%E5%A5%87%E6%83%B3%EF%BC%9A%E6%83%B3%E8%87%AA%E5%B7%B1%E6%90%AD%E4%B8%AAgoogle%E9%95%9C%E5%83%8F.html"/>
+    <id>//ideadsnow.com/learn/突发奇想：想自己搭个google镜像.html</id>
+    <published>2016-05-06T17:38:23.000Z</published>
+    <updated>2016-09-08T06:13:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>写毕业论文常常需要用到 Google，然而在宿舍并没有非常方便的科学上网的环境，用网上其他人的镜像总是三天两头抽风，有了自己搞一个镜像的想法。</p>
+<p>搜索了一圈发现貌似大多数人都是用 nginx 反向代理来实现。不过我已经把域名给博客用了，如果还要拿来做 Google 镜像的话自然 80 端口要让给 nginx，那我的博客怎么玩？</p>
+<p>又去搜索了一圈发现自己蠢了，都反向代理 Google 了，为毛不能反向代理博客服务%&gt;_&lt;%呵呵呵。</p>
+<p>初步想的方案是，80 端口由 nginx 监听，根据不同二级域名（www.ideadsnow.com 和 go.ideadsnow.com）进行路由，如果是 www 的话就丢给博客进程去玩，如果是 go 的话当然就是用来做 Google 镜像啦。</p>
+<hr>
+<p>没有了解过 nginx，也没了解过反向代理，以上纯属看了一点点资料后想到的方案，也许没有可行性，也许再多了解点后会发现事情根本不是我想的那个样子。管他呢，先放在这，有空再搞，第六感告诉我这是件很简单的事。</p>
+<p>另外实现方案没完全想清楚，SSL 证书倒是申请了，我还真是不喜欢做正事。呵呵哒。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;写毕业论文常常需要用到 Google，然而在宿舍并没有非常方便的科学上网的环境，用网上其他人的镜像总是三天两头抽风，有了自己搞一个镜像的想法。&lt;/p&gt;
+&lt;p&gt;搜索了一圈发现貌似大多数人都是用 nginx 反向代理来实现。不过我已经把域名给博客用了，如果还要拿来做 Googl
+    
+    </summary>
+    
+      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+    
+    
+      <category term="Google" scheme="//ideadsnow.com/tags/Google/"/>
+    
+      <category term="反向代理" scheme="//ideadsnow.com/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>毕业照？当然也是可以用来中二的</title>
+    <link href="//ideadsnow.com/life/%E6%AF%95%E4%B8%9A%E7%85%A7%EF%BC%9F%E5%BD%93%E7%84%B6%E4%B9%9F%E6%98%AF%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E4%B8%AD%E4%BA%8C%E7%9A%84.html"/>
+    <id>//ideadsnow.com/life/毕业照？当然也是可以用来中二的.html</id>
+    <published>2016-05-05T18:35:37.000Z</published>
+    <updated>2016-09-08T06:13:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>自打出生到现在快二十二年了，能自己决定自己的事的机会实在是不多</p>
+<p>很多想法，或者说处事的原则却在随着年龄增长慢慢固定下来<br>比如——</p>
+<blockquote>
+<p>在不影响他人的情况下，自己想怎么活就怎么活</p>
+</blockquote>
+<p>这个想法最初应该是来自于仙剑四中很有名的那句台词</p>
+<blockquote>
+<p>“生尽欢，死无憾”</p>
+</blockquote>
+<p>如果能按照自己的心意过一秒，也好过一生被动地活着</p>
+<a id="more"></a>
+<p>这种想法自那时就在脑子里生出了萌芽。后来接触的美国文化，尤其是接触 IT 圈的文化、硅谷文化多了，更加排斥国内环境从小带给我们的“集体主义”，更加喜欢美国的“个人主义”。这两者本没有什么对错之分，只不过更加认为后者更贴近人性，更加尊重个体，更加让个体能够追寻这个个体生命的意义<br>在本国的文化中，”个人主义”往往是个贬义词，它总是伴随着自私、不与他人合作、自大、为获私利不择手段等等关键词出现<br>而我所以为的“个人主义”，是我们每个人，都是一个有尊严，有感情，有理想，有优点，有缺点，有一切人所与生俱来的东西的<strong>独立</strong>个体，每个人都有区别于其他几十亿人的特征，有自己的和其他几十亿人完全不同的生命。无论这个人在其他人眼中是美是丑，是好是坏，他/她都是一个值得尊重的举世无双的个体<br>如同在 CST 的时候老金说的：</p>
+<blockquote>
+<p>我们不尊重你是这个集体中的一份子，我们只尊重你以一个独立的个体的身份存在于我们的集体中</p>
+</blockquote>
+<p>看到过一句话，貌似印象中是林肯还是谁说的，大意是这样的：</p>
+<blockquote>
+<p>当每个个体的利益得到充分满足的时候，这个集体的力量才是真正的最大化</p>
+</blockquote>
+<p>前段时间看到个新闻，是说有个老共产党员的儿女，家境落魄，却从未去找政府部门救济，记者采访时他们回答的大意是，父亲说过再难的时候也不能给国家添麻烦。当时就想，政府求取救济是公民权利，政府救济民众是政府义务，这和给不给国家添麻烦一点关系都没有。在对这位父亲产生敬仰之情之余，理性想来这种回答显得十分荒谬，又十分令人感慨和悲伤。这件事又体现了一次我们的国家几十年所传承下来的文化的一些奇怪的地方，缺少契约精神，缺少法制意识，缺少权利和义务的意识。谈起事来，感情先行，奉献精神先行，逻辑理性放在后面。当然这样在道德上是好的，不过这是否是一个现代化法制社会该有的现象？还是该考虑考虑的</p>
+<p>身边人，身边事。我们这个年龄的人，尤其是女性，大都会被长辈催学业、催工作、催婚事，等到一切都催完了，又到了催生育的时候，等到有了孩子，又到了循环催下一代的时候。好像所有人，都认为我们就应该这样活下去，却好像从没有人问过为什么</p>
+<p>出现这些看似并不相关，在感情上崇高、伟大的，但在逻辑上却显得怪异的事情的原因，还是我们太过于喜欢“集体主义”了。“集体主义”的一个特征就是奉献，为集体奉献，其实就是为他人奉献，更夸张地一点来说就是为他人而活。许许多多这样奉献一生的人，被我们奉为伟人。但与此同时，许许多多为自己而活，做自己喜欢的事，总会被人说成“活在自己的世界里”，这种说法多少有些贬义</p>
+<p>有多少人，在夜深人静的时候，曾经真诚地问过自己，我是我想做的那个我吗？如果不是，为什么不是？</p>
+<p>长辈们辛勤努力，使我们衣食无忧，却大都始终没有教过我们如何生活，或许他们自己也还没想清楚。父辈的那一代，依然是没有“经济基础”，就难以获得“上层建筑”的一代。而我们这一代，虽还有很多贫困地区的孩子没有这样的机会，可我们中的大多数还是有机会去考虑考虑我们的精神世界的</p>
+<p>所以：<br>我，喜欢什么？<br>我，不喜欢什么？<br>我，想去做什么？<br>我，不想去做什么？<br>我，现在的心情如何？<br>我，未来的路怎么走？</p>
+<p>我们中的每一个我，都能够有机会去问自己这些问题，而且能凭自己的意愿书写这些问题的答案的时候，我们这个集体才会是一个真正强大的集体吧</p>
+<hr>
+<p>毕业照没有去参加，总有朋友问为什么，回答总以敷衍了之。一者因为两次分班和个人圈子的原因对这个班级没有什么感情（如果可以再去拍一次高中毕业照就好了，挺怀念的）；二者觉得自己的水平达不到心中对穿那一身学士服的人所应该具有的学识的高度，偏执想法，个人选择，不会后悔；三者实属不喜热闹，不喜拍照，只想做一个路过世界的旅行家，而不想成为风景里的主角</p>
+<p>So，<a href="http://5sing.kugou.com/fc/14538594.html###" target="_blank" rel="external">路过世界的旅行家</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;自打出生到现在快二十二年了，能自己决定自己的事的机会实在是不多&lt;/p&gt;
+&lt;p&gt;很多想法，或者说处事的原则却在随着年龄增长慢慢固定下来&lt;br&gt;比如——&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在不影响他人的情况下，自己想怎么活就怎么活&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这个想法最初应该是来自于仙剑四中很有名的那句台词&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“生尽欢，死无憾”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果能按照自己的心意过一秒，也好过一生被动地活着&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+    
+    
+      <category term="自己瞎扯淡" scheme="//ideadsnow.com/tags/too-young-too-simple/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTP 基础之 Cookie</title>
+    <link href="//ideadsnow.com/learn/http-%E5%9F%BA%E7%A1%80%E4%B9%8B-cookie.html"/>
+    <id>//ideadsnow.com/learn/http-基础之-cookie.html</id>
+    <published>2016-04-21T02:16:16.000Z</published>
+    <updated>2016-09-08T06:13:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>一般来说，了解一样东西的流程是这样的</p>
+<ul>
+<li>是什么</li>
+<li>长啥样</li>
+<li>有啥用</li>
+<li>怎么用</li>
+<li>优点</li>
+<li>缺点</li>
+</ul>
+<p>按照这个逻辑，概览如下</p>
+<ul>
+<li>是什么 -&gt; Cookie（复数形态 Cookies ），中文名称为“小型文本文件”或“小甜饼”</li>
+<li>长啥样 -&gt; 打开你的浏览器，访问 <a href="https://www.google.com.hk/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#newwindow=1&amp;safe=strict&amp;q=cookie" target="_blank" rel="external">谷爹</a>，在 console 中执行 <code>document.cookie</code> :) 就是它！</li>
+<li>有啥用 -&gt; 网站用它在客户端（浏览器）存储少量信息</li>
+<li>怎么用 -&gt; 通过 HTTP 请求头附带 or 前端 js 操作</li>
+<li>优点 -&gt; 简单、全浏览器支持</li>
+<li>缺点 -&gt; 能存的数据非常少；明文传输不安全；每次 HTTP 请求都会发送，增大了流量；且这玩意是纯文本字符串，js 操作非常不便</li>
+</ul>
+<a id="more"></a>
+<h1 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h1><p>引自<a href="https://zh.wikipedia.org/zh-cn/Cookie" target="_blank" rel="external">维基百科</a></p>
+<blockquote>
+<p>Cookie（复数形态 Cookies ），中文名称为“小型文本文件”或“小甜饼”，指某些网站为了辨别用户身份而储存在用户本地终端（Client Side）上的数据（通常经过加密）。定义于RFC2109。是网景公司的前雇员卢·蒙特利在1993年3月的发明。</p>
+</blockquote>
+<h2 id="为什么会出现-Cookie-这东西（用途）？"><a href="#为什么会出现-Cookie-这东西（用途）？" class="headerlink" title="为什么会出现 Cookie 这东西（用途）？"></a>为什么会出现 Cookie 这东西（用途）？</h2><p>试想以下情形</p>
+<ol>
+<li>登陆某网站时，每次都需要输入用户名、密码，严重影响用户体验，怎么实现类似“下次自动登陆”的功能？</li>
+<li>某电商网站买东西，在购物车中加入了一样商品，再去其它商品页面时发现购物车内还能够显示前一件商品，怎么做到的？</li>
+</ol>
+<p>由于 HTTP 协议是无状态的，服务器并不知道用户上一次做了什么，所以上述两个需求的实现只能通过额外手段，即存储信息的方式来实现，于是我们的 Cookie 就闪耀登场了</p>
+<p>使用 Cookie 解决以上问题</p>
+<ol>
+<li>用户第一次登陆时，服务器返回一个登陆凭证（一般需加密且设置过期时间）给客户端，客户端保存该 Cookie 凭证，以后访问这个网站时，直接把该凭证发给服务器，若凭证有效，即通过验证进入网站</li>
+<li>将商品加入购物车时，服务器在向用户发送网页时候也会发送一段保存用户已选购商品的 Cookie 给客户端，当用户浏览其他商品页面的时候，客户端把 Cookie 又发给服务器，这样服务器就知道用户上次选购了什么商品，实现了购物车功能</li>
+</ol>
+<h2 id="Cookie-的分类"><a href="#Cookie-的分类" class="headerlink" title="Cookie 的分类"></a>Cookie 的分类</h2><p>按照 Cookie 的存储位置</p>
+<ul>
+<li>内存 Cookie -&gt; 由浏览器维护，关闭浏览器即消失</li>
+<li>硬盘 Cookie -&gt; 存储在硬盘文件中，只有过期或用户手动清理时才会被删除</li>
+</ul>
+<p>所以按照存储时间分为</p>
+<ul>
+<li>非持久 Cookie</li>
+<li>持久 Cookie</li>
+</ul>
+<h2 id="Cookie-的属性"><a href="#Cookie-的属性" class="headerlink" title="Cookie 的属性"></a>Cookie 的属性</h2><p>首先，Cookie 作为存储数据的一种方案，最重要的当然是 <code>name</code> 和 <code>value</code>，而在一些比较复杂的场景中，只有这两个属性就远远不够了</p>
+<p><strong>expires/max-age</strong></p>
+<p>指定 Cookie 的生存期，默认情况下 Cookie 是暂时存在的，关闭浏览器即失效，即值为 <code>session</code>。如果想让 Cookie 长期存在，则需要指定 expire 属性的值，即 未来的一个用毫秒数表示的过期日期或时间点<br>而 expire 属性现在已被 max-age 属性代替，max-age 用秒来设置 Cookie 的生存期</p>
+<p>如果 max-age 为正数，则表示该 Cookie 会在 max-age 秒后失效。浏览器会将 max-age 为正数的 Cookie 持久化，写到对应的 Cookie 文件中。无论用户是否关闭浏览器，只要还未过期，则一直存在</p>
+<p>如果 max-age 为负数，则表示该 Cookie 仅在本浏览器窗口和本窗口打开得子窗口有效，关闭窗口即失效, Cookie 默认的 max-age 值为 -1</p>
+<p>如果 max-age 为 0，则表示删除 Cookie，由于 Cookie 机制没有提供删除 Cookie 的方法，因此通过设置该值实现即时失效删除 Cookie 的效果，浏览器会将 max-age 为 0 的 Cookie 删除</p>
+<p><strong>domain</strong></p>
+<p>domain 属性可以让多个 web 服务器共享 Cookie，默认是创建 Cookie 的网页所在服务器的主机名，不能将 Cookie 的 domain 设置成服务器所在的域之外的域</p>
+<p><strong>path</strong></p>
+<p>指定和 Cookie 关联的网页，默认值为 / ，即与创建该 Cookie 的网页同目录和该目录子目录下的网页关联</p>
+<p><strong>secure</strong></p>
+<p>一个 Bool 值，指定是否以安全模式传输。默认是不安全的。当为 True 时，该 Cookie 只有以 HTTPS 连接时才会传输</p>
+<p><strong>HttpOnly</strong></p>
+<p>如果设置了 HttpOnly 属性，那么通过程序（js 或 Applet等）将无法读取 Cookie 信息</p>
+<h2 id="Cookie-缺点"><a href="#Cookie-缺点" class="headerlink" title="Cookie 缺点"></a>Cookie 缺点</h2><ol>
+<li>Cookie 的大小被限制在 4KB 内，能够存储的信息非常少</li>
+<li>如果不用 HTTPS 的话 Cookie 的信息是明文传输，非常不安全</li>
+<li>每次 客户端-服务端 间的通信，都会发送、接收 Cookie，增大了通信的流量负担</li>
+<li>Cookie 再发浏览器是以纯文本的方式保存，通过 js 对其进行操作时非常不便</li>
+<li>有的站点会基于安全考虑禁用 Cookie</li>
+</ol>
+<h2 id="替代、优化方案"><a href="#替代、优化方案" class="headerlink" title="替代、优化方案"></a>替代、优化方案</h2><p>参见 <a href="http://www.css88.com/archives/3717" target="_blank" rel="external">JavaScript本地存储实践（html5的localStorage和ie的userData）</a></p>
+<p>另外可以 Google “html5 localStorage” 相关资料，不考虑老浏览器的话，这可能是现在最好的方案了</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一般来说，了解一样东西的流程是这样的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;是什么&lt;/li&gt;
+&lt;li&gt;长啥样&lt;/li&gt;
+&lt;li&gt;有啥用&lt;/li&gt;
+&lt;li&gt;怎么用&lt;/li&gt;
+&lt;li&gt;优点&lt;/li&gt;
+&lt;li&gt;缺点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;按照这个逻辑，概览如下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;是什么 -&amp;gt; Cookie（复数形态 Cookies ），中文名称为“小型文本文件”或“小甜饼”&lt;/li&gt;
+&lt;li&gt;长啥样 -&amp;gt; 打开你的浏览器，访问 &lt;a href=&quot;https://www.google.com.hk/webhp?sourceid=chrome-instant&amp;amp;ion=1&amp;amp;espv=2&amp;amp;ie=UTF-8#newwindow=1&amp;amp;safe=strict&amp;amp;q=cookie&quot;&gt;谷爹&lt;/a&gt;，在 console 中执行 &lt;code&gt;document.cookie&lt;/code&gt; :) 就是它！&lt;/li&gt;
+&lt;li&gt;有啥用 -&amp;gt; 网站用它在客户端（浏览器）存储少量信息&lt;/li&gt;
+&lt;li&gt;怎么用 -&amp;gt; 通过 HTTP 请求头附带 or 前端 js 操作&lt;/li&gt;
+&lt;li&gt;优点 -&amp;gt; 简单、全浏览器支持&lt;/li&gt;
+&lt;li&gt;缺点 -&amp;gt; 能存的数据非常少；明文传输不安全；每次 HTTP 请求都会发送，增大了流量；且这玩意是纯文本字符串，js 操作非常不便&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+    
+    
+      <category term="web" scheme="//ideadsnow.com/tags/web/"/>
+    
+      <category term="http" scheme="//ideadsnow.com/tags/http/"/>
+    
+      <category term="cookie" scheme="//ideadsnow.com/tags/cookie/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 环境变量配置</title>
+    <link href="//ideadsnow.com/learn/linux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE.html"/>
+    <id>//ideadsnow.com/learn/linux-环境变量配置.html</id>
+    <published>2016-03-30T10:01:42.000Z</published>
+    <updated>2016-09-08T06:13:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>以要添加 <code>~</code> 为例</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p><code>export PATH=$PATH:~</code></p>
+<p>优点：不用重新加载配置文件<br>缺点：临时使用，只在当前终端中有效</p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>首先修改 <code>~/</code>目录下的 <code>.bashrc</code> 配置文件，添加一行 <code>export PATH=$PATH:~</code><br>然后 <code>source .bashrc</code> 重新加载该配置文件，使其生效</p>
+<p>优点：对当前用户永久生效，比较常用</p>
+<h3 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h3><p>直接修改全局配置文件 <code>/etc/profile</code>,方法同上</p>
+<p>优点：对所有用户均永久起效<br>缺点：会影响到所有用户，一般由 <code>root</code> 用户管理</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;以要添加 &lt;code&gt;~&lt;/code&gt; 为例&lt;/p&gt;
+&lt;h3 id=&quot;方法一&quot;&gt;&lt;a href=&quot;#方法一&quot; class=&quot;headerlink&quot; title=&quot;方法一&quot;&gt;&lt;/a&gt;方法一&lt;/h3&gt;&lt;p&gt;&lt;code&gt;export PATH=$PATH:~&lt;/code&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+    
+    
+      <category term="linux" scheme="//ideadsnow.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>有关旅途</title>
+    <link href="//ideadsnow.com/life/%E6%9C%89%E5%85%B3%E6%97%85%E9%80%94.html"/>
+    <id>//ideadsnow.com/life/有关旅途.html</id>
+    <published>2016-02-26T06:31:53.000Z</published>
+    <updated>2016-09-08T09:06:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>我走过很多城市，却都只有一面之缘</p>
+</blockquote>
+<div align="center" style="margin: 10px 0"><img src="http://ww1.sinaimg.cn/bmiddle/5ef69166jw1f1c0b94t7jj20qo0zk4i4.jpg" alt="抬头看风景"></div>
+
+<p>看到里少的这条微博，有些感慨。自己也走过许多地方，不也是“一面之缘”？</p>
+<p>没回家前一直心心念念着想去十几年前读过的小学看看，印象中校园很广阔，却也是一片荒芜，院墙上写着“十年树木，百年树人。”算上标点十个巨大的字；有四五排平房，最前面两排是教室，第三排是办公室，后面的好像是老师的宿舍；学校后面还有一小片树林，童年见过的树木也就那么几颗<br>教室里面没有暖气，一间教室里面只有靠近前门的地方有一个小火炉。冬天班主任会让每位同学轮岗，每天早上早早到教室，为大家生火。大部分同学都是父母陪同帮忙的，凌晨四五点，天没亮，抬头可见星星月亮，搓着被冻得通红皴裂的手和脸，劈柴，烧火。每节课一结束，所有人都冲向火炉……<br>还有印象中有次语文课刚下，老师走出房门，有同学问下节什么课，另一同学大喊：“下节数（三声）学课！”。过了几秒钟语文老师又出现在教室门口：“我刚听你们喊什么？数（三声）学课？这个字是四声同学们，应该读数（四声）学课，大家记住啊”  </p>
+<a id="more"></a>
+<p>有很多很多年没有去看过了  </p>
+<p>昨天拖着 魏bud 同学一起去重新走了趟母校，一路上沙尘阵阵，加上那一片地区已经没有什么人居住，显得格外凄凉萧条。学校早已不是当年的样子，那几排房子都改了民居，房门紧闭，只有门口一直壮硕的藏獒冲着我们吼叫。那片小树林好像也没有了  </p>
+<p>那时候没见过世面，也无暇考虑这些事，只想着上山爬树打土仗<br>后来三年级转学到了红会，比原来的那所学校条件好很多<br>再后来六年级又转学到了长征，条件又好了许多，周遭事物也繁华了许多<br>初中又转去条件更好的中学，在那里度过了我的初中，以及印象最深刻的高中<br>到了大学，一步跳出了西北去了沿海一线城市  </p>
+<p>在此期间，家庭条件也慢慢变得好起来，很小的时候父母一个月工资加起来只有一百多块钱，每天吃饭连菜都要省着吃。跟爸妈要几毛钱买零食吃也是奢侈的，一年中有一两次吧<br>可在那种条件下，在我三年级的时候，爸妈竟然破天荒地借钱买了台电脑，Win98 系统的。现在想想也是不可思议</p>
+<p>物质条件慢慢好起来后，各种机缘巧合，我出门走过了许多许多地方，发达的城市，雄伟的高山，辽阔的大海，秀美的湖泊。遇到了形形色色各行各业的人，有睡大街吃垃圾的所谓“疯子”，有拾荒的老人，有荒僻的地方独自卖菜的小孩，也有一心投入摄影心中再无其他杂念的教授，还有和我同龄却声色智慧都比我强得多的人，还有正在改变这个世界的 IT 界的大牛们</p>
+<p>家乡是个因煤而生的城镇，前几年煤炭资源慢慢枯竭，导致曾经热闹的街道越来越萧条。曾经的小学，包括小学方圆几公里的地方，都变成了真正的“鬼城”，荒无人烟</p>
+<p>二十年的时间，我经历了从贫穷到小康的生活变迁，也目睹了穷的地方到底有多穷，发达的地方到底有多发达，还亲身经历了一片地区的兴衰</p>
+<p>读过点书，那些写书的作者，各自有各自眼中的世界，许多人奉自己喜欢的作者的书为圣经。可走的路越多，见到的越多，越是只把那些书当成可有可无之物，太多路途上的感想和书中的不谋而合，也有太多的感想写书的人没想到。读那么多所谓分析人生、揭露社会的书，自己就真的看透了吗。写这些书的人，自己也真的看透了吗，看透了还会写吗。什么是看透。我们只是人，一种自认为高级的动物，人怎么会整天想看透世间万物，临驾于宇宙之上呢。如同人永远不会知道石头是否有思想，是否也在思考这些两腿行走的东西是不是愚蠢  </p>
+<blockquote>
+<p>读万卷书，不如行万里路</p>
+</blockquote>
+<p>可是问题又来了，行了万里路，皆是“一面之缘”。不同时间，不同地点，不同人物，不同心态，不同身体状况，都会让同一个人对相同的事物产生不同的看法，怎样才能正确、完整地了解一样事物而不受其他因素影响,又怎样定义“正确”、“完整”？</p>
+<hr>
+<p>到底想说些什么，头绪不清不楚，就这样吧</p>
+<embed src="http://www.xiami.com/widget/42097662_1774888620/singlePlayer.swf" type="application/x-shockwave-flash" width="257" height="33" wmode="transparent">
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;我走过很多城市，却都只有一面之缘&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div align=center style=&quot;margin: 10px 0&quot;&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/bmiddle/5ef69166jw1f1c0b94t7jj20qo0zk4i4.jpg&quot; alt=&quot;抬头看风景&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;看到里少的这条微博，有些感慨。自己也走过许多地方，不也是“一面之缘”？&lt;/p&gt;
+&lt;p&gt;没回家前一直心心念念着想去十几年前读过的小学看看，印象中校园很广阔，却也是一片荒芜，院墙上写着“十年树木，百年树人。”算上标点十个巨大的字；有四五排平房，最前面两排是教室，第三排是办公室，后面的好像是老师的宿舍；学校后面还有一小片树林，童年见过的树木也就那么几颗&lt;br&gt;教室里面没有暖气，一间教室里面只有靠近前门的地方有一个小火炉。冬天班主任会让每位同学轮岗，每天早上早早到教室，为大家生火。大部分同学都是父母陪同帮忙的，凌晨四五点，天没亮，抬头可见星星月亮，搓着被冻得通红皴裂的手和脸，劈柴，烧火。每节课一结束，所有人都冲向火炉……&lt;br&gt;还有印象中有次语文课刚下，老师走出房门，有同学问下节什么课，另一同学大喊：“下节数（三声）学课！”。过了几秒钟语文老师又出现在教室门口：“我刚听你们喊什么？数（三声）学课？这个字是四声同学们，应该读数（四声）学课，大家记住啊”  &lt;/p&gt;
+    
+    </summary>
+    
+      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+    
+    
+      <category term="自己瞎扯淡" scheme="//ideadsnow.com/tags/too-young-too-simple/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>歌：莲花-高晨微</title>
+    <link href="//ideadsnow.com/share/%E6%AD%8C%EF%BC%9A%E8%8E%B2%E8%8A%B1-%E9%AB%98%E6%99%A8%E5%BE%AE.html"/>
+    <id>//ideadsnow.com/share/歌：莲花-高晨微.html</id>
+    <published>2016-01-30T16:47:49.000Z</published>
+    <updated>2016-09-08T06:13:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>去年十二月十八、十九号两天去看广州中央车站举办的滚石原创歌手大赛，为里少加油助威，相聚甚欢<br>几天后里少直播时唱了这首歌，她说是参赛时遇到的一个姑娘的歌，群里的小伙伴们都表示很美很动听  </p>
+<p>本着有（狗）兴（仔）趣（队）的心态去搜了下高晨微，厦门外国语大学毕业的一个姐姐</p>
+<p>废话不多说，说太多总是无趣</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=238494&auto=0&height=66"></iframe>
+
+<a id="more"></a>
+<p>歌词：</p>
+<blockquote>
+<p>《莲花》 词曲小微（看安妮宝贝《莲花》有感而作）</p>
+<p>你为了什么这一生漂泊<br>飘摇啊 像风筝<br>你为了什么隐藏绝代风华<br>爱了不该爱的人</p>
+<p>傻子啊 他不该让你牵挂<br>你的泪 落下像那珍珠撒<br>忘了他 把回忆和他一起埋葬啊<br>生命会开出莲花<br>你为了什么这一生漂泊<br>飘摇啊 像风筝<br>你为了什么隐藏绝代风华<br>爱了不该爱的人</p>
+<p>傻子啊 他不该让你牵挂<br>你的泪 落下像那珍珠撒<br>忘了他 把回忆和他一起埋葬啊<br>生命会开出莲花</p>
+<p>等到莲花 盛开<br>天际一片纯白<br>为你采摘<br>尘埃 无涯的尘埃<br>傻子啊 他不该让你牵挂<br>你的泪 落下像那珍珠撒<br>忘了他 把回忆和他一起埋葬啊<br>生命会开出莲花</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;去年十二月十八、十九号两天去看广州中央车站举办的滚石原创歌手大赛，为里少加油助威，相聚甚欢&lt;br&gt;几天后里少直播时唱了这首歌，她说是参赛时遇到的一个姑娘的歌，群里的小伙伴们都表示很美很动听  &lt;/p&gt;
+&lt;p&gt;本着有（狗）兴（仔）趣（队）的心态去搜了下高晨微，厦门外国语大学毕业的一个姐姐&lt;/p&gt;
+&lt;p&gt;废话不多说，说太多总是无趣&lt;/p&gt;
+&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=330 height=86 src=&quot;http://music.163.com/outchain/player?type=2&amp;id=238494&amp;auto=0&amp;height=66&quot;&gt;&lt;/iframe&gt;
+    
+    </summary>
+    
+      <category term="分享" scheme="//ideadsnow.com/categories/share/"/>
+    
+    
+      <category term="歌" scheme="//ideadsnow.com/tags/%E6%AD%8C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>世间无废，全于心境</title>
+    <link href="//ideadsnow.com/life/%E4%B8%96%E9%97%B4%E6%97%A0%E5%BA%9F%EF%BC%8C%E5%85%A8%E4%BA%8E%E5%BF%83%E5%A2%83.html"/>
+    <id>//ideadsnow.com/life/世间无废，全于心境.html</id>
+    <published>2016-01-26T13:22:04.000Z</published>
+    <updated>2016-09-08T06:13:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>陈徐鹤薇——</p>
+<blockquote>
+<p>世间无废，全于心境<br>你相信什么，就实现什么<br>你渴望什么，就拥有什么</p>
+</blockquote>
+<iframe style="margin-top: 30px" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=31168209&auto=0&height=66"></iframe>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;陈徐鹤薇——&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;世间无废，全于心境&lt;br&gt;你相信什么，就实现什么&lt;br&gt;你渴望什么，就拥有什么&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;iframe style=&quot;margin-top: 30px&quot; frameborder=&quot;no&quot; bo
+    
+    </summary>
+    
+      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+    
+    
+      <category term="别人瞎扯淡" scheme="//ideadsnow.com/tags/too-old-too-complex/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vim 学习</title>
+    <link href="//ideadsnow.com/learn/vim-%E5%AD%A6%E4%B9%A0.html"/>
+    <id>//ideadsnow.com/learn/vim-学习.html</id>
+    <published>2016-01-07T13:25:11.000Z</published>
+    <updated>2016-09-08T06:13:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="拆分屏幕"><a href="#拆分屏幕" class="headerlink" title="拆分屏幕"></a>拆分屏幕</h2><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><ul>
+<li>使用大写的O参数垂直分屏<br>  <code>vim -On file1 file2 ...</code></li>
+<li>使用小写的o参数水平分屏<br>  <code>vim -on file1 file2...</code></li>
+</ul>
+<p><strong>注</strong>：n是数字，表示分成几个屏</p>
+<h3 id="分屏"><a href="#分屏" class="headerlink" title="分屏"></a>分屏</h3><ul>
+<li>上下分割当前打开的文件<br>  <code>Ctrl + w s</code></li>
+<li>上下分割，并打开一个新的文件<br>  <code>:sp filename</code></li>
+<li>左右分割<br>  <code>Ctrl + w v</code></li>
+<li>左右分割，并打开一个新文件<br>  <code>:vsp filename</code><a id="more"></a>
+<h3 id="移动光标"><a href="#移动光标" class="headerlink" title="移动光标"></a>移动光标</h3></li>
+</ul>
+<p>Vi中的光标键是h, j, k, l，要在各个屏间切换，只需要先按一下<code>Ctrl+w</code>，然后跟上<code>h|j|k|l</code>即可；除此之外，还可跟上<code>w</code>，用来切换到<strong>下一个</strong>屏中</p>
+<h3 id="移动分屏"><a href="#移动分屏" class="headerlink" title="移动分屏"></a>移动分屏</h3><p><code>Ctrl+w</code> + <code>H|J|K|L</code></p>
+<h3 id="屏幕尺寸"><a href="#屏幕尺寸" class="headerlink" title="屏幕尺寸"></a>屏幕尺寸</h3><ul>
+<li><p>高度</p>
+<ul>
+<li>所有的屏同高<br>  <code>Ctrl+w =</code></li>
+<li>增加高度<br>  <code>Ctrl+w +</code></li>
+<li>减少高度<br>  <code>Ctrl+w -</code></li>
+</ul>
+</li>
+<li><p>宽度</p>
+<ul>
+<li><code>Ctrl+w &lt;</code></li>
+<li><code>Ctrl+w &gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="浏览目录"><a href="#浏览目录" class="headerlink" title="浏览目录"></a>浏览目录</h2><p>首先，我们先从浏览代码开始。有时候，我们需要看多个文件，所以，传统的做法是，我们开多个tty终端，每个tty里用Vim打开一个文件，然后来回切换。这很没有什么效率。我们希望在一个Vim里打开多个文件，甚至浏览程序目录</p>
+<p>浏览目录的命令很简单：（你也可以直接vim一个目录）</p>
+<p><code>:E</code></p>
+<p>在vim中试试就知道效果~</p>
+<p>另外<br><code>:cd &lt;dir&gt;</code>可以改变当前工作目录<br><code>pwd</code>查看当前目录</p>
+<h2 id="缓冲区"><a href="#缓冲区" class="headerlink" title="缓冲区"></a>缓冲区</h2><p>使用<code>:E</code>或者<code>:o</code> <code>:e</code>打开的文件都没有被关闭，这些文件都被缓存在缓冲区中，查看缓冲区：</p>
+<p><code>:ls</code></p>
+<p>在缓冲区中快速切换</p>
+<ul>
+<li><code>:bnext</code>或<code>:bn</code>下一个</li>
+<li><code>:bprevious</code>或<code>:bp</code>上一个</li>
+<li><code>:blast</code>或<code>:bl</code>最后一个</li>
+<li><code>:bfirst</code>或<code>:bf</code>第一个</li>
+</ul>
+<p>buffer中文件的相关标记含义</p>
+<ul>
+<li>– （非活动的缓冲区）</li>
+<li>a （当前被激活缓冲区）</li>
+<li>h （隐藏的缓冲区）</li>
+<li>% （当前的缓冲区）</li>
+<li># （交换缓冲区）</li>
+<li>= （只读缓冲区）</li>
+<li>+ （已经更改的缓冲区）</li>
+</ul>
+<p>##窗口分屏浏览</p>
+<p>把当前窗口上下分屏，并在下面进行目录浏览</p>
+<p><code>:He</code>全称为<code>:Hexplore</code>（在下边分屏浏览目录）</p>
+<p>（如果要在上面，就在<code>:He</code>后面加个<code>!</code>，即<code>:He!</code>）</p>
+<p>同样的，相信你也能猜到了，左右分屏</p>
+<p><code>:Ve</code>全称为<code>:Vexplore</code>，以及<code>:Ve!</code></p>
+<h2 id="分屏同步滚动"><a href="#分屏同步滚动" class="headerlink" title="分屏同步滚动"></a>分屏同步滚动</h2><p>要让两个分屏中的文件同步移动，很简单，你需要到需要同步移动的两个屏中都输入如下命令<br><code>:set scb</code>同步<br><code>:set scb!</code>取消同步</p>
+<p><strong>注</strong>：set scb 是 set scrollbind 的简写</p>
+<h2 id="Tab页浏览目录"><a href="#Tab页浏览目录" class="headerlink" title="Tab页浏览目录"></a>Tab页浏览目录</h2><p><code>:Te</code>全称是<code>:Texplorer</code></p>
+<p>在多个tab页中切换</p>
+<ul>
+<li><code>gt</code>到下一页</li>
+<li><code>gT</code>到前一页</li>
+<li><code>$num gt</code>到第 num 页</li>
+</ul>
+<p>查看tab页列表<code>:tabs</code></p>
+<p>关闭tab页</p>
+<ul>
+<li><code>:tabclose $num</code>如果指定了num，则关闭指定页，否则关闭当前页</li>
+<li>或直接使用<code>:q</code></li>
+</ul>
+<p>打开文件时就分Tab页</p>
+<ul>
+<li><code>vim -p file1 file2 ...</code></li>
+<li><code>vim -p *.cpp</code></li>
+</ul>
+<p>把当前buffer中的文件全部转成tab显示<br><code>:bufdo tab split</code></p>
+<h2 id="保存会话"><a href="#保存会话" class="headerlink" title="保存会话"></a>保存会话</h2><p>如果你用Tab或Window打开了好些文件的文件，还设置了各种滚屏同步，或是行号……，那么，你可以用下面的命令来保存会话：（你有兴趣你可以看看你的 mysession.vim文件内容，也就是一个批处理文件）</p>
+<p><code>:mksession ~/.mysession.vim</code><br>当然如果遇到重复，则强制写入的方式为<br><code>:mksession! ~/.mysession.vim</code></p>
+<p>下次就可以这样打开这个会话<br><code>vim -S ~/.mysession.vim</code></p>
+<p>保存完会话后，也没有必要一个一个Tab/Windows的去关闭，可以简单地使用<br><code>:qa</code>（退出全部）<br><code>:wqa</code>（保存全部并退出全部）</p>
+<hr>
+<p>本文是读<a href="coolshell.cn">酷壳</a>的文章<a href="http://coolshell.cn/articles/11312.html" target="_blank" rel="external">无插件Vim编程技巧</a>笔记，感谢耗子叔的分享</p>
+<p>还差Quickfix，关键字补全两部分内容未读，有空继续..</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;拆分屏幕&quot;&gt;&lt;a href=&quot;#拆分屏幕&quot; class=&quot;headerlink&quot; title=&quot;拆分屏幕&quot;&gt;&lt;/a&gt;拆分屏幕&lt;/h2&gt;&lt;h3 id=&quot;启动&quot;&gt;&lt;a href=&quot;#启动&quot; class=&quot;headerlink&quot; title=&quot;启动&quot;&gt;&lt;/a&gt;启动&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;使用大写的O参数垂直分屏&lt;br&gt;  &lt;code&gt;vim -On file1 file2 ...&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;使用小写的o参数水平分屏&lt;br&gt;  &lt;code&gt;vim -on file1 file2...&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;注&lt;/strong&gt;：n是数字，表示分成几个屏&lt;/p&gt;
+&lt;h3 id=&quot;分屏&quot;&gt;&lt;a href=&quot;#分屏&quot; class=&quot;headerlink&quot; title=&quot;分屏&quot;&gt;&lt;/a&gt;分屏&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;上下分割当前打开的文件&lt;br&gt;  &lt;code&gt;Ctrl + w s&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;上下分割，并打开一个新的文件&lt;br&gt;  &lt;code&gt;:sp filename&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;左右分割&lt;br&gt;  &lt;code&gt;Ctrl + w v&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;左右分割，并打开一个新文件&lt;br&gt;  &lt;code&gt;:vsp filename&lt;/code&gt;
+    
+    </summary>
+    
+      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+    
+    
+      <category term="vim" scheme="//ideadsnow.com/tags/vim/"/>
+    
+      <category term="工具学习" scheme="//ideadsnow.com/tags/tools-learn/"/>
+    
+  </entry>
+  
+</feed>
