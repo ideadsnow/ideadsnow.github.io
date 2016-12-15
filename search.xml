@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[探究 PYTHON 生成随机字符串]]></title>
-      <url>//ideadsnow.com/learn/%E6%8E%A2%E7%A9%B6-python-%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2.html</url>
+      <url>//www.ideadsnow.com/learn/%E6%8E%A2%E7%A9%B6-python-%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2.html</url>
       <content type="html"><![CDATA[<h3 id="目前看到的最简洁的方法"><a href="#目前看到的最简洁的方法" class="headerlink" title="目前看到的最简洁的方法"></a>目前看到的最简洁的方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">randomString</span><span class="params">(n)</span>:</span></div><div class="line">    <span class="keyword">return</span> (<span class="string">''</span>.join(map(<span class="keyword">lambda</span> x:(hex(ord(x))[<span class="number">2</span>:]), os.urandom(n))))[<span class="number">0</span>:<span class="number">8</span>]</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    <span class="keyword">print</span> randomString(<span class="number">16</span>)</div></pre></td></tr></table></figure>
 <h3 id="来看看-randomString-函数所做的事情"><a href="#来看看-randomString-函数所做的事情" class="headerlink" title="来看看 randomString 函数所做的事情"></a>来看看 randomString 函数所做的事情</h3><ol>
 <li>首先这个函数的一行代码里面，最核心的是 <code>os.urandom(n)</code> 函数，这就是标准库提供的产生随机字串的函数，它的原理我们留到最后再说，现在我们只要知道它会返回一个由参数 n 指定的字节长度的随机字节串（而非字符串，因为可能结果并不能被任何一种字符编码所解释，所以不能称其为字符串）</li>
@@ -64,7 +64,7 @@
     
     <entry>
       <title><![CDATA[Ubuntu 16.04 版本 MySQL 的安装、基本配置和使用]]></title>
-      <url>//ideadsnow.com/learn/ubuntu-16-04-%E7%89%88%E6%9C%AC-mysql-%E7%9A%84%E5%AE%89%E8%A3%85%E3%80%81%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8.html</url>
+      <url>//www.ideadsnow.com/learn/ubuntu-16-04-%E7%89%88%E6%9C%AC-mysql-%E7%9A%84%E5%AE%89%E8%A3%85%E3%80%81%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8.html</url>
       <content type="html"><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装应该没什么问题，直接运行</p>
 <p><code>sudo apt-get install mysql-server</code></p>
 <h2 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h2><h4 id="允许远程访问-MySQL"><a href="#允许远程访问-MySQL" class="headerlink" title="允许远程访问 MySQL"></a>允许远程访问 MySQL</h4><p>MySQL 装好了，但在默认情况下只监听本地连接，也就是说，现在还不能通过远程连接访问和操作数据库，所以需要做如下操作</p>
@@ -122,7 +122,7 @@
     
     <entry>
       <title><![CDATA[来到你的城市【云南】]]></title>
-      <url>//ideadsnow.com/life/%E6%9D%A5%E5%88%B0%E4%BD%A0%E7%9A%84%E5%9F%8E%E5%B8%82%E3%80%90%E4%BA%91%E5%8D%97%E3%80%91.html</url>
+      <url>//www.ideadsnow.com/life/%E6%9D%A5%E5%88%B0%E4%BD%A0%E7%9A%84%E5%9F%8E%E5%B8%82%E3%80%90%E4%BA%91%E5%8D%97%E3%80%91.html</url>
       <content type="html"><![CDATA[<p><img src="http://o96lq0usq.bkt.clouddn.com/yunnan/image/mmexport1465830312032.png" alt="lake"></p>
 <p><strong>多图，流量党慎点！</strong><br><strong>多图，流量党慎点！</strong><br><strong>多图，流量党慎点！</strong></p>
 <hr>
@@ -157,7 +157,7 @@
     
     <entry>
       <title><![CDATA[烂笔头：JavaScript The Good Parts]]></title>
-      <url>//ideadsnow.com/learn/%E7%83%82%E7%AC%94%E5%A4%B4%EF%BC%9Ajavascript-the-good-parts.html</url>
+      <url>//www.ideadsnow.com/learn/%E7%83%82%E7%AC%94%E5%A4%B4%EF%BC%9Ajavascript-the-good-parts.html</url>
       <content type="html"><![CDATA[<p>书是这本，挺不错的，有兴趣可以看看 <a href="https://book.douban.com/subject/2994925/" target="_blank" rel="external">JavaScript:The Good Parts</a></p>
 <h3 id="数据类型和运算符"><a href="#数据类型和运算符" class="headerlink" title="数据类型和运算符"></a>数据类型和运算符</h3><ul>
 <li>只有一种数字类型，内部表示为64位浮点数</li>
@@ -233,7 +233,7 @@
     
     <entry>
       <title><![CDATA[填坑日常之 EDAC DIMM CE Error]]></title>
-      <url>//ideadsnow.com/learn/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8%E4%B9%8B-edac-dimm-ce-error.html</url>
+      <url>//www.ideadsnow.com/learn/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8%E4%B9%8B-edac-dimm-ce-error.html</url>
       <content type="html"><![CDATA[<p>2015-12-30 下午 ngaios 监控发现硬盘满报警<br>2015-12-31 早上开始排查原因</p>
 <p><img src="http://7xlwv3.com1.z0.glb.clouddn.com/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8%E4%B9%8B%20EDAC%20DIMM%20CE%20Error%2001.png" alt="Alt text"></p>
 <p><img src="http://7xlwv3.com1.z0.glb.clouddn.com/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8%E4%B9%8B%20EDAC%20DIMM%20CE%20Error%2002.png" alt="Alt text"></p>
@@ -266,7 +266,7 @@
     
     <entry>
       <title><![CDATA[曲：怀古遗殇]]></title>
-      <url>//ideadsnow.com/share/%E6%9B%B2%EF%BC%9A%E6%B7%AE%E5%8F%A4%E9%81%97%E6%AE%87.html</url>
+      <url>//www.ideadsnow.com/share/%E6%9B%B2%EF%BC%9A%E6%B7%AE%E5%8F%A4%E9%81%97%E6%AE%87.html</url>
       <content type="html"><![CDATA[<p>无意间听到，而后看到名字，想起了些什么</p>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=32743520&auto=0&height=66"></iframe>
 
@@ -294,7 +294,7 @@
     
     <entry>
       <title><![CDATA[事。]]></title>
-      <url>//ideadsnow.com/life/%E4%BA%8B%E3%80%82.html</url>
+      <url>//www.ideadsnow.com/life/%E4%BA%8B%E3%80%82.html</url>
       <content type="html"><![CDATA[<p>十九岁生日的时候写道</p>
 <blockquote>
 <p>想想这快二十年经历挺丰富，三教九流低俗高雅文艺粗俗的东西都懂也都会，从这个角度来说，是很有意义了吧。有很长一段时间都被人说这人超脱物外要修道出家，还有一段时间被人说这人内敛死板早晚被骗，现在就是一笑点低的工作狂。混合沉淀的人格真是难以理解。</p>
@@ -318,7 +318,7 @@
     
     <entry>
       <title><![CDATA[花枝春野]]></title>
-      <url>//ideadsnow.com/life/%E8%8A%B1%E6%9E%9D%E6%98%A5%E9%87%8E.html</url>
+      <url>//www.ideadsnow.com/life/%E8%8A%B1%E6%9E%9D%E6%98%A5%E9%87%8E.html</url>
       <content type="html"><![CDATA[<p>第一次听不才的这首歌觉得很合心境，平静不喧闹中满满的美好。</p>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=28568227&auto=0&height=66"></iframe>
 
@@ -340,7 +340,7 @@
     
     <entry>
       <title><![CDATA[来到你的城市【武汉】]]></title>
-      <url>//ideadsnow.com/life/%E6%9D%A5%E5%88%B0%E4%BD%A0%E7%9A%84%E5%9F%8E%E5%B8%82%E3%80%90%E6%AD%A6%E6%B1%89%E3%80%91.html</url>
+      <url>//www.ideadsnow.com/life/%E6%9D%A5%E5%88%B0%E4%BD%A0%E7%9A%84%E5%9F%8E%E5%B8%82%E3%80%90%E6%AD%A6%E6%B1%89%E3%80%91.html</url>
       <content type="html"><![CDATA[<p>2016.05.10 第一天<br>广州南-&gt;武汉火车站  四个半小时</p>
 <p>活动范围：武汉火车站，中南路附近</p>
 <p>初见武汉的印象与从过往通过各种媒介了解后预想的差不多，一个二线城市，市容市貌无甚特色，吵闹嘈杂，卫生条件和见过的北方城市一样不能使用褒义词，服务人员素质一般。</p>
@@ -380,7 +380,7 @@
     
     <entry>
       <title><![CDATA[突发奇想：想自己搭个google镜像]]></title>
-      <url>//ideadsnow.com/learn/%E7%AA%81%E5%8F%91%E5%A5%87%E6%83%B3%EF%BC%9A%E6%83%B3%E8%87%AA%E5%B7%B1%E6%90%AD%E4%B8%AAgoogle%E9%95%9C%E5%83%8F.html</url>
+      <url>//www.ideadsnow.com/learn/%E7%AA%81%E5%8F%91%E5%A5%87%E6%83%B3%EF%BC%9A%E6%83%B3%E8%87%AA%E5%B7%B1%E6%90%AD%E4%B8%AAgoogle%E9%95%9C%E5%83%8F.html</url>
       <content type="html"><![CDATA[<p>写毕业论文常常需要用到 Google，然而在宿舍并没有非常方便的科学上网的环境，用网上其他人的镜像总是三天两头抽风，有了自己搞一个镜像的想法。</p>
 <p>搜索了一圈发现貌似大多数人都是用 nginx 反向代理来实现。不过我已经把域名给博客用了，如果还要拿来做 Google 镜像的话自然 80 端口要让给 nginx，那我的博客怎么玩？</p>
 <p>又去搜索了一圈发现自己蠢了，都反向代理 Google 了，为毛不能反向代理博客服务%&gt;_&lt;%呵呵呵。</p>
@@ -393,7 +393,7 @@
     
     <entry>
       <title><![CDATA[毕业照？当然也是可以用来中二的]]></title>
-      <url>//ideadsnow.com/life/%E6%AF%95%E4%B8%9A%E7%85%A7%EF%BC%9F%E5%BD%93%E7%84%B6%E4%B9%9F%E6%98%AF%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E4%B8%AD%E4%BA%8C%E7%9A%84.html</url>
+      <url>//www.ideadsnow.com/life/%E6%AF%95%E4%B8%9A%E7%85%A7%EF%BC%9F%E5%BD%93%E7%84%B6%E4%B9%9F%E6%98%AF%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E4%B8%AD%E4%BA%8C%E7%9A%84.html</url>
       <content type="html"><![CDATA[<p>自打出生到现在快二十二年了，能自己决定自己的事的机会实在是不多</p>
 <p>很多想法，或者说处事的原则却在随着年龄增长慢慢固定下来<br>比如——</p>
 <blockquote>
@@ -428,7 +428,7 @@
     
     <entry>
       <title><![CDATA[HTTP 基础之 Cookie]]></title>
-      <url>//ideadsnow.com/learn/http-%E5%9F%BA%E7%A1%80%E4%B9%8B-cookie.html</url>
+      <url>//www.ideadsnow.com/learn/http-%E5%9F%BA%E7%A1%80%E4%B9%8B-cookie.html</url>
       <content type="html"><![CDATA[<p>一般来说，了解一样东西的流程是这样的</p>
 <ul>
 <li>是什么</li>
@@ -501,7 +501,7 @@
     
     <entry>
       <title><![CDATA[Linux 环境变量配置]]></title>
-      <url>//ideadsnow.com/learn/linux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE.html</url>
+      <url>//www.ideadsnow.com/learn/linux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE.html</url>
       <content type="html"><![CDATA[<p>以要添加 <code>~</code> 为例</p>
 <h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p><code>export PATH=$PATH:~</code></p>
 <p>优点：不用重新加载配置文件<br>缺点：临时使用，只在当前终端中有效</p>
@@ -514,7 +514,7 @@
     
     <entry>
       <title><![CDATA[有关旅途]]></title>
-      <url>//ideadsnow.com/life/%E6%9C%89%E5%85%B3%E6%97%85%E9%80%94.html</url>
+      <url>//www.ideadsnow.com/life/%E6%9C%89%E5%85%B3%E6%97%85%E9%80%94.html</url>
       <content type="html"><![CDATA[<blockquote>
 <p>我走过很多城市，却都只有一面之缘</p>
 </blockquote>
@@ -543,7 +543,7 @@
     
     <entry>
       <title><![CDATA[歌：莲花-高晨微]]></title>
-      <url>//ideadsnow.com/share/%E6%AD%8C%EF%BC%9A%E8%8E%B2%E8%8A%B1-%E9%AB%98%E6%99%A8%E5%BE%AE.html</url>
+      <url>//www.ideadsnow.com/share/%E6%AD%8C%EF%BC%9A%E8%8E%B2%E8%8A%B1-%E9%AB%98%E6%99%A8%E5%BE%AE.html</url>
       <content type="html"><![CDATA[<p>去年十二月十八、十九号两天去看广州中央车站举办的滚石原创歌手大赛，为里少加油助威，相聚甚欢<br>几天后里少直播时唱了这首歌，她说是参赛时遇到的一个姑娘的歌，群里的小伙伴们都表示很美很动听  </p>
 <p>本着有（狗）兴（仔）趣（队）的心态去搜了下高晨微，厦门外国语大学毕业的一个姐姐</p>
 <p>废话不多说，说太多总是无趣</p>
@@ -563,7 +563,7 @@
     
     <entry>
       <title><![CDATA[世间无废，全于心境]]></title>
-      <url>//ideadsnow.com/life/%E4%B8%96%E9%97%B4%E6%97%A0%E5%BA%9F%EF%BC%8C%E5%85%A8%E4%BA%8E%E5%BF%83%E5%A2%83.html</url>
+      <url>//www.ideadsnow.com/life/%E4%B8%96%E9%97%B4%E6%97%A0%E5%BA%9F%EF%BC%8C%E5%85%A8%E4%BA%8E%E5%BF%83%E5%A2%83.html</url>
       <content type="html"><![CDATA[<p>陈徐鹤薇——</p>
 <blockquote>
 <p>世间无废，全于心境<br>你相信什么，就实现什么<br>你渴望什么，就拥有什么</p>
@@ -574,7 +574,7 @@
     
     <entry>
       <title><![CDATA[vim 学习]]></title>
-      <url>//ideadsnow.com/learn/vim-%E5%AD%A6%E4%B9%A0.html</url>
+      <url>//www.ideadsnow.com/learn/vim-%E5%AD%A6%E4%B9%A0.html</url>
       <content type="html"><![CDATA[<h2 id="拆分屏幕"><a href="#拆分屏幕" class="headerlink" title="拆分屏幕"></a>拆分屏幕</h2><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><ul>
 <li>使用大写的O参数垂直分屏<br>  <code>vim -On file1 file2 ...</code></li>
 <li>使用小写的o参数水平分屏<br>  <code>vim -on file1 file2...</code></li>

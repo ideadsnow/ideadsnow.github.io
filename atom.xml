@@ -4,9 +4,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="//ideadsnow.com/"/>
+  <link href="//www.ideadsnow.com/"/>
   <updated>2016-12-14T13:10:08.000Z</updated>
-  <id>//ideadsnow.com/</id>
+  <id>//www.ideadsnow.com/</id>
   
   <author>
     <name>iDeadSnow</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>探究 PYTHON 生成随机字符串</title>
-    <link href="//ideadsnow.com/learn/%E6%8E%A2%E7%A9%B6-python-%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2.html"/>
-    <id>//ideadsnow.com/learn/探究-python-生成随机字符串.html</id>
+    <link href="//www.ideadsnow.com/learn/%E6%8E%A2%E7%A9%B6-python-%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2.html"/>
+    <id>//www.ideadsnow.com/learn/探究-python-生成随机字符串.html</id>
     <published>2016-10-03T08:38:48.000Z</published>
     <updated>2016-12-14T13:10:08.000Z</updated>
     
@@ -91,17 +91,17 @@
     
     </summary>
     
-      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+      <category term="学习" scheme="//www.ideadsnow.com/categories/learn/"/>
     
     
-      <category term="python" scheme="//ideadsnow.com/tags/python/"/>
+      <category term="python" scheme="//www.ideadsnow.com/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>Ubuntu 16.04 版本 MySQL 的安装、基本配置和使用</title>
-    <link href="//ideadsnow.com/learn/ubuntu-16-04-%E7%89%88%E6%9C%AC-mysql-%E7%9A%84%E5%AE%89%E8%A3%85%E3%80%81%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8.html"/>
-    <id>//ideadsnow.com/learn/ubuntu-16-04-版本-mysql-的安装、基本配置和使用.html</id>
+    <link href="//www.ideadsnow.com/learn/ubuntu-16-04-%E7%89%88%E6%9C%AC-mysql-%E7%9A%84%E5%AE%89%E8%A3%85%E3%80%81%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8.html"/>
+    <id>//www.ideadsnow.com/learn/ubuntu-16-04-版本-mysql-的安装、基本配置和使用.html</id>
     <published>2016-09-08T17:30:59.000Z</published>
     <updated>2016-09-08T17:30:59.000Z</updated>
     
@@ -173,19 +173,19 @@
     
     </summary>
     
-      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+      <category term="学习" scheme="//www.ideadsnow.com/categories/learn/"/>
     
     
-      <category term="linux" scheme="//ideadsnow.com/tags/linux/"/>
+      <category term="linux" scheme="//www.ideadsnow.com/tags/linux/"/>
     
-      <category term="mysql" scheme="//ideadsnow.com/tags/mysql/"/>
+      <category term="mysql" scheme="//www.ideadsnow.com/tags/mysql/"/>
     
   </entry>
   
   <entry>
     <title>来到你的城市【云南】</title>
-    <link href="//ideadsnow.com/life/%E6%9D%A5%E5%88%B0%E4%BD%A0%E7%9A%84%E5%9F%8E%E5%B8%82%E3%80%90%E4%BA%91%E5%8D%97%E3%80%91.html"/>
-    <id>//ideadsnow.com/life/来到你的城市【云南】.html</id>
+    <link href="//www.ideadsnow.com/life/%E6%9D%A5%E5%88%B0%E4%BD%A0%E7%9A%84%E5%9F%8E%E5%B8%82%E3%80%90%E4%BA%91%E5%8D%97%E3%80%91.html"/>
+    <id>//www.ideadsnow.com/life/来到你的城市【云南】.html</id>
     <published>2016-06-23T17:57:23.000Z</published>
     <updated>2016-09-08T06:13:25.000Z</updated>
     
@@ -232,17 +232,17 @@
     
     </summary>
     
-      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+      <category term="生活" scheme="//www.ideadsnow.com/categories/life/"/>
     
     
-      <category term="自己瞎扯淡" scheme="//ideadsnow.com/tags/too-young-too-simple/"/>
+      <category term="自己瞎扯淡" scheme="//www.ideadsnow.com/tags/too-young-too-simple/"/>
     
   </entry>
   
   <entry>
     <title>烂笔头：JavaScript The Good Parts</title>
-    <link href="//ideadsnow.com/learn/%E7%83%82%E7%AC%94%E5%A4%B4%EF%BC%9Ajavascript-the-good-parts.html"/>
-    <id>//ideadsnow.com/learn/烂笔头：javascript-the-good-parts.html</id>
+    <link href="//www.ideadsnow.com/learn/%E7%83%82%E7%AC%94%E5%A4%B4%EF%BC%9Ajavascript-the-good-parts.html"/>
+    <id>//www.ideadsnow.com/learn/烂笔头：javascript-the-good-parts.html</id>
     <published>2016-06-22T14:12:02.000Z</published>
     <updated>2016-09-08T06:13:25.000Z</updated>
     
@@ -338,19 +338,19 @@
     
     </summary>
     
-      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+      <category term="学习" scheme="//www.ideadsnow.com/categories/learn/"/>
     
     
-      <category term="烂笔头" scheme="//ideadsnow.com/tags/%E7%83%82%E7%AC%94%E5%A4%B4/"/>
+      <category term="烂笔头" scheme="//www.ideadsnow.com/tags/%E7%83%82%E7%AC%94%E5%A4%B4/"/>
     
-      <category term="javascript" scheme="//ideadsnow.com/tags/javascript/"/>
+      <category term="javascript" scheme="//www.ideadsnow.com/tags/javascript/"/>
     
   </entry>
   
   <entry>
     <title>填坑日常之 EDAC DIMM CE Error</title>
-    <link href="//ideadsnow.com/learn/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8%E4%B9%8B-edac-dimm-ce-error.html"/>
-    <id>//ideadsnow.com/learn/填坑日常之-edac-dimm-ce-error.html</id>
+    <link href="//www.ideadsnow.com/learn/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8%E4%B9%8B-edac-dimm-ce-error.html"/>
+    <id>//www.ideadsnow.com/learn/填坑日常之-edac-dimm-ce-error.html</id>
     <published>2016-06-22T13:49:26.000Z</published>
     <updated>2016-09-08T06:13:25.000Z</updated>
     
@@ -392,17 +392,17 @@
     
     </summary>
     
-      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+      <category term="学习" scheme="//www.ideadsnow.com/categories/learn/"/>
     
     
-      <category term="填坑日常" scheme="//ideadsnow.com/tags/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8/"/>
+      <category term="填坑日常" scheme="//www.ideadsnow.com/tags/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8/"/>
     
   </entry>
   
   <entry>
     <title>曲：怀古遗殇</title>
-    <link href="//ideadsnow.com/share/%E6%9B%B2%EF%BC%9A%E6%B7%AE%E5%8F%A4%E9%81%97%E6%AE%87.html"/>
-    <id>//ideadsnow.com/share/曲：淮古遗殇.html</id>
+    <link href="//www.ideadsnow.com/share/%E6%9B%B2%EF%BC%9A%E6%B7%AE%E5%8F%A4%E9%81%97%E6%AE%87.html"/>
+    <id>//www.ideadsnow.com/share/曲：淮古遗殇.html</id>
     <published>2016-06-18T16:28:29.000Z</published>
     <updated>2016-09-08T06:13:25.000Z</updated>
     
@@ -443,17 +443,17 @@
     
     </summary>
     
-      <category term="分享" scheme="//ideadsnow.com/categories/share/"/>
+      <category term="分享" scheme="//www.ideadsnow.com/categories/share/"/>
     
     
-      <category term="曲" scheme="//ideadsnow.com/tags/%E6%9B%B2/"/>
+      <category term="曲" scheme="//www.ideadsnow.com/tags/%E6%9B%B2/"/>
     
   </entry>
   
   <entry>
     <title>事。</title>
-    <link href="//ideadsnow.com/life/%E4%BA%8B%E3%80%82.html"/>
-    <id>//ideadsnow.com/life/事。.html</id>
+    <link href="//www.ideadsnow.com/life/%E4%BA%8B%E3%80%82.html"/>
+    <id>//www.ideadsnow.com/life/事。.html</id>
     <published>2016-05-25T19:11:45.000Z</published>
     <updated>2016-09-08T06:13:24.000Z</updated>
     
@@ -490,17 +490,17 @@
     
     </summary>
     
-      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+      <category term="生活" scheme="//www.ideadsnow.com/categories/life/"/>
     
     
-      <category term="自己瞎扯淡" scheme="//ideadsnow.com/tags/too-young-too-simple/"/>
+      <category term="自己瞎扯淡" scheme="//www.ideadsnow.com/tags/too-young-too-simple/"/>
     
   </entry>
   
   <entry>
     <title>花枝春野</title>
-    <link href="//ideadsnow.com/life/%E8%8A%B1%E6%9E%9D%E6%98%A5%E9%87%8E.html"/>
-    <id>//ideadsnow.com/life/花枝春野.html</id>
+    <link href="//www.ideadsnow.com/life/%E8%8A%B1%E6%9E%9D%E6%98%A5%E9%87%8E.html"/>
+    <id>//www.ideadsnow.com/life/花枝春野.html</id>
     <published>2016-05-20T18:59:15.000Z</published>
     <updated>2016-09-08T06:13:26.000Z</updated>
     
@@ -536,17 +536,17 @@
     
     </summary>
     
-      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+      <category term="生活" scheme="//www.ideadsnow.com/categories/life/"/>
     
     
-      <category term="自己瞎扯淡" scheme="//ideadsnow.com/tags/too-young-too-simple/"/>
+      <category term="自己瞎扯淡" scheme="//www.ideadsnow.com/tags/too-young-too-simple/"/>
     
   </entry>
   
   <entry>
     <title>来到你的城市【武汉】</title>
-    <link href="//ideadsnow.com/life/%E6%9D%A5%E5%88%B0%E4%BD%A0%E7%9A%84%E5%9F%8E%E5%B8%82%E3%80%90%E6%AD%A6%E6%B1%89%E3%80%91.html"/>
-    <id>//ideadsnow.com/life/来到你的城市【武汉】.html</id>
+    <link href="//www.ideadsnow.com/life/%E6%9D%A5%E5%88%B0%E4%BD%A0%E7%9A%84%E5%9F%8E%E5%B8%82%E3%80%90%E6%AD%A6%E6%B1%89%E3%80%91.html"/>
+    <id>//www.ideadsnow.com/life/来到你的城市【武汉】.html</id>
     <published>2016-05-13T15:49:30.000Z</published>
     <updated>2016-09-08T06:13:25.000Z</updated>
     
@@ -599,17 +599,17 @@
     
     </summary>
     
-      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+      <category term="生活" scheme="//www.ideadsnow.com/categories/life/"/>
     
     
-      <category term="自己瞎扯淡" scheme="//ideadsnow.com/tags/too-young-too-simple/"/>
+      <category term="自己瞎扯淡" scheme="//www.ideadsnow.com/tags/too-young-too-simple/"/>
     
   </entry>
   
   <entry>
     <title>突发奇想：想自己搭个google镜像</title>
-    <link href="//ideadsnow.com/learn/%E7%AA%81%E5%8F%91%E5%A5%87%E6%83%B3%EF%BC%9A%E6%83%B3%E8%87%AA%E5%B7%B1%E6%90%AD%E4%B8%AAgoogle%E9%95%9C%E5%83%8F.html"/>
-    <id>//ideadsnow.com/learn/突发奇想：想自己搭个google镜像.html</id>
+    <link href="//www.ideadsnow.com/learn/%E7%AA%81%E5%8F%91%E5%A5%87%E6%83%B3%EF%BC%9A%E6%83%B3%E8%87%AA%E5%B7%B1%E6%90%AD%E4%B8%AAgoogle%E9%95%9C%E5%83%8F.html"/>
+    <id>//www.ideadsnow.com/learn/突发奇想：想自己搭个google镜像.html</id>
     <published>2016-05-06T17:38:23.000Z</published>
     <updated>2016-09-08T06:13:26.000Z</updated>
     
@@ -629,19 +629,19 @@
     
     </summary>
     
-      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+      <category term="学习" scheme="//www.ideadsnow.com/categories/learn/"/>
     
     
-      <category term="Google" scheme="//ideadsnow.com/tags/Google/"/>
+      <category term="Google" scheme="//www.ideadsnow.com/tags/Google/"/>
     
-      <category term="反向代理" scheme="//ideadsnow.com/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
+      <category term="反向代理" scheme="//www.ideadsnow.com/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title>毕业照？当然也是可以用来中二的</title>
-    <link href="//ideadsnow.com/life/%E6%AF%95%E4%B8%9A%E7%85%A7%EF%BC%9F%E5%BD%93%E7%84%B6%E4%B9%9F%E6%98%AF%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E4%B8%AD%E4%BA%8C%E7%9A%84.html"/>
-    <id>//ideadsnow.com/life/毕业照？当然也是可以用来中二的.html</id>
+    <link href="//www.ideadsnow.com/life/%E6%AF%95%E4%B8%9A%E7%85%A7%EF%BC%9F%E5%BD%93%E7%84%B6%E4%B9%9F%E6%98%AF%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E4%B8%AD%E4%BA%8C%E7%9A%84.html"/>
+    <id>//www.ideadsnow.com/life/毕业照？当然也是可以用来中二的.html</id>
     <published>2016-05-05T18:35:37.000Z</published>
     <updated>2016-09-08T06:13:25.000Z</updated>
     
@@ -691,17 +691,17 @@
     
     </summary>
     
-      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+      <category term="生活" scheme="//www.ideadsnow.com/categories/life/"/>
     
     
-      <category term="自己瞎扯淡" scheme="//ideadsnow.com/tags/too-young-too-simple/"/>
+      <category term="自己瞎扯淡" scheme="//www.ideadsnow.com/tags/too-young-too-simple/"/>
     
   </entry>
   
   <entry>
     <title>HTTP 基础之 Cookie</title>
-    <link href="//ideadsnow.com/learn/http-%E5%9F%BA%E7%A1%80%E4%B9%8B-cookie.html"/>
-    <id>//ideadsnow.com/learn/http-基础之-cookie.html</id>
+    <link href="//www.ideadsnow.com/learn/http-%E5%9F%BA%E7%A1%80%E4%B9%8B-cookie.html"/>
+    <id>//www.ideadsnow.com/learn/http-基础之-cookie.html</id>
     <published>2016-04-21T02:16:16.000Z</published>
     <updated>2016-09-08T06:13:24.000Z</updated>
     
@@ -797,21 +797,21 @@
     
     </summary>
     
-      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+      <category term="学习" scheme="//www.ideadsnow.com/categories/learn/"/>
     
     
-      <category term="web" scheme="//ideadsnow.com/tags/web/"/>
+      <category term="web" scheme="//www.ideadsnow.com/tags/web/"/>
     
-      <category term="http" scheme="//ideadsnow.com/tags/http/"/>
+      <category term="http" scheme="//www.ideadsnow.com/tags/http/"/>
     
-      <category term="cookie" scheme="//ideadsnow.com/tags/cookie/"/>
+      <category term="cookie" scheme="//www.ideadsnow.com/tags/cookie/"/>
     
   </entry>
   
   <entry>
     <title>Linux 环境变量配置</title>
-    <link href="//ideadsnow.com/learn/linux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE.html"/>
-    <id>//ideadsnow.com/learn/linux-环境变量配置.html</id>
+    <link href="//www.ideadsnow.com/learn/linux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE.html"/>
+    <id>//www.ideadsnow.com/learn/linux-环境变量配置.html</id>
     <published>2016-03-30T10:01:42.000Z</published>
     <updated>2016-09-08T06:13:24.000Z</updated>
     
@@ -831,17 +831,17 @@
     
     </summary>
     
-      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+      <category term="学习" scheme="//www.ideadsnow.com/categories/learn/"/>
     
     
-      <category term="linux" scheme="//ideadsnow.com/tags/linux/"/>
+      <category term="linux" scheme="//www.ideadsnow.com/tags/linux/"/>
     
   </entry>
   
   <entry>
     <title>有关旅途</title>
-    <link href="//ideadsnow.com/life/%E6%9C%89%E5%85%B3%E6%97%85%E9%80%94.html"/>
-    <id>//ideadsnow.com/life/有关旅途.html</id>
+    <link href="//www.ideadsnow.com/life/%E6%9C%89%E5%85%B3%E6%97%85%E9%80%94.html"/>
+    <id>//www.ideadsnow.com/life/有关旅途.html</id>
     <published>2016-02-26T06:31:53.000Z</published>
     <updated>2016-09-08T09:06:33.000Z</updated>
     
@@ -882,17 +882,17 @@
     
     </summary>
     
-      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+      <category term="生活" scheme="//www.ideadsnow.com/categories/life/"/>
     
     
-      <category term="自己瞎扯淡" scheme="//ideadsnow.com/tags/too-young-too-simple/"/>
+      <category term="自己瞎扯淡" scheme="//www.ideadsnow.com/tags/too-young-too-simple/"/>
     
   </entry>
   
   <entry>
     <title>歌：莲花-高晨微</title>
-    <link href="//ideadsnow.com/share/%E6%AD%8C%EF%BC%9A%E8%8E%B2%E8%8A%B1-%E9%AB%98%E6%99%A8%E5%BE%AE.html"/>
-    <id>//ideadsnow.com/share/歌：莲花-高晨微.html</id>
+    <link href="//www.ideadsnow.com/share/%E6%AD%8C%EF%BC%9A%E8%8E%B2%E8%8A%B1-%E9%AB%98%E6%99%A8%E5%BE%AE.html"/>
+    <id>//www.ideadsnow.com/share/歌：莲花-高晨微.html</id>
     <published>2016-01-30T16:47:49.000Z</published>
     <updated>2016-09-08T06:13:25.000Z</updated>
     
@@ -921,17 +921,17 @@
     
     </summary>
     
-      <category term="分享" scheme="//ideadsnow.com/categories/share/"/>
+      <category term="分享" scheme="//www.ideadsnow.com/categories/share/"/>
     
     
-      <category term="歌" scheme="//ideadsnow.com/tags/%E6%AD%8C/"/>
+      <category term="歌" scheme="//www.ideadsnow.com/tags/%E6%AD%8C/"/>
     
   </entry>
   
   <entry>
     <title>世间无废，全于心境</title>
-    <link href="//ideadsnow.com/life/%E4%B8%96%E9%97%B4%E6%97%A0%E5%BA%9F%EF%BC%8C%E5%85%A8%E4%BA%8E%E5%BF%83%E5%A2%83.html"/>
-    <id>//ideadsnow.com/life/世间无废，全于心境.html</id>
+    <link href="//www.ideadsnow.com/life/%E4%B8%96%E9%97%B4%E6%97%A0%E5%BA%9F%EF%BC%8C%E5%85%A8%E4%BA%8E%E5%BF%83%E5%A2%83.html"/>
+    <id>//www.ideadsnow.com/life/世间无废，全于心境.html</id>
     <published>2016-01-26T13:22:04.000Z</published>
     <updated>2016-09-08T06:13:24.000Z</updated>
     
@@ -952,17 +952,17 @@
     
     </summary>
     
-      <category term="生活" scheme="//ideadsnow.com/categories/life/"/>
+      <category term="生活" scheme="//www.ideadsnow.com/categories/life/"/>
     
     
-      <category term="别人瞎扯淡" scheme="//ideadsnow.com/tags/too-old-too-complex/"/>
+      <category term="别人瞎扯淡" scheme="//www.ideadsnow.com/tags/too-old-too-complex/"/>
     
   </entry>
   
   <entry>
     <title>vim 学习</title>
-    <link href="//ideadsnow.com/learn/vim-%E5%AD%A6%E4%B9%A0.html"/>
-    <id>//ideadsnow.com/learn/vim-学习.html</id>
+    <link href="//www.ideadsnow.com/learn/vim-%E5%AD%A6%E4%B9%A0.html"/>
+    <id>//www.ideadsnow.com/learn/vim-学习.html</id>
     <published>2016-01-07T13:25:11.000Z</published>
     <updated>2016-09-08T06:13:24.000Z</updated>
     
@@ -1070,12 +1070,12 @@
     
     </summary>
     
-      <category term="学习" scheme="//ideadsnow.com/categories/learn/"/>
+      <category term="学习" scheme="//www.ideadsnow.com/categories/learn/"/>
     
     
-      <category term="vim" scheme="//ideadsnow.com/tags/vim/"/>
+      <category term="vim" scheme="//www.ideadsnow.com/tags/vim/"/>
     
-      <category term="工具学习" scheme="//ideadsnow.com/tags/tools-learn/"/>
+      <category term="工具学习" scheme="//www.ideadsnow.com/tags/tools-learn/"/>
     
   </entry>
   
