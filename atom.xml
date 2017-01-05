@@ -703,7 +703,7 @@
     <link href="//www.ideadsnow.com/learn/http-%E5%9F%BA%E7%A1%80%E4%B9%8B-cookie.html"/>
     <id>//www.ideadsnow.com/learn/http-基础之-cookie.html</id>
     <published>2016-04-21T02:16:16.000Z</published>
-    <updated>2016-09-08T06:13:24.000Z</updated>
+    <updated>2017-01-05T11:29:52.000Z</updated>
     
     <content type="html"><![CDATA[<p>一般来说，了解一样东西的流程是这样的</p>
 <ul>
@@ -763,6 +763,8 @@
 <p>一个 Bool 值，指定是否以安全模式传输。默认是不安全的。当为 True 时，该 Cookie 只有以 HTTPS 连接时才会传输</p>
 <p><strong>HttpOnly</strong></p>
 <p>如果设置了 HttpOnly 属性，那么通过程序（js 或 Applet等）将无法读取 Cookie 信息</p>
+<p><strong>SameSite</strong></p>
+<p>非常新的一个属性，这个属性用途是缓解 CSRF 攻击，有两个属性值 <em>lax</em> 和 <em>strict</em>，前者只对比较危险的 HTTP 请求（比如 POST）进行限制，不允许发送 cookies 到另一个域；后者严格限制所有请求，包括 GET</p>
 <h2 id="Cookie-缺点"><a href="#Cookie-缺点" class="headerlink" title="Cookie 缺点"></a>Cookie 缺点</h2><ol>
 <li>Cookie 的大小被限制在 4KB 内，能够存储的信息非常少</li>
 <li>如果不用 HTTPS 的话 Cookie 的信息是明文传输，非常不安全</li>
