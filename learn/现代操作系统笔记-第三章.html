@@ -6,35 +6,39 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="//www.ideadsnow.com">
-  <title>有关旅途 | iDeadSnow&#39;s Blog</title>
+  <title>现代操作系统笔记 第三章 | iDeadSnow&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我走过很多城市，却都只有一面之缘
+  <meta name="description" content="内存超载解决方案
+交换（swap）
+虚拟内存（virtual memory）
 
+第一种方案的问题
 
-
-看到里少的这条微博，有些感慨。自己也走过许多地方，不也是“一面之缘”？
-没回家前一直心心念念着想去十几年前读过的小学看看，印象中校园很广阔，却也是一片荒芜，院墙上写着“十年树木，百年树人。”算上标点十个巨大的字；有四五排平房，最前面两排是教室，第三排是办公室，后面的好像是老师的宿舍；学校后面还有一小片树林，童年见过的树木也就那么几颗教室里面没有暖气，一间教">
+交换时会导致产生多个空闲区（也称为空洞，hole，类似于磁盘碎片），通过把所有的进程尽可能向下移动，有可能将这些小的空闲区域合成一大块，该技术被称为内存紧缩（memory compaction）
+但内存紧缩非常耗时，例如，一台 1GB 内存大小的计算机每 20ns 可以复制 4 个字节，它紧缩全部内">
 <meta property="og:type" content="article">
-<meta property="og:title" content="有关旅途">
-<meta property="og:url" content="//www.ideadsnow.com/life/有关旅途.html">
+<meta property="og:title" content="现代操作系统笔记 第三章">
+<meta property="og:url" content="//www.ideadsnow.com/learn/现代操作系统笔记-第三章.html">
 <meta property="og:site_name" content="iDeadSnow's Blog">
-<meta property="og:description" content="我走过很多城市，却都只有一面之缘
+<meta property="og:description" content="内存超载解决方案
+交换（swap）
+虚拟内存（virtual memory）
 
+第一种方案的问题
 
-
-看到里少的这条微博，有些感慨。自己也走过许多地方，不也是“一面之缘”？
-没回家前一直心心念念着想去十几年前读过的小学看看，印象中校园很广阔，却也是一片荒芜，院墙上写着“十年树木，百年树人。”算上标点十个巨大的字；有四五排平房，最前面两排是教室，第三排是办公室，后面的好像是老师的宿舍；学校后面还有一小片树林，童年见过的树木也就那么几颗教室里面没有暖气，一间教">
-<meta property="og:image" content="http://ww1.sinaimg.cn/bmiddle/5ef69166jw1f1c0b94t7jj20qo0zk4i4.jpg">
-<meta property="og:updated_time" content="2016-09-08T09:06:33.000Z">
+交换时会导致产生多个空闲区（也称为空洞，hole，类似于磁盘碎片），通过把所有的进程尽可能向下移动，有可能将这些小的空闲区域合成一大块，该技术被称为内存紧缩（memory compaction）
+但内存紧缩非常耗时，例如，一台 1GB 内存大小的计算机每 20ns 可以复制 4 个字节，它紧缩全部内">
+<meta property="og:updated_time" content="2017-01-05T11:41:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="有关旅途">
-<meta name="twitter:description" content="我走过很多城市，却都只有一面之缘
+<meta name="twitter:title" content="现代操作系统笔记 第三章">
+<meta name="twitter:description" content="内存超载解决方案
+交换（swap）
+虚拟内存（virtual memory）
 
+第一种方案的问题
 
-
-看到里少的这条微博，有些感慨。自己也走过许多地方，不也是“一面之缘”？
-没回家前一直心心念念着想去十几年前读过的小学看看，印象中校园很广阔，却也是一片荒芜，院墙上写着“十年树木，百年树人。”算上标点十个巨大的字；有四五排平房，最前面两排是教室，第三排是办公室，后面的好像是老师的宿舍；学校后面还有一小片树林，童年见过的树木也就那么几颗教室里面没有暖气，一间教">
-<meta name="twitter:image" content="http://ww1.sinaimg.cn/bmiddle/5ef69166jw1f1c0b94t7jj20qo0zk4i4.jpg">
+交换时会导致产生多个空闲区（也称为空洞，hole，类似于磁盘碎片），通过把所有的进程尽可能向下移动，有可能将这些小的空闲区域合成一大块，该技术被称为内存紧缩（memory compaction）
+但内存紧缩非常耗时，例如，一台 1GB 内存大小的计算机每 20ns 可以复制 4 个字节，它紧缩全部内">
   
     <link rel="alternative" href="/atom.xml" title="iDeadSnow&#39;s Blog" type="application/atom+xml">
   
@@ -149,47 +153,64 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-有关旅途" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-现代操作系统笔记-第三章" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      有关旅途
+      现代操作系统笔记 第三章
     </h1>
   
 
-        <a href="/life/有关旅途.html" class="archive-article-date">
-  	<time datetime="2016-02-26T06:31:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-02-26</time>
+        <a href="/learn/现代操作系统笔记-第三章.html" class="archive-article-date">
+  	<time datetime="2017-01-05T11:39:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-05</time>
 </a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>我走过很多城市，却都只有一面之缘</p>
-</blockquote>
-<div align="center" style="margin: 10px 0"><img src="http://ww1.sinaimg.cn/bmiddle/5ef69166jw1f1c0b94t7jj20qo0zk4i4.jpg" alt="抬头看风景"></div>
-
-<p>看到里少的这条微博，有些感慨。自己也走过许多地方，不也是“一面之缘”？</p>
-<p>没回家前一直心心念念着想去十几年前读过的小学看看，印象中校园很广阔，却也是一片荒芜，院墙上写着“十年树木，百年树人。”算上标点十个巨大的字；有四五排平房，最前面两排是教室，第三排是办公室，后面的好像是老师的宿舍；学校后面还有一小片树林，童年见过的树木也就那么几颗<br>教室里面没有暖气，一间教室里面只有靠近前门的地方有一个小火炉。冬天班主任会让每位同学轮岗，每天早上早早到教室，为大家生火。大部分同学都是父母陪同帮忙的，凌晨四五点，天没亮，抬头可见星星月亮，搓着被冻得通红皴裂的手和脸，劈柴，烧火。每节课一结束，所有人都冲向火炉……<br>还有印象中有次语文课刚下，老师走出房门，有同学问下节什么课，另一同学大喊：“下节数（三声）学课！”。过了几秒钟语文老师又出现在教室门口：“我刚听你们喊什么？数（三声）学课？这个字是四声同学们，应该读数（四声）学课，大家记住啊”  </p>
-<a id="more"></a>
-<p>有很多很多年没有去看过了  </p>
-<p>昨天拖着 魏bud 同学一起去重新走了趟母校，一路上沙尘阵阵，加上那一片地区已经没有什么人居住，显得格外凄凉萧条。学校早已不是当年的样子，那几排房子都改了民居，房门紧闭，只有门口一直壮硕的藏獒冲着我们吼叫。那片小树林好像也没有了  </p>
-<p>那时候没见过世面，也无暇考虑这些事，只想着上山爬树打土仗<br>后来三年级转学到了红会，比原来的那所学校条件好很多<br>再后来六年级又转学到了长征，条件又好了许多，周遭事物也繁华了许多<br>初中又转去条件更好的中学，在那里度过了我的初中，以及印象最深刻的高中<br>到了大学，一步跳出了西北去了沿海一线城市  </p>
-<p>在此期间，家庭条件也慢慢变得好起来，很小的时候父母一个月工资加起来只有一百多块钱，每天吃饭连菜都要省着吃。跟爸妈要几毛钱买零食吃也是奢侈的，一年中有一两次吧<br>可在那种条件下，在我三年级的时候，爸妈竟然破天荒地借钱买了台电脑，Win98 系统的。现在想想也是不可思议</p>
-<p>物质条件慢慢好起来后，各种机缘巧合，我出门走过了许多许多地方，发达的城市，雄伟的高山，辽阔的大海，秀美的湖泊。遇到了形形色色各行各业的人，有睡大街吃垃圾的所谓“疯子”，有拾荒的老人，有荒僻的地方独自卖菜的小孩，也有一心投入摄影心中再无其他杂念的教授，还有和我同龄却声色智慧都比我强得多的人，还有正在改变这个世界的 IT 界的大牛们</p>
-<p>家乡是个因煤而生的城镇，前几年煤炭资源慢慢枯竭，导致曾经热闹的街道越来越萧条。曾经的小学，包括小学方圆几公里的地方，都变成了真正的“鬼城”，荒无人烟</p>
-<p>二十年的时间，我经历了从贫穷到小康的生活变迁，也目睹了穷的地方到底有多穷，发达的地方到底有多发达，还亲身经历了一片地区的兴衰</p>
-<p>读过点书，那些写书的作者，各自有各自眼中的世界，许多人奉自己喜欢的作者的书为圣经。可走的路越多，见到的越多，越是只把那些书当成可有可无之物，太多路途上的感想和书中的不谋而合，也有太多的感想写书的人没想到。读那么多所谓分析人生、揭露社会的书，自己就真的看透了吗。写这些书的人，自己也真的看透了吗，看透了还会写吗。什么是看透。我们只是人，一种自认为高级的动物，人怎么会整天想看透世间万物，临驾于宇宙之上呢。如同人永远不会知道石头是否有思想，是否也在思考这些两腿行走的东西是不是愚蠢  </p>
-<blockquote>
-<p>读万卷书，不如行万里路</p>
-</blockquote>
-<p>可是问题又来了，行了万里路，皆是“一面之缘”。不同时间，不同地点，不同人物，不同心态，不同身体状况，都会让同一个人对相同的事物产生不同的看法，怎样才能正确、完整地了解一样事物而不受其他因素影响,又怎样定义“正确”、“完整”？</p>
-<hr>
-<p>到底想说些什么，头绪不清不楚，就这样吧</p>
-<embed src="http://www.xiami.com/widget/42097662_1774888620/singlePlayer.swf" type="application/x-shockwave-flash" width="257" height="33" wmode="transparent">
+        <h3 id="内存超载解决方案"><a href="#内存超载解决方案" class="headerlink" title="内存超载解决方案"></a>内存超载解决方案</h3><ol>
+<li>交换（swap）</li>
+<li>虚拟内存（virtual memory）</li>
+</ol>
+<p>第一种方案的问题</p>
+<ol>
+<li><p>交换时会导致产生多个空闲区（也称为空洞，hole，类似于磁盘碎片），通过把所有的进程尽可能向下移动，有可能将这些小的空闲区域合成一大块，该技术被称为内存紧缩（memory compaction）</p>
+<p>但内存紧缩非常耗时，例如，一台 1GB 内存大小的计算机每 20ns 可以复制 4 个字节，它紧缩全部内存要大约花费 5s。所以内存紧缩操作通常不进行</p>
+</li>
+<li><p>进程在运行时使用内存常常需要动态增长，如果有相邻的足够使用的空闲区域则没问题，如果相邻内存空间被另一个进程占用，则只能将这个进程移到一段更大的内存中去，如果没有这么大的空间，那么这个进程只能阻塞等待空间，或者死掉</p>
+<p>如果大部分运行的进程都需要动态增长内存，那么为了减少进程内存搬运的开销，一种可行的方案是，当换入和移动进程时为它多分配一些预留的内存</p>
+</li>
+<li><p><strong>速度</strong>，典型的 SATA 硬盘读写速度一般不过 100MB/s，意味着大约 10s 才能换出一个 1GB 的程序，再花另一个 10s 才能再将一个 1GB 的程序换入</p>
+</li>
+</ol>
+<h3 id="空闲内存管理"><a href="#空闲内存管理" class="headerlink" title="空闲内存管理"></a>空闲内存管理</h3><ol>
+<li><p>位图</p>
+<p>划分内存为许多个小的单位，每个单位用 0 或 1 记录是否空闲</p>
+<p>划分单元的大小是一个重要的设计因素。在位图大小和内存单元大小之间要取平衡，且进程的大小一定要是划分单元的整数倍，不然在最后一个分配单元中就会有一定数量的内存被浪费</p>
+</li>
+<li><p>空闲链表</p>
+<p>若 H 代表空闲，P 代表占用</p>
+<p>链表可以形如：head: {H, start, length, next}  -&gt;  next: {P, start, length, next2}  -&gt;  …</p>
+<p>tip: 使用双链表效率会更高</p>
+<p>按照以上链表方式管理内存时，为新进程分配内存的算法有以下几种</p>
+<ol>
+<li>首次适配（first fit）</li>
+<li>下次适配（first fit）</li>
+<li>最佳适配（best fit）</li>
+<li>最差适配（worst fit） </li>
+</ol>
+<p>另外一种 “快速适配（quick fit）” 的算法为一些常用大小的空闲区维护单独的链表</p>
+</li>
+</ol>
+<h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><p>一段有意思的故事：交换技术到虚拟内存的过渡期间，有一种方案，将程序分割成多个片段，这些片段被称为覆盖（overlay），然后像交换整个进程一样每次只交换这些覆盖（overlay），不过这必须要码农们自己管理好程序分割，枯燥又困难，于是懒人们就搞出来了这个自动化的方案</p>
+<p><strong>基本思想</strong></p>
+<p>每个程序都有自己独立的地址空间，这个空间被分为许多块，每一块被称为一页或页面（page）。每一页有连续的地址范围。这些页被映射到物理内存，但并不是所有的页都被映射到物理内存才能运行程序。当程序引用到一部分已经在物理内存的地址空间时，硬件立即执行操作；而如果引用到一些不在物理内存中的地址空间时，操作系统将会把缺失的部分装入物理内存并重新执行失败的指令</p>
+<p><strong>分页（paging）</strong></p>
+<p>虚拟地址空间片段被称为页（page），物理内存也被 MMU（Memory Management Unit）逻辑上划分为页框（page frame)，大小一般与页一致。当程序访问了没有对应页框的页时，MMU 注意到该页没有被映射，于是使 CPU 陷入操作系统，称为 <strong>缺页中断（page fault）</strong> 。操作系统将会找一个很少使用的页框把它的内容写入磁盘（如果它不在磁盘上），然后把要访问的页装入页框，修改映射关系，然后重新启动引起陷阱的指令</p>
+<p>未完待续</p>
 
       
 
@@ -200,15 +221,10 @@
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/too-young-too-simple/">自己瞎扯淡</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/现代操作系统/">现代操作系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
 	</div>
 
       
-	<div class="article-category tagcloud">
-	<i class="icon-book icon"></i>
-	<a class="article-category-link" href="/categories/life/">生活</a>
-	</div>
-
 
       
 
@@ -258,7 +274,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.ideadsnow.com/life/有关旅途.html" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.ideadsnow.com/learn/现代操作系统笔记-第三章.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -272,18 +288,9 @@
   
 <nav id="article-nav">
   
-    <a href="/learn/linux-环境变量配置.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Linux 环境变量配置
-        
-      </div>
-    </a>
   
-  
-    <a href="/share/歌：莲花-高晨微.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">歌：莲花-高晨微</div>
+    <a href="/learn/探究-python-生成随机字符串.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">探究 PYTHON 生成随机字符串</div>
       <i class="icon-circle-right"></i>
     </a>
   

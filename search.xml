@@ -4,6 +4,52 @@
   
     
     <entry>
+      <title><![CDATA[现代操作系统笔记 第三章]]></title>
+      <url>//www.ideadsnow.com/learn/%E7%8E%B0%E4%BB%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0-%E7%AC%AC%E4%B8%89%E7%AB%A0.html</url>
+      <content type="html"><![CDATA[<h3 id="内存超载解决方案"><a href="#内存超载解决方案" class="headerlink" title="内存超载解决方案"></a>内存超载解决方案</h3><ol>
+<li>交换（swap）</li>
+<li>虚拟内存（virtual memory）</li>
+</ol>
+<p>第一种方案的问题</p>
+<ol>
+<li><p>交换时会导致产生多个空闲区（也称为空洞，hole，类似于磁盘碎片），通过把所有的进程尽可能向下移动，有可能将这些小的空闲区域合成一大块，该技术被称为内存紧缩（memory compaction）</p>
+<p>但内存紧缩非常耗时，例如，一台 1GB 内存大小的计算机每 20ns 可以复制 4 个字节，它紧缩全部内存要大约花费 5s。所以内存紧缩操作通常不进行</p>
+</li>
+<li><p>进程在运行时使用内存常常需要动态增长，如果有相邻的足够使用的空闲区域则没问题，如果相邻内存空间被另一个进程占用，则只能将这个进程移到一段更大的内存中去，如果没有这么大的空间，那么这个进程只能阻塞等待空间，或者死掉</p>
+<p>如果大部分运行的进程都需要动态增长内存，那么为了减少进程内存搬运的开销，一种可行的方案是，当换入和移动进程时为它多分配一些预留的内存</p>
+</li>
+<li><p><strong>速度</strong>，典型的 SATA 硬盘读写速度一般不过 100MB/s，意味着大约 10s 才能换出一个 1GB 的程序，再花另一个 10s 才能再将一个 1GB 的程序换入</p>
+</li>
+</ol>
+<h3 id="空闲内存管理"><a href="#空闲内存管理" class="headerlink" title="空闲内存管理"></a>空闲内存管理</h3><ol>
+<li><p>位图</p>
+<p>划分内存为许多个小的单位，每个单位用 0 或 1 记录是否空闲</p>
+<p>划分单元的大小是一个重要的设计因素。在位图大小和内存单元大小之间要取平衡，且进程的大小一定要是划分单元的整数倍，不然在最后一个分配单元中就会有一定数量的内存被浪费</p>
+</li>
+<li><p>空闲链表</p>
+<p>若 H 代表空闲，P 代表占用</p>
+<p>链表可以形如：head: {H, start, length, next}  -&gt;  next: {P, start, length, next2}  -&gt;  …</p>
+<p>tip: 使用双链表效率会更高</p>
+<p>按照以上链表方式管理内存时，为新进程分配内存的算法有以下几种</p>
+<ol>
+<li>首次适配（first fit）</li>
+<li>下次适配（first fit）</li>
+<li>最佳适配（best fit）</li>
+<li>最差适配（worst fit） </li>
+</ol>
+<p>另外一种 “快速适配（quick fit）” 的算法为一些常用大小的空闲区维护单独的链表</p>
+</li>
+</ol>
+<h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><p>一段有意思的故事：交换技术到虚拟内存的过渡期间，有一种方案，将程序分割成多个片段，这些片段被称为覆盖（overlay），然后像交换整个进程一样每次只交换这些覆盖（overlay），不过这必须要码农们自己管理好程序分割，枯燥又困难，于是懒人们就搞出来了这个自动化的方案</p>
+<p><strong>基本思想</strong></p>
+<p>每个程序都有自己独立的地址空间，这个空间被分为许多块，每一块被称为一页或页面（page）。每一页有连续的地址范围。这些页被映射到物理内存，但并不是所有的页都被映射到物理内存才能运行程序。当程序引用到一部分已经在物理内存的地址空间时，硬件立即执行操作；而如果引用到一些不在物理内存中的地址空间时，操作系统将会把缺失的部分装入物理内存并重新执行失败的指令</p>
+<p><strong>分页（paging）</strong></p>
+<p>虚拟地址空间片段被称为页（page），物理内存也被 MMU（Memory Management Unit）逻辑上划分为页框（page frame)，大小一般与页一致。当程序访问了没有对应页框的页时，MMU 注意到该页没有被映射，于是使 CPU 陷入操作系统，称为 <strong>缺页中断（page fault）</strong> 。操作系统将会找一个很少使用的页框把它的内容写入磁盘（如果它不在磁盘上），然后把要访问的页装入页框，修改映射关系，然后重新启动引起陷阱的指令</p>
+<p>未完待续</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[探究 PYTHON 生成随机字符串]]></title>
       <url>//www.ideadsnow.com/learn/%E6%8E%A2%E7%A9%B6-python-%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2.html</url>
       <content type="html"><![CDATA[<h3 id="目前看到的最简洁的方法"><a href="#目前看到的最简洁的方法" class="headerlink" title="目前看到的最简洁的方法"></a>目前看到的最简洁的方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">randomString</span><span class="params">(n)</span>:</span></div><div class="line">    <span class="keyword">return</span> (<span class="string">''</span>.join(map(<span class="keyword">lambda</span> x:(hex(ord(x))[<span class="number">2</span>:]), os.urandom(n))))[<span class="number">0</span>:<span class="number">8</span>]</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    <span class="keyword">print</span> randomString(<span class="number">16</span>)</div></pre></td></tr></table></figure>

@@ -130,6 +130,99 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-现代操作系统笔记-第三章" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/learn/现代操作系统笔记-第三章.html">现代操作系统笔记 第三章</a>
+    </h1>
+  
+
+        <a href="/learn/现代操作系统笔记-第三章.html" class="archive-article-date">
+  	<time datetime="2017-01-05T11:39:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-05</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="内存超载解决方案"><a href="#内存超载解决方案" class="headerlink" title="内存超载解决方案"></a>内存超载解决方案</h3><ol>
+<li>交换（swap）</li>
+<li>虚拟内存（virtual memory）</li>
+</ol>
+<p>第一种方案的问题</p>
+<ol>
+<li><p>交换时会导致产生多个空闲区（也称为空洞，hole，类似于磁盘碎片），通过把所有的进程尽可能向下移动，有可能将这些小的空闲区域合成一大块，该技术被称为内存紧缩（memory compaction）</p>
+<p>但内存紧缩非常耗时，例如，一台 1GB 内存大小的计算机每 20ns 可以复制 4 个字节，它紧缩全部内存要大约花费 5s。所以内存紧缩操作通常不进行</p>
+</li>
+<li><p>进程在运行时使用内存常常需要动态增长，如果有相邻的足够使用的空闲区域则没问题，如果相邻内存空间被另一个进程占用，则只能将这个进程移到一段更大的内存中去，如果没有这么大的空间，那么这个进程只能阻塞等待空间，或者死掉</p>
+<p>如果大部分运行的进程都需要动态增长内存，那么为了减少进程内存搬运的开销，一种可行的方案是，当换入和移动进程时为它多分配一些预留的内存</p>
+</li>
+<li><p><strong>速度</strong>，典型的 SATA 硬盘读写速度一般不过 100MB/s，意味着大约 10s 才能换出一个 1GB 的程序，再花另一个 10s 才能再将一个 1GB 的程序换入</p>
+</li>
+</ol>
+<h3 id="空闲内存管理"><a href="#空闲内存管理" class="headerlink" title="空闲内存管理"></a>空闲内存管理</h3><ol>
+<li><p>位图</p>
+<p>划分内存为许多个小的单位，每个单位用 0 或 1 记录是否空闲</p>
+<p>划分单元的大小是一个重要的设计因素。在位图大小和内存单元大小之间要取平衡，且进程的大小一定要是划分单元的整数倍，不然在最后一个分配单元中就会有一定数量的内存被浪费</p>
+</li>
+<li><p>空闲链表</p>
+<p>若 H 代表空闲，P 代表占用</p>
+<p>链表可以形如：head: {H, start, length, next}  -&gt;  next: {P, start, length, next2}  -&gt;  …</p>
+<p>tip: 使用双链表效率会更高</p>
+<p>按照以上链表方式管理内存时，为新进程分配内存的算法有以下几种</p>
+<ol>
+<li>首次适配（first fit）</li>
+<li>下次适配（first fit）</li>
+<li>最佳适配（best fit）</li>
+<li>最差适配（worst fit） </li>
+</ol>
+<p>另外一种 “快速适配（quick fit）” 的算法为一些常用大小的空闲区维护单独的链表</p>
+</li>
+</ol>
+<h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><p>一段有意思的故事：交换技术到虚拟内存的过渡期间，有一种方案，将程序分割成多个片段，这些片段被称为覆盖（overlay），然后像交换整个进程一样每次只交换这些覆盖（overlay），不过这必须要码农们自己管理好程序分割，枯燥又困难，于是懒人们就搞出来了这个自动化的方案</p>
+<p><strong>基本思想</strong></p>
+<p>每个程序都有自己独立的地址空间，这个空间被分为许多块，每一块被称为一页或页面（page）。每一页有连续的地址范围。这些页被映射到物理内存，但并不是所有的页都被映射到物理内存才能运行程序。当程序引用到一部分已经在物理内存的地址空间时，硬件立即执行操作；而如果引用到一些不在物理内存中的地址空间时，操作系统将会把缺失的部分装入物理内存并重新执行失败的指令</p>
+<p><strong>分页（paging）</strong></p>
+<p>虚拟地址空间片段被称为页（page），物理内存也被 MMU（Memory Management Unit）逻辑上划分为页框（page frame)，大小一般与页一致。当程序访问了没有对应页框的页时，MMU 注意到该页没有被映射，于是使 CPU 陷入操作系统，称为 <strong>缺页中断（page fault）</strong> 。操作系统将会找一个很少使用的页框把它的内容写入磁盘（如果它不在磁盘上），然后把要访问的页装入页框，修改映射关系，然后重新启动引起陷阱的指令</p>
+<p>未完待续</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/现代操作系统/">现代操作系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/learn/现代操作系统笔记-第三章.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-探究-python-生成随机字符串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -610,75 +703,6 @@
 
 
   
-    <article id="post-花枝春野" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/life/花枝春野.html">花枝春野</a>
-    </h1>
-  
-
-        <a href="/life/花枝春野.html" class="archive-article-date">
-  	<time datetime="2016-05-20T18:59:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-21</time>
-</a>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第一次听不才的这首歌觉得很合心境，平静不喧闹中满满的美好。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="http://music.163.com/outchain/player?type=2&id=28568227&auto=0&height=66"></iframe>
-
-<p>后来看到词作商连发出的《小朋友们的花枝春野》，小团子们的童声更加为这首歌平添了几分简单纯净的美。</p>
-<p><a href="http://5sing.kugou.com/m/Song/Detail/fc/15121553">小团子们的版本</a></p>
-<p>商连的创灵：</p>
-<blockquote>
-<p>每周六我有一个公益的小国学堂，从大一开始教，现在研究生都要毕业了呢，今天突然发现之前的小团子长成了小少年和小少女，当然又有新的小团子加进来了~看花的季节要唱花枝春野，最近几节课快结束的时候都有合唱，他们很爱这首啊哈哈，听一段就能跟着唱了。录一小段传上来，可爱可爱的~</p>
-</blockquote>
-        
-          <a class="article-more-a" href="/life/花枝春野.html#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/too-young-too-simple/">自己瞎扯淡</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<i class="icon-book icon"></i>
-	<a class="article-category-link" href="/categories/life/">生活</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/life/花枝春野.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -753,15 +777,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">vim</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">工具学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -789,11 +813,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">Google</a>
+                <a href="javascript:void(0)">现代操作系统</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">反向代理</a>
+                <a href="javascript:void(0)">笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -802,6 +826,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Google</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">反向代理</a>
               </li>
             
             <div class="clearfix"></div>
