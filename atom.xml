@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="//www.ideadsnow.com/"/>
-  <updated>2017-01-05T11:42:32.000Z</updated>
+  <updated>2017-01-05T11:43:47.000Z</updated>
   <id>//www.ideadsnow.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//www.ideadsnow.com/learn/%E7%8E%B0%E4%BB%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0-%E7%AC%AC%E4%B8%89%E7%AB%A0.html"/>
     <id>//www.ideadsnow.com/learn/现代操作系统笔记-第三章.html</id>
     <published>2017-01-05T11:39:28.000Z</published>
-    <updated>2017-01-05T11:42:32.000Z</updated>
+    <updated>2017-01-05T11:43:47.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="内存超载解决方案"><a href="#内存超载解决方案" class="headerlink" title="内存超载解决方案"></a>内存超载解决方案</h3><ol>
 <li>交换（swap）</li>
