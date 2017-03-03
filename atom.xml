@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="//www.ideadsnow.com/"/>
-  <updated>2017-01-27T17:06:46.000Z</updated>
+  <updated>2017-03-03T03:11:31.000Z</updated>
   <id>//www.ideadsnow.com/</id>
   
   <author>
@@ -14,6 +14,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>感冒爆炸</title>
+    <link href="//www.ideadsnow.com/life/%E6%84%9F%E5%86%92%E7%88%86%E7%82%B8.html"/>
+    <id>//www.ideadsnow.com/life/感冒爆炸.html</id>
+    <published>2017-03-03T03:08:09.000Z</published>
+    <updated>2017-03-03T03:11:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>一年不感冒，感冒耗一月</p>
+<p>各种计划全被打乱呵呵哒</p>
+<p>估计还要一周才能好（又 TM 是 flag）</p>
+<p>这个月欠下计划的债太多了 f**k</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一年不感冒，感冒耗一月&lt;/p&gt;
+&lt;p&gt;各种计划全被打乱呵呵哒&lt;/p&gt;
+&lt;p&gt;估计还要一周才能好（又 TM 是 flag）&lt;/p&gt;
+&lt;p&gt;这个月欠下计划的债太多了 f**k&lt;/p&gt;
+
+    
+    </summary>
+    
+      <category term="生活" scheme="//www.ideadsnow.com/categories/life/"/>
+    
+    
+      <category term="自己瞎扯淡" scheme="//www.ideadsnow.com/tags/too-young-too-simple/"/>
+    
+  </entry>
   
   <entry>
     <title>现代操作系统笔记 第三章</title>
