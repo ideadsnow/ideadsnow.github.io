@@ -477,19 +477,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[突发奇想：想自己搭个google镜像]]></title>
-      <url>//www.ideadsnow.com/learn/%E7%AA%81%E5%8F%91%E5%A5%87%E6%83%B3%EF%BC%9A%E6%83%B3%E8%87%AA%E5%B7%B1%E6%90%AD%E4%B8%AAgoogle%E9%95%9C%E5%83%8F.html</url>
-      <content type="html"><![CDATA[<p>写毕业论文常常需要用到 Google，然而在宿舍并没有非常方便的科学上网的环境，用网上其他人的镜像总是三天两头抽风，有了自己搞一个镜像的想法。</p>
-<p>搜索了一圈发现貌似大多数人都是用 nginx 反向代理来实现。不过我已经把域名给博客用了，如果还要拿来做 Google 镜像的话自然 80 端口要让给 nginx，那我的博客怎么玩？</p>
-<p>又去搜索了一圈发现自己蠢了，都反向代理 Google 了，为毛不能反向代理博客服务%&gt;_&lt;%呵呵呵。</p>
-<p>初步想的方案是，80 端口由 nginx 监听，根据不同二级域名（www.ideadsnow.com 和 go.ideadsnow.com）进行路由，如果是 www 的话就丢给博客进程去玩，如果是 go 的话当然就是用来做 Google 镜像啦。</p>
-<hr>
-<p>没有了解过 nginx，也没了解过反向代理，以上纯属看了一点点资料后想到的方案，也许没有可行性，也许再多了解点后会发现事情根本不是我想的那个样子。管他呢，先放在这，有空再搞，第六感告诉我这是件很简单的事。</p>
-<p>另外实现方案没完全想清楚，SSL 证书倒是申请了，我还真是不喜欢做正事。呵呵哒。</p>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[毕业照？当然也是可以用来中二的]]></title>
       <url>//www.ideadsnow.com/life/%E6%AF%95%E4%B8%9A%E7%85%A7%EF%BC%9F%E5%BD%93%E7%84%B6%E4%B9%9F%E6%98%AF%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E4%B8%AD%E4%BA%8C%E7%9A%84.html</url>
       <content type="html"><![CDATA[<p>自打出生到现在快二十二年了，能自己决定自己的事的机会实在是不多</p>
