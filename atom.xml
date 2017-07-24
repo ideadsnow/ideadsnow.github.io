@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="//www.ideadsnow.com/"/>
-  <updated>2017-07-04T06:02:55.000Z</updated>
+  <updated>2017-07-24T07:57:09.000Z</updated>
   <id>//www.ideadsnow.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//www.ideadsnow.com/learn/%E8%B8%A9%E4%BA%86%E9%98%BF%E9%87%8C%E4%BA%91%E6%92%AD%E6%94%BE%E5%99%A8%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9D%91.html"/>
     <id>//www.ideadsnow.com/learn/踩了阿里云播放器的一个坑.html</id>
     <published>2017-07-03T12:58:53.000Z</published>
-    <updated>2017-07-04T06:02:55.000Z</updated>
+    <updated>2017-07-24T07:57:09.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://image.ideadsnow.com/2017-02-06-094551.jpg" alt=""></p>
 <p>偶然在多个页面使用了阿里云提供的播放器的系统里发现个 BUG</p>
@@ -76,7 +76,10 @@
 <li>重新回到使用 v1.5.7 版本播放器的页面，刷新并发现此时 <code>UA.IS_H5</code> 值为 <code>False</code></li>
 </ol>
 <p>可以看出页面是否拥有 Flash Player 使用权限，确实影响到了 <code>UA.IS_H5</code> 的值，从而影响了页面自适应播放器模式<br>因 <code>UA</code> 对象是 prism.js 通过 require() 方式从其他 js 中得到，而阿里云限制了对该 js 的访问，所以 <code>UA.IS_H5</code> 究竟是如何获得值，也就不得而知了<br>到此，导致该问题的全部原因都清楚了</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>将全部 v1.5.* 版本 js 替换为 v1.4.7。因业务需求较简单，所以规避该问题即可，1.4.7 已能满足用户需求</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
+<li>将自适应版本替换为 Flash 版，强制使用 Flash。缺点是这样一来就相当于放弃了未来移动端扩展</li>
+<li>将全部 v1.5.* 版本 js 替换为 v1.4.7。因业务需求较简单，所以规避该问题即可，1.4.7 已能满足用户需求</li>
+</ol>
 <h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>从文档来看，阿里云的开发人员很清楚这个问题，但给出的兼容方案并不好，可以考虑优化，比如以下方案</p>
 <ul>
 <li>最简单版本：播放器提示语除了表明“播放类型不支持”，最好再明确一下为什么不支持，即便在原提示语上加个可以点击跳转到官方文档的链接都好</li>
@@ -409,9 +412,9 @@
       <category term="学习" scheme="//www.ideadsnow.com/categories/learn/"/>
     
     
-      <category term="mysql" scheme="//www.ideadsnow.com/tags/mysql/"/>
-    
       <category term="linux" scheme="//www.ideadsnow.com/tags/linux/"/>
+    
+      <category term="mysql" scheme="//www.ideadsnow.com/tags/mysql/"/>
     
   </entry>
   
