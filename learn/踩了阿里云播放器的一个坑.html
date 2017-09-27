@@ -27,7 +27,7 @@
 而另一部分页面加载播放器时，Chrome 会弹出“是否允许该页面使用 Flash Player”的提示，点击”允许“，则视频正常播放
 在可正常播放视频的页面中，点击了“允许”后，再回到有问题的页面，刷新，发现此时这类页面的播放器也可以正常工作">
 <meta property="og:image" content="http://image.ideadsnow.com/2017-02-06-094551.jpg">
-<meta property="og:updated_time" content="2017-07-24T07:57:09.000Z">
+<meta property="og:updated_time" content="2017-09-27T09:11:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="踩了阿里云 prismplayer 播放器的一个坑">
 <meta name="twitter:description" content="偶然在多个页面使用了阿里云提供的播放器的系统里发现个 BUG
@@ -186,6 +186,7 @@
 <li>而可以正常工作的页面引用 js 路径为 <code>http://g.alicdn.com/de/prismplayer/1.4.7/prism-min.js</code></li>
 </ol>
 <p>因官方宣称这个播放器会自适应 H5 和 Flash 两种模式，从出错的表象来看，猜测是 1.5.2 版本的自适应逻辑有一些问题。一开始想简单解决，猜测最新版本的播放器应该已经解决了这个 BUG，于是直接换用最新版本（1.5.7），测试后发现问题依旧，只是最新版本在播放器中多了一行文字提示，大意是播放类型不支持</p>
+<a id="more"></a>
 <p>为了定位问题，下载了两个链接对应的源 <code>prism.js</code>（去除后缀 -min，一般带 -min 的 js 都是经过压缩、混淆，用于正式环境加载使用）文件</p>
 <p>分析对比两个版本，发现与此问题相关的核心代码如下</p>
 <p>v1.4.7<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> tag[<span class="string">'player'</span>] ||</div><div class="line">        (UA.IS_MOBILE ? <span class="keyword">new</span> Player(tag, option) : <span class="keyword">new</span> FlashPlayer(tag, option));</div></pre></td></tr></table></figure></p>
@@ -382,6 +383,10 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">web</a>
               </li>
              
@@ -394,7 +399,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">linux</a>
+                <a href="javascript:void(0)">vim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">工具学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -402,11 +411,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">vim</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">工具学习</a>
+                <a href="javascript:void(0)">自己瞎扯淡</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -418,15 +423,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">曲</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">自己瞎扯淡</a>
+                <a href="javascript:void(0)">曲</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">歌</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -435,10 +440,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">歌</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -22,6 +22,7 @@
 <li>而可以正常工作的页面引用 js 路径为 <code>http://g.alicdn.com/de/prismplayer/1.4.7/prism-min.js</code></li>
 </ol>
 <p>因官方宣称这个播放器会自适应 H5 和 Flash 两种模式，从出错的表象来看，猜测是 1.5.2 版本的自适应逻辑有一些问题。一开始想简单解决，猜测最新版本的播放器应该已经解决了这个 BUG，于是直接换用最新版本（1.5.7），测试后发现问题依旧，只是最新版本在播放器中多了一行文字提示，大意是播放类型不支持</p>
+<a id="more"></a>
 <p>为了定位问题，下载了两个链接对应的源 <code>prism.js</code>（去除后缀 -min，一般带 -min 的 js 都是经过压缩、混淆，用于正式环境加载使用）文件</p>
 <p>分析对比两个版本，发现与此问题相关的核心代码如下</p>
 <p>v1.4.7<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> tag[<span class="string">'player'</span>] ||</div><div class="line">        (UA.IS_MOBILE ? <span class="keyword">new</span> Player(tag, option) : <span class="keyword">new</span> FlashPlayer(tag, option));</div></pre></td></tr></table></figure></p>

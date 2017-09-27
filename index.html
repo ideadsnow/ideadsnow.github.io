@@ -164,54 +164,9 @@
 <li>而可以正常工作的页面引用 js 路径为 <code>http://g.alicdn.com/de/prismplayer/1.4.7/prism-min.js</code></li>
 </ol>
 <p>因官方宣称这个播放器会自适应 H5 和 Flash 两种模式，从出错的表象来看，猜测是 1.5.2 版本的自适应逻辑有一些问题。一开始想简单解决，猜测最新版本的播放器应该已经解决了这个 BUG，于是直接换用最新版本（1.5.7），测试后发现问题依旧，只是最新版本在播放器中多了一行文字提示，大意是播放类型不支持</p>
-<p>为了定位问题，下载了两个链接对应的源 <code>prism.js</code>（去除后缀 -min，一般带 -min 的 js 都是经过压缩、混淆，用于正式环境加载使用）文件</p>
-<p>分析对比两个版本，发现与此问题相关的核心代码如下</p>
-<p>v1.4.7<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> tag[<span class="string">'player'</span>] ||</div><div class="line">        (UA.IS_MOBILE ? <span class="keyword">new</span> Player(tag, option) : <span class="keyword">new</span> FlashPlayer(tag, option));</div></pre></td></tr></table></figure></p>
-<p>v1.5.7<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> tag[<span class="string">'player'</span>] ||</div><div class="line">        (UA.IS_H5 ? <span class="keyword">new</span> Player(tag, option) : <span class="keyword">new</span> FlashPlayer(tag, option));</div></pre></td></tr></table></figure></p>
-<p>可以从代码中看出该播放器自适应的逻辑，在 v1.4.7 中依据 <code>UA.IS_MOBILE</code> 来判断是否是移动端，是则创建 H5 播放器对象，否则 创建 Flash 播放器对象；而在 v1.5.7 中，依据<code>UA.IS_H5</code> 来判断，如果该变量为逻辑真，则使用 H5 播放器，否则为 Flash 播放器</p>
-<p>所以在 PC/MAC 平台，且使用了 v1.4.7 版本的页面上，<code>IS_MOBILE</code> 值一定为逻辑假，所以无论如何，都会直接创建 Flash 播放器对象，从而触发向 Chrome 申请 Flash Player 使用权限的逻辑，看上去没有什么问题</p>
-<p>而在使用了 v1.5.7 版本的页面上，<code>IS_H5</code> 值为逻辑真，于是创建 H5 播放器对象。那么问题来了，为什么这种情况下会出错。在重新仔细阅读了一遍官方文档后，看到文档中有这样一段内容</p>
-<blockquote>
-<p>Flash 模式：</p>
-<ul>
-<li>视频格式： mp4、flv、m3u8、rtmp、mp3</li>
-<li>视频编码： H.264</li>
-<li>音频编码： AAC、MP3</li>
-</ul>
-<p>HTML5 模式：</p>
-<ul>
-<li>视频格式： mp4、m3u8</li>
-<li>视频编码： H.264</li>
-<li>音频编码： AAC<br>m3u8格式播放依赖调用端浏览器支持情况：iOS全系列支持，Android 4.0及以上版本支持。</li>
-</ul>
-</blockquote>
-<p>根据播放类型不支持的错误提示，对照这段内容，想到业务所需播放的视频类型为 m3u8 格式，正好对上了上述内容最后一句话</p>
-<blockquote>
-<p>m3u8格式播放依赖调用端浏览器支持情况：iOS全系列支持，Android 4.0及以上版本支持。</p>
-</blockquote>
-<p><strong>看来问题是出在 PC/MAC 端的 Chrome 目前并不支持 HTML5 播放器播放 m3u8 格式的视频流</strong></p>
-<p>到这里，问题已经原因基本已经明确了，但是还有个小问题，即前文提到的</p>
-<blockquote>
-<p>在可正常播放视频的页面中，点击了“允许”后，再回到有问题的页面，刷新，发现此时这类页面的播放器也可以正常工作了</p>
-</blockquote>
-<p>为什么会有这种情况，难道在使用 v1.4.7 播放器的页面点击了“允许该域名使用 Flash Player”后，使用 v1.5.* 播放器的页面中 <code>UA.IS_H5</code> 的值发生了变化，从而变成了 Flash 模式？<br>为了验证这个疑问，修改 v1.5.7 版本 prism.js 的内容，加一行 <code>console.log(UA.IS_H5)</code><br>接下来进行验证</p>
-<ol>
-<li>清空 Chrome 中的 Flash Player 使用权限白名单，保证该域名如需使用 Flash Player，需先向用户请求权限</li>
-<li>在使用 v1.5.7 版本播放器的页面中，在控制台看到 <code>UA.IS_H5</code> 值为 <code>True</code></li>
-<li>在使用 v1.4.7 版本播放器的页面中，点击播放器视频，在浏览器弹出提示框点击“允许”。此时该域名将被添加到 Chrome 白名单，永久拥有了使用 Flash Player 的权限</li>
-<li>重新回到使用 v1.5.7 版本播放器的页面，刷新并发现此时 <code>UA.IS_H5</code> 值为 <code>False</code></li>
-</ol>
-<p>可以看出页面是否拥有 Flash Player 使用权限，确实影响到了 <code>UA.IS_H5</code> 的值，从而影响了页面自适应播放器模式<br>因 <code>UA</code> 对象是 prism.js 通过 require() 方式从其他 js 中得到，而阿里云限制了对该 js 的访问，所以 <code>UA.IS_H5</code> 究竟是如何获得值，也就不得而知了<br>到此，导致该问题的全部原因都清楚了</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
-<li>将自适应版本替换为 Flash 版，强制使用 Flash。缺点是这样一来就相当于放弃了未来移动端扩展</li>
-<li>将全部 v1.5.* 版本 js 替换为 v1.4.7。因业务需求较简单，所以规避该问题即可，1.4.7 已能满足用户需求</li>
-</ol>
-<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>从文档来看，阿里云的开发人员很清楚这个问题，但给出的兼容方案并不好，可以考虑优化，比如以下方案</p>
-<ul>
-<li>最简单版本：播放器提示语除了表明“播放类型不支持”，最好再明确一下为什么不支持，即便在原提示语上加个可以点击跳转到官方文档的链接都好</li>
-<li>自适应逻辑中，多加一层判断，当前浏览器内核是否支持 HTML5 模式下 m3u8 格式视频流的播放。如果不能且非移动端浏览器，转而执行 Flash 模式流程，而不是强行走 HTML5 流程，给用户一个莫名其妙的错误</li>
-</ul>
-
+        
+          <a class="article-more-a" href="/learn/踩了阿里云播放器的一个坑.html#more">more >></a>
+        
       
 
       
@@ -791,6 +746,10 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">web</a>
               </li>
              
@@ -803,7 +762,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">linux</a>
+                <a href="javascript:void(0)">vim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">工具学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -811,11 +774,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">vim</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">工具学习</a>
+                <a href="javascript:void(0)">自己瞎扯淡</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -827,15 +786,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">曲</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">自己瞎扯淡</a>
+                <a href="javascript:void(0)">曲</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">歌</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -844,10 +803,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">歌</a>
               </li>
              
               <li class="article-tag-list-item">
