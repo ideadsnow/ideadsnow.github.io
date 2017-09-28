@@ -8,35 +8,19 @@
   <link rel="dns-prefetch" href="//www.ideadsnow.com">
   <title>Ubuntu 16.04 版本 MySQL 的安装、基本配置和使用 | iDeadSnow&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="安装安装应该没什么问题，直接运行
-sudo apt-get install mysql-server
-基本配置允许远程访问 MySQLMySQL 装好了，但在默认情况下只监听本地连接，也就是说，现在还不能通过远程连接访问和操作数据库，所以需要做如下操作
-
-cd /etc/mysql/
-sudo grep -r bind-address . 查找包含 bind-address 项的配置文件
-编辑第">
+  <meta name="description" content="安装安装应该没什么问题，直接运行 sudo apt-get install mysql-server 基本配置允许远程访问 MySQLMySQL 装好了，但在默认情况下只监听本地连接，也就是说，现在还不能通过远程连接访问和操作数据库，所以需要做如下操作  cd /etc/mysql/ sudo grep -r bind-address . 查找包含 bind-address 项的配置文件 编辑第">
+<meta name="keywords" content="linux,mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu 16.04 版本 MySQL 的安装、基本配置和使用">
 <meta property="og:url" content="//www.ideadsnow.com/learn/ubuntu-16-04-版本-mysql-的安装、基本配置和使用.html">
-<meta property="og:site_name" content="iDeadSnow's Blog">
-<meta property="og:description" content="安装安装应该没什么问题，直接运行
-sudo apt-get install mysql-server
-基本配置允许远程访问 MySQLMySQL 装好了，但在默认情况下只监听本地连接，也就是说，现在还不能通过远程连接访问和操作数据库，所以需要做如下操作
-
-cd /etc/mysql/
-sudo grep -r bind-address . 查找包含 bind-address 项的配置文件
-编辑第">
+<meta property="og:site_name" content="iDeadSnow&#39;s Blog">
+<meta property="og:description" content="安装安装应该没什么问题，直接运行 sudo apt-get install mysql-server 基本配置允许远程访问 MySQLMySQL 装好了，但在默认情况下只监听本地连接，也就是说，现在还不能通过远程连接访问和操作数据库，所以需要做如下操作  cd /etc/mysql/ sudo grep -r bind-address . 查找包含 bind-address 项的配置文件 编辑第">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="//www.ideadsnow.com/img/1473351704584.png">
 <meta property="og:updated_time" content="2016-09-08T17:30:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu 16.04 版本 MySQL 的安装、基本配置和使用">
-<meta name="twitter:description" content="安装安装应该没什么问题，直接运行
-sudo apt-get install mysql-server
-基本配置允许远程访问 MySQLMySQL 装好了，但在默认情况下只监听本地连接，也就是说，现在还不能通过远程连接访问和操作数据库，所以需要做如下操作
-
-cd /etc/mysql/
-sudo grep -r bind-address . 查找包含 bind-address 项的配置文件
-编辑第">
+<meta name="twitter:description" content="安装安装应该没什么问题，直接运行 sudo apt-get install mysql-server 基本配置允许远程访问 MySQLMySQL 装好了，但在默认情况下只监听本地连接，也就是说，现在还不能通过远程连接访问和操作数据库，所以需要做如下操作  cd /etc/mysql/ sudo grep -r bind-address . 查找包含 bind-address 项的配置文件 编辑第">
 <meta name="twitter:image" content="//www.ideadsnow.com/img/1473351704584.png">
   
     <link rel="alternative" href="/atom.xml" title="iDeadSnow&#39;s Blog" type="application/atom+xml">
@@ -44,7 +28,7 @@ sudo grep -r bind-address . 查找包含 bind-address 项的配置文件
   
     <link rel="icon" href="/favicon.png">
   
-  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  <link rel="stylesheet" href="/main.css?v=4.0.0">
   
 
   
@@ -359,7 +343,7 @@ sudo grep -r bind-address . 查找包含 bind-address 项的配置文件
 	}
 </script>
 
-<script src="/./main.js?v=4.0.0.js"></script>
+<script src="/./main.js?v=4.0.0"></script>
 
 
     
@@ -378,10 +362,6 @@ sudo grep -r bind-address . 查找包含 bind-address 项的配置文件
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">linux</a>
-              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">web</a>
@@ -404,7 +384,7 @@ sudo grep -r bind-address . 查找包含 bind-address 项的配置文件
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">mysql</a>
+                <a href="javascript:void(0)">别人瞎扯淡</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -413,10 +393,6 @@ sudo grep -r bind-address . 查找包含 bind-address 项的配置文件
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">填坑日常</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">别人瞎扯淡</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -445,6 +421,14 @@ sudo grep -r bind-address . 查找包含 bind-address 项的配置文件
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">mysql</a>
               </li>
             
             <div class="clearfix"></div>

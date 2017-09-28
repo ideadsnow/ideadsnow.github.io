@@ -71,6 +71,20 @@
 <li>自适应逻辑中，多加一层判断，当前浏览器内核是否支持 HTML5 模式下 m3u8 格式视频流的播放。如果不能且非移动端浏览器，转而执行 Flash 模式流程，而不是强行走 HTML5 流程，给用户一个莫名其妙的错误</li>
 </ul>
 ]]></content>
+      
+        <categories>
+            
+            <category> 学习 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 填坑日常 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -159,6 +173,16 @@
 <hr>
 <p><em>未完待续</em></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> 现代操作系统 </tag>
+            
+            <tag> 笔记 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -198,7 +222,7 @@
 </ul>
 <p>在这些文件里面根本没有 urandom 相关字眼（卧尼玛……..</p>
 <p>目前在 python 命令行环境下通过内建 help() 函数查看 posix 模块的帮助文档，在文档中可以看到 urandom()，不过也没有具体的实现代码</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">urandom(...)</div><div class="line">    urandom(n) -&gt; str</div><div class="line"></div><div class="line">    Return n random bytes suitable for cryptographic use.</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">urandom(...)</div><div class="line">    urandom(n) -&gt; str</div><div class="line"></div><div class="line">    Return n random bytes suitable <span class="keyword">for</span> cryptographic use.</div></pre></td></tr></table></figure>
 <p>好吧，我不纠结，这里挖个坑，等有空再研究下（一般这么说的时候都没有下文了呵呵呵呵呵呵</p>
 <h4 id="POSIX-中的-urandom-在类-UNIX-系统中的实现"><a href="#POSIX-中的-urandom-在类-UNIX-系统中的实现" class="headerlink" title="POSIX 中的 urandom 在类 UNIX 系统中的实现"></a>POSIX 中的 urandom 在类 UNIX 系统中的实现</h4><p>维基百科如是说</p>
 <blockquote>
@@ -218,6 +242,20 @@
 <li>劣势：相对前者数据随机性不高，且依赖于系统噪声（当前打开的文件数，进程数等等）</li>
 </ul>
 ]]></content>
+      
+        <categories>
+            
+            <category> 学习 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -276,6 +314,22 @@
 </ol>
 <p>全文完</p>
 ]]></content>
+      
+        <categories>
+            
+            <category> 学习 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -311,6 +365,20 @@
 <hr>
 <p>好孩子看不见————<br>大理丽江这种地方…<br>请至少带一个女生前来…<br>文艺浪漫什么的呵呵呵…<br>到处都是<br>🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹<br>几个大老爷们简直煞风景…<br>正在路上的时候，刚刚失恋的路小花同学在微信说<br>“以后要带爱我的人去云南”<br>呵呵呵呵呵，当时静静看着讨论组信息没说话<br>现在在这儿吐槽不好吧？</p>
 ]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 自己瞎扯淡 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -387,6 +455,22 @@
 </ul>
 <h3 id="on、bind、live、delegate-区别"><a href="#on、bind、live、delegate-区别" class="headerlink" title="on、bind、live、delegate() 区别"></a>on、bind、live、delegate() 区别</h3><p><a href="http://www.cnblogs.com/moonreplace/archive/2012/10/09/2717136.html" target="_blank" rel="external">http://www.cnblogs.com/moonreplace/archive/2012/10/09/2717136.html</a></p>
 ]]></content>
+      
+        <categories>
+            
+            <category> 学习 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 烂笔头 </tag>
+            
+            <tag> javascript </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -420,6 +504,20 @@
 <li><a href="https://www.kernel.org/doc/Documentation/edac.txt" target="_blank" rel="external">edac doc</a></li>
 </ul>
 ]]></content>
+      
+        <categories>
+            
+            <category> 学习 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 填坑日常 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -448,6 +546,20 @@
 <hr>
 <p>也听许多日式和风古曲，终以为华夏文化比和风文化多了一分旷达与大气。或许只是因为浅薄的知识面里，只有那么几首课本上过往汉人的诗，而没有大和民族的痕迹吧。</p>
 ]]></content>
+      
+        <categories>
+            
+            <category> 分享 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 曲 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -472,6 +584,20 @@
 <p>不过扔的是不是真的被用在了该用的地方，我国的新闻看多了，心里总是犯嘀咕。</p>
 <p>上个月朋友圈有个朋友转了个募捐文，貌似是一个学生的姐姐得了白血病，家里没钱治病。想了想问了朋友句能确定真实性吗，朋友回复说主人公是他女朋友学校的一个学长。没有多想就按照文中的收款信息，用某宝转了一百软妹币给他，顺便带了句祝愿。然而连个水花都没有。那人连句“谢谢”都没有回复。即使不是为了谢，也觉得心里不是滋味。把钱扔给了一个没有礼貌没有感恩的家伙，有点令人反胃。甚至开始怀疑我是不是上当了，唉。</p>
 ]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 自己瞎扯淡 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -494,6 +620,20 @@
 <p>每次听不才的歌，都让我有种错觉。仿佛我可以不必逼着自己去融入一个“群体”。即使我知道这不是孤独，只是习惯使然。</p>
 </blockquote>
 ]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 自己瞎扯淡 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -534,6 +674,20 @@
 <p>刚到武汉的时候，在武汉站门口看到广告语“大江大湖大武汉”，长江确实是大江，汉江也确实是大江，东湖也真是大湖。这两天总能在武汉街头看到“荆楚文化”相关的字眼，这段历史不熟悉，回头补补。</p>
 <p>武昌鱼很不错，连续吃了几顿饭都点了这玩意。热干面也不错。小龙虾（武汉叫大虾）就有点鸡肋了。还有啥想不起了。总的来说，这几天在武汉吃的都很合口味。要是武汉也有好吃的小笼包就好了（手动再见.gif）。</p>
 ]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 自己瞎扯淡 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -569,6 +723,20 @@
 <p>毕业照没有去参加，总有朋友问为什么，回答总以敷衍了之。一者因为两次分班和个人圈子的原因对这个班级没有什么感情（如果可以再去拍一次高中毕业照就好了，挺怀念的）；二者觉得自己的水平达不到心中对穿那一身学士服的人所应该具有的学识的高度，偏执想法，个人选择，不会后悔；三者实属不喜热闹，不喜拍照，只想做一个路过世界的旅行家，而不想成为风景里的主角</p>
 <p>So，<a href="http://5sing.kugou.com/fc/14538594.html###" target="_blank" rel="external">路过世界的旅行家</a></p>
 ]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 自己瞎扯淡 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -644,6 +812,24 @@
 <h2 id="替代、优化方案"><a href="#替代、优化方案" class="headerlink" title="替代、优化方案"></a>替代、优化方案</h2><p>参见 <a href="http://www.css88.com/archives/3717" target="_blank" rel="external">JavaScript本地存储实践（html5的localStorage和ie的userData）</a></p>
 <p>另外可以 Google “html5 localStorage” 相关资料，不考虑老浏览器的话，这可能是现在最好的方案了</p>
 ]]></content>
+      
+        <categories>
+            
+            <category> 学习 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> web </tag>
+            
+            <tag> http </tag>
+            
+            <tag> cookie </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -657,6 +843,20 @@
 <h3 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h3><p>直接修改全局配置文件 <code>/etc/profile</code>,方法同上</p>
 <p>优点：对所有用户均永久起效<br>缺点：会影响到所有用户，一般由 <code>root</code> 用户管理</p>
 ]]></content>
+      
+        <categories>
+            
+            <category> 学习 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -686,6 +886,20 @@
 <p>到底想说些什么，头绪不清不楚，就这样吧</p>
 <embed src="http://www.xiami.com/widget/42097662_1774888620/singlePlayer.swf" type="application/x-shockwave-flash" width="257" height="33" wmode="transparent">
 ]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 自己瞎扯淡 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -706,6 +920,20 @@
 <p>等到莲花 盛开<br>天际一片纯白<br>为你采摘<br>尘埃 无涯的尘埃<br>傻子啊 他不该让你牵挂<br>你的泪 落下像那珍珠撒<br>忘了他 把回忆和他一起埋葬啊<br>生命会开出莲花</p>
 </blockquote>
 ]]></content>
+      
+        <categories>
+            
+            <category> 分享 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 歌 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -717,6 +945,20 @@
 </blockquote>
 <iframe style="margin-top: 30px" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=31168209&auto=0&height=66"></iframe>
 ]]></content>
+      
+        <categories>
+            
+            <category> 生活 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 别人瞎扯淡 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -810,6 +1052,22 @@
 <p>本文是读<a href="coolshell.cn">酷壳</a>的文章<a href="http://coolshell.cn/articles/11312.html" target="_blank" rel="external">无插件Vim编程技巧</a>笔记，感谢耗子叔的分享</p>
 <p>还差Quickfix，关键字补全两部分内容未读，有空继续..</p>
 ]]></content>
+      
+        <categories>
+            
+            <category> 学习 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> vim </tag>
+            
+            <tag> 工具学习 </tag>
+            
+        </tags>
+        
     </entry>
     
   

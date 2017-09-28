@@ -8,40 +8,21 @@
   <link rel="dns-prefetch" href="//www.ideadsnow.com">
   <title>现代操作系统笔记 第三章 | iDeadSnow&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="内存超载解决方案
-交换（swap）
-虚拟内存（virtual memory）
-
-第一种方案的问题
-
-交换时会导致产生多个空闲区（也称为空洞，hole，类似于磁盘碎片），通过把所有的进程尽可能向下移动，有可能将这些小的空闲区域合成一大块，该技术被称为内存紧缩（memory compaction）
-但内存紧缩非常耗时，例如，一台 1GB 内存大小的计算机每 20ns 可以复制 4 个字节，它紧缩全部内">
+  <meta name="description" content="内存超载解决方案 交换（swap） 虚拟内存（virtual memory）  第一种方案的问题  交换时会导致产生多个空闲区（也称为空洞，hole，类似于磁盘碎片），通过把所有的进程尽可能向下移动，有可能将这些小的空闲区域合成一大块，该技术被称为内存紧缩（memory compaction） 但内存紧缩非常耗时，例如，一台 1GB 内存大小的计算机每 20ns 可以复制 4 个字节，它紧缩全部内">
+<meta name="keywords" content="现代操作系统,笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="现代操作系统笔记 第三章">
 <meta property="og:url" content="//www.ideadsnow.com/learn/现代操作系统笔记-第三章.html">
-<meta property="og:site_name" content="iDeadSnow's Blog">
-<meta property="og:description" content="内存超载解决方案
-交换（swap）
-虚拟内存（virtual memory）
-
-第一种方案的问题
-
-交换时会导致产生多个空闲区（也称为空洞，hole，类似于磁盘碎片），通过把所有的进程尽可能向下移动，有可能将这些小的空闲区域合成一大块，该技术被称为内存紧缩（memory compaction）
-但内存紧缩非常耗时，例如，一台 1GB 内存大小的计算机每 20ns 可以复制 4 个字节，它紧缩全部内">
+<meta property="og:site_name" content="iDeadSnow&#39;s Blog">
+<meta property="og:description" content="内存超载解决方案 交换（swap） 虚拟内存（virtual memory）  第一种方案的问题  交换时会导致产生多个空闲区（也称为空洞，hole，类似于磁盘碎片），通过把所有的进程尽可能向下移动，有可能将这些小的空闲区域合成一大块，该技术被称为内存紧缩（memory compaction） 但内存紧缩非常耗时，例如，一台 1GB 内存大小的计算机每 20ns 可以复制 4 个字节，它紧缩全部内">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://image.ideadsnow.com/2017-01-23-0BC177D4-1E00-4274-8F88-137FD84E72A9.png">
 <meta property="og:image" content="http://image.ideadsnow.com/2017-01-23-7834C029-9428-4298-9FCF-2188AFD31D85.png">
 <meta property="og:image" content="http://image.ideadsnow.com/2017-01-25-093541.jpg">
 <meta property="og:updated_time" content="2017-01-27T17:06:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="现代操作系统笔记 第三章">
-<meta name="twitter:description" content="内存超载解决方案
-交换（swap）
-虚拟内存（virtual memory）
-
-第一种方案的问题
-
-交换时会导致产生多个空闲区（也称为空洞，hole，类似于磁盘碎片），通过把所有的进程尽可能向下移动，有可能将这些小的空闲区域合成一大块，该技术被称为内存紧缩（memory compaction）
-但内存紧缩非常耗时，例如，一台 1GB 内存大小的计算机每 20ns 可以复制 4 个字节，它紧缩全部内">
+<meta name="twitter:description" content="内存超载解决方案 交换（swap） 虚拟内存（virtual memory）  第一种方案的问题  交换时会导致产生多个空闲区（也称为空洞，hole，类似于磁盘碎片），通过把所有的进程尽可能向下移动，有可能将这些小的空闲区域合成一大块，该技术被称为内存紧缩（memory compaction） 但内存紧缩非常耗时，例如，一台 1GB 内存大小的计算机每 20ns 可以复制 4 个字节，它紧缩全部内">
 <meta name="twitter:image" content="http://image.ideadsnow.com/2017-01-23-0BC177D4-1E00-4274-8F88-137FD84E72A9.png">
   
     <link rel="alternative" href="/atom.xml" title="iDeadSnow&#39;s Blog" type="application/atom+xml">
@@ -49,7 +30,7 @@
   
     <link rel="icon" href="/favicon.png">
   
-  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  <link rel="stylesheet" href="/main.css?v=4.0.0">
   
 
   
@@ -389,7 +370,7 @@
 	}
 </script>
 
-<script src="/./main.js?v=4.0.0.js"></script>
+<script src="/./main.js?v=4.0.0"></script>
 
 
     
@@ -408,10 +389,6 @@
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">linux</a>
-              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">web</a>
@@ -434,7 +411,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">mysql</a>
+                <a href="javascript:void(0)">别人瞎扯淡</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -443,10 +420,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">填坑日常</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">别人瞎扯淡</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -475,6 +448,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">mysql</a>
               </li>
             
             <div class="clearfix"></div>

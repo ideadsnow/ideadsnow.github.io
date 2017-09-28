@@ -8,29 +8,25 @@
   <link rel="dns-prefetch" href="//www.ideadsnow.com">
   <title>探究 PYTHON 生成随机字符串 | iDeadSnow&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="目前看到的最简洁的方法1234567import osdef randomString(n):    return (&apos;&apos;.join(map(lambda x:(hex(ord(x))[2:]), os.urandom(n))))[0:8]if __name__ == &apos;__main__&apos;:    print randomString(16)
-来看看 randomString 函数所做的事情
-首先">
+  <meta name="description" content="目前看到的最简洁的方法1234567import osdef randomString(n):    return (&apos;&apos;.join(map(lambda x:(hex(ord(x))[2:]), os.urandom(n))))[0:8]if __name__ == &apos;__main__&apos;:    print randomString(16) 来看看 randomString 函数所做的事情 首先">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="探究 PYTHON 生成随机字符串">
 <meta property="og:url" content="//www.ideadsnow.com/learn/探究-python-生成随机字符串.html">
-<meta property="og:site_name" content="iDeadSnow's Blog">
-<meta property="og:description" content="目前看到的最简洁的方法1234567import osdef randomString(n):    return (&apos;&apos;.join(map(lambda x:(hex(ord(x))[2:]), os.urandom(n))))[0:8]if __name__ == &apos;__main__&apos;:    print randomString(16)
-来看看 randomString 函数所做的事情
-首先">
+<meta property="og:site_name" content="iDeadSnow&#39;s Blog">
+<meta property="og:description" content="目前看到的最简洁的方法1234567import osdef randomString(n):    return (&apos;&apos;.join(map(lambda x:(hex(ord(x))[2:]), os.urandom(n))))[0:8]if __name__ == &apos;__main__&apos;:    print randomString(16) 来看看 randomString 函数所做的事情 首先">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-12-14T13:10:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="探究 PYTHON 生成随机字符串">
-<meta name="twitter:description" content="目前看到的最简洁的方法1234567import osdef randomString(n):    return (&apos;&apos;.join(map(lambda x:(hex(ord(x))[2:]), os.urandom(n))))[0:8]if __name__ == &apos;__main__&apos;:    print randomString(16)
-来看看 randomString 函数所做的事情
-首先">
+<meta name="twitter:description" content="目前看到的最简洁的方法1234567import osdef randomString(n):    return (&apos;&apos;.join(map(lambda x:(hex(ord(x))[2:]), os.urandom(n))))[0:8]if __name__ == &apos;__main__&apos;:    print randomString(16) 来看看 randomString 函数所做的事情 首先">
   
     <link rel="alternative" href="/atom.xml" title="iDeadSnow&#39;s Blog" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
   
-  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  <link rel="stylesheet" href="/main.css?v=4.0.0">
   
 
   
@@ -190,7 +186,7 @@
 </ul>
 <p>在这些文件里面根本没有 urandom 相关字眼（卧尼玛……..</p>
 <p>目前在 python 命令行环境下通过内建 help() 函数查看 posix 模块的帮助文档，在文档中可以看到 urandom()，不过也没有具体的实现代码</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">urandom(...)</div><div class="line">    urandom(n) -&gt; str</div><div class="line"></div><div class="line">    Return n random bytes suitable for cryptographic use.</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">urandom(...)</div><div class="line">    urandom(n) -&gt; str</div><div class="line"></div><div class="line">    Return n random bytes suitable <span class="keyword">for</span> cryptographic use.</div></pre></td></tr></table></figure>
 <p>好吧，我不纠结，这里挖个坑，等有空再研究下（一般这么说的时候都没有下文了呵呵呵呵呵呵</p>
 <h4 id="POSIX-中的-urandom-在类-UNIX-系统中的实现"><a href="#POSIX-中的-urandom-在类-UNIX-系统中的实现" class="headerlink" title="POSIX 中的 urandom 在类 UNIX 系统中的实现"></a>POSIX 中的 urandom 在类 UNIX 系统中的实现</h4><p>维基百科如是说</p>
 <blockquote>
@@ -346,7 +342,7 @@
 	}
 </script>
 
-<script src="/./main.js?v=4.0.0.js"></script>
+<script src="/./main.js?v=4.0.0"></script>
 
 
     
@@ -365,10 +361,6 @@
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">linux</a>
-              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">web</a>
@@ -391,7 +383,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">mysql</a>
+                <a href="javascript:void(0)">别人瞎扯淡</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -400,10 +392,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">填坑日常</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">别人瞎扯淡</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -432,6 +420,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">mysql</a>
               </li>
             
             <div class="clearfix"></div>
