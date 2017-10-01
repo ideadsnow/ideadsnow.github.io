@@ -6,8 +6,7 @@
     <entry>
       <title><![CDATA[踩了阿里云 prismplayer 播放器的一个坑]]></title>
       <url>//www.ideadsnow.com/learn/%E8%B8%A9%E4%BA%86%E9%98%BF%E9%87%8C%E4%BA%91%E6%92%AD%E6%94%BE%E5%99%A8%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9D%91.html</url>
-      <content type="html"><![CDATA[<!-- ![](http://image.ideadsnow.com/2017-02-06-094551.jpg) -->
-<p>偶然在多个页面使用了阿里云提供的播放器的系统里发现个 BUG</p>
+      <content type="html"><![CDATA[<p>偶然在多个页面使用了阿里云提供的播放器的系统里发现个 BUG</p>
 <blockquote>
 <p>在 PC/MAC 端的 Chrome 浏览器中</p>
 <ol>
